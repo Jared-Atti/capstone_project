@@ -3,12 +3,14 @@ import tkinter as tk
 from game import Game
 
 
+game = Game()
+game.init()
+
 #Main Frame of Game
 root = tk.Tk()
 root.title = ("Eco-Evolution")
 root.geometry("1500x1000")
-game = Game()
-organisms = game.organisms
+print(game.pop)
 root.columnconfigure(0, minsize = 250)
 root.rowconfigure([0,1], minsize = 100)
 value = 0
@@ -29,8 +31,10 @@ upgrades.pack(fill = tk.BOTH, side = tk.LEFT, expand = True)
 
 
 
-    
-b = tk.Button(upgrades, text ="Create Life", command = game.make_life)
+def create_life():
+    game.create_life()
+    print(game.pop)
+b = tk.Button(upgrades, text ="Create Life", command = create_life)
 b.grid(row = 0, column = 0, columnspan = 2)
 
 b1 = tk.Button(upgrades, text ="Click me?")
@@ -44,7 +48,7 @@ b2.grid(row = 2, column = 0, columnspan = 2)
 stats = Label(root, text = "Statistics", width = 25, height = 25, bg = "blue", relief = RAISED, bd = 5)
 stats.pack(fill = tk.BOTH, side = tk.RIGHT, expand = True)
 
-popLife = Label(stats, text = str(organisms))
+popLife = Label(stats, text = str(game.pop))
 popLife.pack()
 
 pop = Label(stats, text = "Population: ")
@@ -63,6 +67,12 @@ bottom = Label(root, text = "bottom Bar", height = 5, relief = RAISED, bd = 5)
 bottom.pack(fill = tk.BOTH, side = tk.BOTTOM, expand = True)
 
 
+def update_labels():
+    game = Game() # get the instance of the game class
+    popLife.config(stats, text = str(game.pop))
+    root.after(10, update_labels) # schedule the function to be called again after 1000ms
 
+
+root.after(1000, update_labels)
 
 root.mainloop()
