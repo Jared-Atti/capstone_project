@@ -35,13 +35,16 @@ def create_life():
     game.create_life()
     print(game.pop)
 b = tk.Button(upgrades, text ="Create Life", command = create_life)
-b.grid(row = 0, column = 0, columnspan = 2)
+b.place(in_ = upgrades, relx = 0, rely = 0)
+
 
 b1 = tk.Button(upgrades, text ="Click me?")
-b1.grid(row = 1, column = 0, columnspan = 2)
+b1.place(in_ = upgrades, relx = 0, rely = 1)
+#b1.grid(row = 1, column = 0, columnspan = 2)
 
 b2 = tk.Button(upgrades, text ="No, Click me")
-b2.grid(row = 2, column = 0, columnspan = 2)
+b2.place(in_ = upgrades, relx = 0, rely = 2)
+#b2.grid(row = 2, column = 0, columnspan = 2)
 
 
 #Right side panel for various in game stats
@@ -62,7 +65,7 @@ dna.place(anchor = "w", bordermode = INSIDE, y = 35)
 visuals = Label(root, text = "Visuals", width = 75, height = 25, bg = "yellow", relief = RAISED, bd = 5)
 visuals.pack(fill = tk.BOTH, expand = True)
 
-#Bottom bar tbd
+#Bottom bar Species List
 bottom = Label(root, text = "bottom Bar", height = 5, relief = RAISED, bd = 5)
 bottom.pack(fill = tk.BOTH, side = tk.BOTTOM, expand = True)
 
