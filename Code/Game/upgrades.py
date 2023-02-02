@@ -4,14 +4,11 @@ class Upgrade:
         self.cost = cost
         self.description = description
 
-class GeneticMutation(Upgrade):
-    def __init__(self):
-        super().__init__("Genetic Mutation", 10, "Generates passive DNA points for every living organism.")
-
 class Upgrades:
     def __init__(self):
         self.purchased_upgrades = []
-        self.upgrades = [GeneticMutation()]
+        # example: self.upgrades = [GeneticMutation()]
+        self.upgrades = []
     
     def purchase_upgrade(self, upgrade_name, game_stats):
         for upgrade in self.upgrades:
@@ -23,3 +20,13 @@ class Upgrades:
                 else:
                     return False
         return False
+
+# Cosmic Upgrades
+class SiphonRadiation(Upgrade):
+    def __init__(self):
+        super().__init__("Siphon Radiation", 0, "Being siphoning radiation for 1 energy per second.")
+
+# Precambrian Upgrades
+class GeneticMutation(Upgrade):
+    def __init__(self):
+        super().__init__("Genetic Mutation", 10, "Generates passive DNA points for every living microbe.")

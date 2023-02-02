@@ -5,12 +5,25 @@ class Game:
         return cls._instance
 
     def init(self):
-        self.pop = 0
-        self.dna = 0
+        # General
         self.speciesList = []
-        self.popCap = 100
-        self.revenue = 0
         self.upgrades = []
+        
+        # Cosmic
+        self.protons = 0
+        self.neutrons = 0
+        self.energy = 0
+        self.hydrogen = 0
+        self.helium = 0
+        self.oxygen = 0
+        self.silicon = 0
+        self.aluminum = 0
+        self.iron = 0
+        self.suppelements = 0 # supplementary
+        
+        # Precambrian
+        self.microbes = 0
+        self.dna = 0
     
     def get(self):
         if self is None:
