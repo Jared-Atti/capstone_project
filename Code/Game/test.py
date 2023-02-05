@@ -1,10 +1,7 @@
-import os
 from tkinter import *
-from tkinter.font import Font
 import tkinter as tk
 from game import Game
 
-root_directory = os.path.abspath(os.path.join(os.path.dirname(__file__), os.pardir, os.pardir))
 
 game = Game()
 game.init()
@@ -18,38 +15,40 @@ root.columnconfigure(0, minsize = 1250)
 root.rowconfigure([0,1], minsize = 1000)
 value = 0
 
-mcfont = Font(family='Minecraft', size=12, weight='bold', slant='italic', underline=1, overstrike=1,
-            font=os.path.join(root_directory, 'Assets/Fonts/Minecraft.ttf'))
-
 
 timeline = Frame(root, relief = RAISED, bd = 5, bg = "black", height = 110, width = 1440)
 
-era = Frame(root,  relief= RAISED, bd = 5, bg = "purple", height = 10, width = 1440)
+era = Frame(root, relief= RAISED, bd = 5, bg = "purple", height = 40, width = 2000)
 
-stats = Frame(root, width = 325, height = 525, bg = "red", relief = RAISED, bd = 5)
+stats = Frame(root, relief = RAISED, bd = 5, bg = "red", height = 400, width = 325)
 
-visuals = Frame(root, width = 503, height = 450, bg = "yellow", relief = RAISED, bd = 5)
+visuals = Frame(root, relief = RAISED, bd = 5, bg = "yellow", height = 450, width = 503)
 
-createLabel = Frame(root, height = 50, width = 100, bg = "orange")
+createLabel = Frame(root, bg = "orange", height = 50, width = 100)
 
-production = Frame(root, bg = "green", relief = RAISED, bd = 5, height = 75, width = 325)
+production = Frame(root, relief = RAISED, bd = 5, bg = "green", height = 400, width = 325)
+
+upgrades = Frame (root, relief = RAISED, bd = 5, bg = "teal", height = 350, width = 503)
 
 
 timeline.grid(row = 0, column = 0, columnspan = 2, sticky = "new")
 
-era.grid(row = 1, column = 0, columnspan = 2, sticky = "new")
+era.grid(row = 1, column = 0, columnspan = 4, sticky = "ew")
+era.place(x = 0, y = 110)
 
 stats.grid(row = 2, column = 0, sticky= "w")
-stats.place(y = 175, x = 10)
+stats.place(y = 210, x = 10)
 
 visuals.grid(row = 1, column = 1)
-visuals.place(y = 175, x = 350)
+visuals.place(y = 210, x = 350)
 
 createLabel.grid(row = 3, column = 0)
-createLabel.place(y = 115, x = 120)
+createLabel.place(y = 155, x = 10)
 
 production.grid(row = 4, column = 0)
-production.place(y = 710, x = 10)
+production.place(y = 620, x = 10)
+
+upgrades.place(y = 665, x = 350)
 
 root.rowconfigure(0, weight = 1)
 root.columnconfigure(0, weight = 1)
@@ -70,29 +69,8 @@ pop = Label(stats, text = "Population: 0")
 
 dna = Label(stats, text = "DNA Points: ")
 
-b = tk.Button(createLabel, text ="Energy", command = create_life, font=mcfont)
+b = tk.Button(createLabel, text ="Energy", command = create_life)
 b.place(in_ = createLabel, y = 10, x = 25)
-
-
-## Cosmic Era
-# Stats
-
-# Production
-
-# Visuals
-
-# Checklist
-
-
-## Precambrian Era
-# Stats
-
-# Production
-
-# Visuals
-
-# Checklist
-
 
 def update_labels():
     game = Game() # get the instance of the game class
