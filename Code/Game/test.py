@@ -1,6 +1,12 @@
 from tkinter import *
 import tkinter as tk
 from game import Game
+from tkinter.font import Font
+import pyglet, os
+
+root_directory = os.path.abspath(os.path.join(os.path.dirname(__file__), os.pardir, os.pardir))
+font_path = os.path.join(root_directory, 'Assets/Fonts/Minecraft.ttf')
+pyglet.font.add_file(font_path)
 
 
 game = Game()
@@ -69,12 +75,12 @@ pop = Label(stats, text = "Population: 0")
 
 dna = Label(stats, text = "DNA Points: ")
 
-b = tk.Button(createLabel, text ="Energy", command = create_life)
+b = tk.Button(createLabel, text ="Energy", command = create_life, font=('Minecraft', 12))
 b.place(in_ = createLabel, y = 10, x = 25)
 
 def update_labels():
     game = Game() # get the instance of the game class
-    popLife.config(stats, text = str(game.pop))
+    pop.config(stats, text = str(game.pop))
     root.after(10, update_labels) # schedule the function to be called again after 1000ms
 
 

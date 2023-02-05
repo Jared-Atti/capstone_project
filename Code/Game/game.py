@@ -31,7 +31,7 @@ class Game:
         return self
 
     def create_life(self):
-        self.pop += 1
+        self.microbes += 1
 
     def buy_upgrade(self,upgrade):
         if self.dna >= upgrade.cost:
