@@ -20,15 +20,15 @@ timeline = Frame(root, relief = RAISED, bd = 5, bg = "black", height = 110, widt
 
 era = Frame(root, relief= RAISED, bd = 5, bg = "purple", height = 40, width = 2000)
 
-stats = Frame(root, relief = RAISED, bd = 5, bg = "red", height = 400, width = 325)
+stats = Frame(root, relief = RAISED, bd = 5, bg = "red", height = 390, width = 325)
 
 visuals = Frame(root, relief = RAISED, bd = 5, bg = "yellow", height = 450, width = 503)
 
 createLabel = Frame(root, bg = "orange", height = 50, width = 100)
 
-production = Frame(root, relief = RAISED, bd = 5, bg = "green", height = 400, width = 325)
+production = Frame(root, relief = RAISED, bd = 5, bg = "green", height = 375, width = 325)
 
-upgrades = Frame (root, relief = RAISED, bd = 5, bg = "teal", height = 350, width = 503)
+upgrades = Frame (root, relief = RAISED, bd = 5, bg = "teal", height = 325, width = 503)
 
 
 timeline.grid(row = 0, column = 0, columnspan = 2, sticky = "new")
@@ -46,7 +46,7 @@ createLabel.grid(row = 3, column = 0)
 createLabel.place(y = 155, x = 10)
 
 production.grid(row = 4, column = 0)
-production.place(y = 620, x = 10)
+production.place(y = 615, x = 10)
 
 upgrades.place(y = 665, x = 350)
 
