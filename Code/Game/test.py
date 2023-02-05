@@ -10,7 +10,7 @@ game.init()
 root = tk.Tk()
 root.title = ("Eco-Evolution")
 root.geometry("1440x1024")
-print(game.pop)
+#print(game.pop)
 root.columnconfigure(0, minsize = 250)
 root.rowconfigure([0,1], minsize = 100)
 value = 0
@@ -59,7 +59,7 @@ b2 = tk.Button(stats, text ="No, Click me")
 #stats.grid(row = 1, column = 2)
 
 
-popLife = Label(stats, text = str(game.pop))
+#popLife = Label(stats, text = str(game.pop))
 #popLife.pack()
 
 pop = Label(stats, text = "Population: 0")
