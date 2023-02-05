@@ -1,7 +1,10 @@
+import os
 from tkinter import *
+from tkinter.font import Font
 import tkinter as tk
 from game import Game
 
+root_directory = os.path.abspath(os.path.join(os.path.dirname(__file__), os.pardir, os.pardir))
 
 game = Game()
 game.init()
@@ -14,6 +17,9 @@ root.geometry("1440x1024")
 root.columnconfigure(0, minsize = 1250)
 root.rowconfigure([0,1], minsize = 1000)
 value = 0
+
+mcfont = Font(family='Minecraft', size=12, weight='bold', slant='italic', underline=1, overstrike=1,
+            font=os.path.join(root_directory, 'Assets/Fonts/Minecraft.ttf'))
 
 
 timeline = Frame(root, relief = RAISED, bd = 5, bg = "black", height = 110, width = 1440)
@@ -64,8 +70,29 @@ pop = Label(stats, text = "Population: 0")
 
 dna = Label(stats, text = "DNA Points: ")
 
-b = tk.Button(createLabel, text ="Energy", command = create_life)
+b = tk.Button(createLabel, text ="Energy", command = create_life, font=mcfont)
 b.place(in_ = createLabel, y = 10, x = 25)
+
+
+## Cosmic Era
+# Stats
+
+# Production
+
+# Visuals
+
+# Checklist
+
+
+## Precambrian Era
+# Stats
+
+# Production
+
+# Visuals
+
+# Checklist
+
 
 def update_labels():
     game = Game() # get the instance of the game class
