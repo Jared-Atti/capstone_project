@@ -17,7 +17,7 @@ game.init()
 root = tk.Tk()
 root.title = ("Eco-Evolution")
 root.geometry("1440x1024")
-print(game.energy)
+#print(game.energy)
 root.columnconfigure(0, minsize = 1250)
 root.rowconfigure([0,1], minsize = 1000)
 value = 0
@@ -35,7 +35,7 @@ resources = Frame(root, relief = RAISED, bd = 5, bg = "red", height = 390, width
 
 visuals = Frame(root, relief = RAISED, bd = 5, bg = "yellow", height = 450, width = 503)
 
-createLabel = Frame(root, bg = "orange", height = 50, width = 125)
+createLabel = Frame(root, bg = "orange", height = 40, width = 100)
 
 production = Frame(root, relief = RAISED, bd = 5, bg = "green", height = 375, width = 325)
 
@@ -68,41 +68,41 @@ root.rowconfigure(1, weight = 1)
 
 def create_energy():
     game.create_energy()
-    print(game.energy)
+    #print(game.energy)
 
-#b1 = tk.Button(stats, text ="Click me?")
-
-
-#b2 = tk.Button(stats, text ="No, Click me")
-
-
-energy = Label(resources, text = "Energy: " + str(game.energy), font = ('Terminal', 12))
+energy = Label(resources, text = "Energy: " + str(game.energy), font = ('Terminal', 10))
 energy.place(x = 0, y = 25)
 
-tlL = Label(timeline, text = "Timeline:", font = ('Terminal', 12))
+tlL = Label(timeline, text = "Timeline:", font = ('Terminal', 10))
 tlL.place(x = 0, y = 0)
 
-eraL = Label(era, text = "Era: ", font = ("Terminal", 12))
+eraL = Label(era, text = "Era: ", font = ("Terminal", 10))
 eraL.place(x = 0, y = 0)
 
-resourcesL = Label(resources, text = "Resources", font = ("Terminal", 12))
+resourcesL = Label(resources, text = "Resources", font = ("Terminal", 10))
 resourcesL.place(x = 90, y = 0)
 
-productionL = Label(production, text = "Production", font = ("Terminal", 12))
+productionL = Label(production, text = "Production", font = ("Terminal", 10))
 productionL.place(x = 90, y = 0)
 
-upgradesL = Label(upgrades, text = "Upgrades", font = ("Terminal", 12))
+upgradesL = Label(upgrades, text = "Upgrades", font = ("Terminal", 10))
 upgradesL.place(x = 200, y = 0)
 
-dna = Label(resources, text = "DNA Points: ")
+#img = PhotoImage(file = "D:\VSCode\Python\capstone_project\Assets\Buttons\CasualGameButtonsVol03\PNG\CGB03-yellow_M_btn.png", height = 75, width = 275)
 
-b = tk.Button(createLabel, text ="Energy", command = create_energy, font=('Terminal', 12))
-b.place(in_ = createLabel, y = 10, x = 18)
+energyB = tk.Button(createLabel, text ="Energy", command = create_energy, font=('Terminal', 10))#, image = img)
+energyB.place(in_ = createLabel, y = 10, x = 20)
+
+upgrade1 = tk.Button(upgrades, text = "Energy Production +1 \n Auto-Energy + 0.1/sec", font = ('Terminal', 10), height = 5, width = 50, state = DISABLED)
+upgrade1.place(x = 35, y = 20)
+
+#If statement for upgrade button DOES NOT CURRENTLY WORK
+if str(game.energy) == 10:
+        upgrade1.state = ACTIVE
 
 def update_labels():
     game = Game() # get the instance of the game class
     energy.config(energy, text = "Energy: " + str(game.energy))
-    print("Energy: " + str(game.energy))
     root.after(10, update_labels) # schedule the function to be called again after 1000ms
 
 
