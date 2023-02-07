@@ -101,7 +101,7 @@ b.place(in_ = createLabel, y = 10, x = 18)
 
 def update_labels():
     game = Game() # get the instance of the game class
-    energy.config(resources, text = "Energy: " + str(game.energy))
+    energy.config(energy, text = "Energy: " + str(game.energy))
     print("Energy: " + str(game.energy))
     root.after(10, update_labels) # schedule the function to be called again after 1000ms
 
