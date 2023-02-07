@@ -30,6 +30,9 @@ class Game:
             return self.init()
         return self
 
+    def create_energy(self):
+        self.energy += 1
+
     def create_life(self):
         self.microbes += 1
 

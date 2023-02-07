@@ -10,7 +10,7 @@ game.init()
 root = tk.Tk()
 root.title = ("Eco-Evolution")
 root.geometry("1500x1000")
-print(game.pop)
+print(game.microbes)
 root.columnconfigure(0, minsize = 250)
 root.rowconfigure([0,1], minsize = 100)
 value = 0
@@ -33,7 +33,7 @@ upgrades.pack(fill = tk.BOTH, side = tk.LEFT, expand = True)
 
 def create_life():
     game.create_life()
-    print(game.pop)
+    print(game.microbes)
 b = tk.Button(upgrades, text ="Create Life", command = create_life)
 b.place(in_ = upgrades, relx = 0, rely = 0)
 
@@ -51,7 +51,7 @@ b2.place(in_ = upgrades, relx = 0, rely = 2)
 stats = Label(root, text = "Statistics", width = 25, height = 25, bg = "blue", relief = RAISED, bd = 5)
 stats.pack(fill = tk.BOTH, side = tk.RIGHT, expand = True)
 
-popLife = Label(stats, text = str(game.pop))
+popLife = Label(stats, text = str(game.microbes))
 popLife.pack()
 
 pop = Label(stats, text = "Population: ")
@@ -72,7 +72,8 @@ bottom.pack(fill = tk.BOTH, side = tk.BOTTOM, expand = True)
 
 def update_labels():
     game = Game() # get the instance of the game class
-    popLife.config(stats, text = str(game.pop))
+    popLife.config(stats, text = str(game.microbes))
+    print("Pop:" + str(game.microbes))
     root.after(10, update_labels) # schedule the function to be called again after 1000ms
 
 
