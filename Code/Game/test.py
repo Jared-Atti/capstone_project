@@ -88,16 +88,17 @@ productionL.place(x = 90, y = 0)
 upgradesL = Label(upgrades, text = "Upgrades", font = ("Terminal", 10))
 upgradesL.place(x = 200, y = 0)
 
-#img = PhotoImage(file = "D:\VSCode\Python\capstone_project\Assets\Buttons\CasualGameButtonsVol03\PNG\CGB03-yellow_M_btn.png", height = 75, width = 275)
+#img = PhotoImage(file = "C:\Users\Joe\Desktop\Final Semester\Capstone\capstone_project\Assets\Buttons\CasualGameButtonsVol03\PNG\CGB03-yellow_M_btn.png")
 
 energyB = tk.Button(createLabel, text ="Energy", command = create_energy, font=('Terminal', 10))#, image = img)
 energyB.place(in_ = createLabel, y = 10, x = 20)
+#energyB.config(width = 50, height = 50)
 
 upgrade1 = tk.Button(upgrades, text = "Energy Production +1 \n Auto-Energy + 0.1/sec", font = ('Terminal', 10), height = 5, width = 50, state = DISABLED)
 upgrade1.place(x = 35, y = 20)
 
 #If statement for upgrade button DOES NOT CURRENTLY WORK
-if str(game.energy) == 10:
+if game.energy == 10:
         upgrade1.state = ACTIVE
 
 def update_labels():

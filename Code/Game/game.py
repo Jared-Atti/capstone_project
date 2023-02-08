@@ -36,6 +36,11 @@ class Game:
     def create_life(self):
         self.microbes += 1
 
+    def buy_upgrade_1(self):
+        str(self.energy) - 10
+        
+
+
     def buy_upgrade(self,upgrade):
         if self.dna >= upgrade.cost:
             self.dna -= upgrade.cost
