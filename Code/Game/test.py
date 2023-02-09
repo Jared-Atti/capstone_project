@@ -1,6 +1,8 @@
 from tkinter import *
 import tkinter as tk
 from game import Game
+from upgrades import *
+import upgrades as upg
 
 
 #Getting Instance of Game class & Initializing game
@@ -103,12 +105,20 @@ timeB = tk.Button(time, text = "Advance Time", font=('Terminal', 10))
 upgrade1 = tk.Button(upgrades, text = "Energy Production +1 \n Auto-Energy + 0.1/sec", command = buy_upgrade1,
      font = ('Terminal', 10), height = 5, width = 50, state = DISABLED)
 
+def buy_SiphonRadiation():
+    game.buy_upgrade(upg.SiphonRadiation)
+
+upg_SiphonRadition = tk.Button(upgrades, text = SiphonRadiation().name + "\n" + SiphonRadiation().description + "\n" + SiphonRadiation().showCosts(),
+    command = buy_SiphonRadiation, font = ('Terminal', 10), height = 5, width = 50, state = DISABLED)
+
+
+
 #PLACEMENT of Buttons in Frames
 energyB.place(in_ = createLabel, y = 10, x = 20)
 
 timeB.place(in_ = time, x = 25, y = 5)
 
-upgrade1.place(in_ = upgrades, x = 35, y = 20)
+upg_SiphonRadition.place(in_ = upgrades, x = 35, y = 20)
 
 #If statement for upgrade button DOES NOT CURRENTLY WORK
 
@@ -116,14 +126,19 @@ upgrade1.place(in_ = upgrades, x = 35, y = 20)
 #Function that constantly updates game Labels
 def update_labels():
     game = Game() # get the instance of the game class
-    energy.config(energy, text = "Energy: " + str(game.energy))
+    energy.config(energy, text = "Energy: " + str(round(game.energy)))
     if game.energy >= 10:
-        upgrade1.config(upgrade1, state = ACTIVE)
+        upg_SiphonRadition.config(upg_SiphonRadition, state = ACTIVE)
     elif game.energy < 10:
-        upgrade1.config(upgrade1, state = DISABLED)
+        upg_SiphonRadition.config(upg_SiphonRadition, state = DISABLED)
 
+    game.energy += game.energyRev
+    # print(str(game.energy) + " " + str(game.energyRev))
 
-    root.after(10, update_labels) # schedule the function to be called again after 1000ms
+    # Revenue Calculation
+    game.energy += game.energyRev
+
+    root.after(100, update_labels) # schedule the function to be called again after 1000ms
 
 #Call to continously run update_labels function
 root.after(1000, update_labels)

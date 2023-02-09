@@ -6,8 +6,14 @@ class Cost:
 class Upgrade:
     def __init__(self, name, costs, description):
         self.name = name
-        self.cost = Cost(costs)
+        self.costs = costs
         self.description = description
+    
+    def showCosts(self):
+        coststr = ""
+        for i in self.costs:
+            coststr += str(i[0]) + ": " + str(i[1])
+        return coststr
 
 class Upgrades:
     def __init__(self):

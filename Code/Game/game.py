@@ -1,3 +1,4 @@
+import upgrades as upg
 class Game:
     def new(cls):
         if cls._instance is None:
@@ -13,6 +14,7 @@ class Game:
         self.protons = 0
         self.neutrons = 0
         self.energy = 0
+        self.energyRev = 0
         self.hydrogen = 0
         self.helium = 0
         self.oxygen = 0
@@ -40,12 +42,11 @@ class Game:
         self.energy -= 10
         
 
+    def buy_upgrade(self, upgrade):
+        if upgrade == upg.SiphonRadiation:
+            self.energy -= 10
+            self.energyRev += 0.1
 
-    def buy_upgrade(self,upgrade):
-        if self.dna >= upgrade.cost:
-            self.dna -= upgrade.cost
-            self.upgrades.append(upgrade)
-            upgrade.apply()
 
 _instance = Game()
 def Game():
