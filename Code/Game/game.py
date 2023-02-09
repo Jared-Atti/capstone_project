@@ -37,7 +37,7 @@ class Game:
         self.microbes += 1
 
     def buy_upgrade_1(self):
-        str(self.energy) - 10
+        self.energy -= 10
         
 
 
