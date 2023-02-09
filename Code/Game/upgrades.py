@@ -1,7 +1,12 @@
+class Cost:
+     def __init__(self, resource, value):
+        self.resource = resource
+        self.value = value
+
 class Upgrade:
-    def __init__(self, name, cost, description):
+    def __init__(self, name, costs, description):
         self.name = name
-        self.cost = cost
+        self.cost = Cost(costs)
         self.description = description
 
 class Upgrades:
@@ -24,9 +29,9 @@ class Upgrades:
 # Cosmic Upgrades
 class SiphonRadiation(Upgrade):
     def __init__(self):
-        super().__init__("Siphon Radiation", 0, "Being siphoning radiation for 1 energy per second.")
+        super().__init__("Siphon Radiation", [("Energy", 10)], "Being siphoning radiation for 1 energy per second.")
 
 # Precambrian Upgrades
 class GeneticMutation(Upgrade):
     def __init__(self):
-        super().__init__("Genetic Mutation", 10, "Generates passive DNA points for every living microbe.")
+        super().__init__("Genetic Mutation", [("DNA", 10)], "Generates passive DNA points for every living microbe.")
