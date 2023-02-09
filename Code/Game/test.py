@@ -14,6 +14,10 @@ root.geometry("1440x1100")
 
 #Values needed
 value = 0
+resourcePOS = 180
+resourceSize = 55
+productionSize = 55
+upgradeSize = 100
 
 sb = Scrollbar(root)
 sb.pack(side = LEFT, fill = Y)
@@ -23,15 +27,15 @@ timeline = Frame(root, relief = RAISED, bd = 5, bg = "white", height = 90, width
 
 era = Frame(root, relief= RAISED, bd = 5, bg = "purple", height = 40, width = 2000)
 
-resources = Frame(root, relief = RAISED, bd = 5, bg = "red", height = 390, width = 325)
+resources = Frame(root, relief = RAISED, bd = 5, bg = "red", height = resourceSize, width = 325)
 
-visuals = Frame(root, relief = RAISED, bd = 5, bg = "yellow", height = 450, width = 503)
+visuals = Frame(root, relief = RAISED, bd = 5, bg = "yellow", height = 450, width = 450)
 
 createLabel = Frame(root, bg = "orange", height = 40, width = 100)
 
-production = Frame(root, relief = RAISED, bd = 5, bg = "green", height = 375, width = 325)
+production = Frame(root, relief = RAISED, bd = 5, bg = "green", height = productionSize, width = 325)
 
-upgrades = Frame (root, relief = RAISED, bd = 5, bg = "teal", height = 325, width = 503)
+upgrades = Frame (root, relief = RAISED, bd = 5, bg = "teal", height = upgradeSize, width = 503)
 
 time = Frame (root, relief = RAISED, bd = 5, bg = "pink", height = 40, width = 175)
 
@@ -40,15 +44,15 @@ timeline.place(x = 20, y = 0)
 
 era.place(x = 20, y = 90)
 
-resources.place(x = 20, y = 180)
+resources.place(x = 20, y = resourcePOS)
 
-visuals.place(x = 350, y = 180)
+visuals.place(x = 900, y = resourcePOS)
 
 createLabel.place(x = 20, y = 135)
 
-production.place(x = 20, y = 575)
+production.place(x = 20, y = resourcePOS + resourceSize + 5)
 
-upgrades.place(x = 350, y = 635)
+upgrades.place(x = 350, y = resourcePOS)
 
 time.place(x = 500, y = 135)
 
