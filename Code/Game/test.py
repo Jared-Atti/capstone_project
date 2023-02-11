@@ -27,7 +27,7 @@ sb.pack(side = LEFT, fill = Y)
 #CREATING Frames to go on root
 timeline = Frame(root, relief = RAISED, bd = 5, bg = "white", height = 90, width = 2000)
 
-era = Frame(root, relief= RAISED, bd = 5, bg = "purple", height = 40, width = 2000)
+lifeForms = Frame(root, relief= RAISED, bd = 5, bg = "purple", height = 40, width = 2000)
 
 resources = Frame(root, relief = RAISED, bd = 5, bg = "red", height = resourceSize, width = 325)
 
@@ -44,7 +44,7 @@ time = Frame (root, relief = RAISED, bd = 5, bg = "pink", height = 40, width = 1
 #PLACEMENT of Frames on root
 timeline.place(x = 20, y = 0)
 
-era.place(x = 20, y = 90)
+lifeForms.place(x = 20, y = 90)
 
 resources.place(x = 20, y = resourcePOS)
 
@@ -67,8 +67,9 @@ root.rowconfigure(1, weight = 1)
 def create_energy():
     game.create_energy()
 
-def buy_upgrade1():
-    game.buy_upgrade_1()
+def buy_SiphonRadiation():
+    game.buy_upgrade(upg.SiphonRadiation)
+    
     
 
 #CREATION of Labels that go onto Frames/Buttons
@@ -76,7 +77,9 @@ energy = Label(resources, text = "Energy: " + str(game.energy), font = ('Termina
 
 tlL = Label(timeline, text = "Timeline:", font = ('Terminal', 10))
 
-eraL = Label(era, text = "Era: ", font = ("Terminal", 10))
+lifeL = Label(lifeForms, text = "Lifeforms: ", font = ("Terminal", 10))
+
+eraL = Label(visuals, text = "Era: ", font = ("Terminal", 10))
 
 resourcesL = Label(resources, text = "Resources", font = ("Terminal", 10))
 
@@ -86,6 +89,8 @@ upgradesL = Label(upgrades, text = "Upgrades", font = ("Terminal", 10))
 
 #PLACEMENT of Labels within respected Frame/Button
 energy.place(x = 0, y = 25)
+
+lifeL.place(x = 0, y = 0)
 
 tlL.place(x = 0, y = 0)
 
@@ -100,13 +105,11 @@ upgradesL.place(x = 200, y = 0)
 #CREATION of Buttons
 energyB = tk.Button(createLabel, text ="Energy", command = create_energy, font=('Terminal', 10))#, image = img)
 
-timeB = tk.Button(time, text = "Advance Time", font=('Terminal', 10))
+protonB = tk.Button()
 
-upgrade1 = tk.Button(upgrades, text = "Energy Production +1 \n Auto-Energy + 0.1/sec", command = buy_upgrade1,
-     font = ('Terminal', 10), height = 5, width = 50, state = DISABLED)
+neutronB = tk.Button()
 
-def buy_SiphonRadiation():
-    game.buy_upgrade(upg.SiphonRadiation)
+timeB = tk.Button(time, text = "Advance Time", font=('Terminal', 10), state = DISABLED)
 
 upg_SiphonRadition = tk.Button(upgrades, text = SiphonRadiation().name + "\n" + SiphonRadiation().description + "\n" + SiphonRadiation().showCosts(),
     command = buy_SiphonRadiation, font = ('Terminal', 10), height = 5, width = 50, state = DISABLED)
