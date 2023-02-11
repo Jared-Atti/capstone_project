@@ -10,10 +10,13 @@ class Upgrade:
         self.description = description
     
     def showCosts(self):
-        coststr = ""
-        for i in self.costs:
-            coststr += str(i[0]) + ": " + str(i[1])
-        return coststr
+        coststr = "("
+        for i in range(len(self.costs)):
+            if i < len(self.costs) - 1:
+                coststr += str(self.costs[i][1]) + " " + str(self.costs[i][0]) + ", "
+            else:
+                coststr += str(self.costs[i][1]) + " " + str(self.costs[i][0])
+        return coststr + ")"
 
 class Upgrades:
     def __init__(self):
