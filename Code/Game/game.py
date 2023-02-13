@@ -1,4 +1,10 @@
-import upgrades as upg
+# import upgrades as upg
+import upgrades
+import automators
+
+# Initializing Automators
+auto_Comp = automators.Compressor()
+
 class Game:
     def new(cls):
         if cls._instance is None:
@@ -6,15 +12,20 @@ class Game:
         return cls._instance
 
     def init(self):
+        #Frame flags
+        self.resources = False
+        self.upgrades = False
+        self.production = False
+
+
         # General
         self.speciesList = []
-        self.upgrades = []
+        self.purchasedupgrades = []
         
-        # Cosmic
+        ## Cosmic
         self.protons = 0
         self.neutrons = 0
         self.energy = 0
-        self.energyRev = 0
         self.hydrogen = 0
         self.helium = 0
         self.oxygen = 0
@@ -22,6 +33,11 @@ class Game:
         self.aluminum = 0
         self.iron = 0
         self.suppelements = 0 # supplementary
+
+        # Automators
+        self.compression_count = 0
+        self.compression_cost = 10
+        self.compression_rev = 0
         
         # Precambrian
         self.microbes = 0
@@ -37,16 +53,16 @@ class Game:
 
     def create_life(self):
         self.microbes += 1
-
-    def buy_upgrade_1(self):
-        self.energy -= 10
         
 
     def buy_upgrade(self, upgrade):
-        if upgrade == upg.SiphonRadiation:
-            self.energy -= 10
-            self.energyRev += 0.1
+        upgrade.purchase(self)
 
+    def increase_automator(self, automator):
+        automator.increase(self)
+
+    def calculate_revenue(self, auto):
+        self.energy += (auto.calc_revenue())
 
 _instance = Game()
 def Game():

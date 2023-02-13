@@ -1,13 +1,15 @@
-class Cost:
-     def __init__(self, resource, value):
-        self.resource = resource
-        self.value = value
+# class Upgrades:
+#     def new(cls):
+#         if cls._instance is None:
+#             cls._instance = super().new(cls)
+#         return cls._instance
 
-class Upgrade:
+class Upgrade():
     def __init__(self, name, costs, description):
         self.name = name
         self.costs = costs
         self.description = description
+        self.active = 0 # 0 = Not yet unlocked, 1 = Unlocked but not purchased, 2 = Purchased
     
     def showCosts(self):
         coststr = "("
@@ -18,27 +20,22 @@ class Upgrade:
                 coststr += str(self.costs[i][1]) + " " + str(self.costs[i][0])
         return coststr + ")"
 
-class Upgrades:
-    def __init__(self):
-        self.purchased_upgrades = []
-        # example: self.upgrades = [GeneticMutation()]
-        self.upgrades = []
-    
-    def purchase_upgrade(self, upgrade_name, game_stats):
-        for upgrade in self.upgrades:
-            if upgrade.name == upgrade_name:
-                if game_stats.dna >= upgrade.cost:
-                    game_stats.dna -= upgrade.cost
-                    self.purchased_upgrades.append(upgrade)
-                    return True
-                else:
-                    return False
-        return False
-
 # Cosmic Upgrades
-class SiphonRadiation(Upgrade):
+class GravitationalCompression(Upgrade):
     def __init__(self):
-        super().__init__("Siphon Radiation", [("Energy", 10)], "Being siphoning radiation for 1 energy per second.")
+        super().__init__("Gravitational Compression", [("Energy", 20)], "Siphon energy from space dust collapsing under\nits own gravity. Unlocks production menu.")
+    
+    def afford(self, game):
+        if game.energy >= 20:
+            return True
+    
+    def purchase(self, game):
+        if self.afford(game):
+            game.energy -= 20
+            # game.energyRev += 0.1
+            game.production = True
+            game.purchasedupgrades += self.name
+
 
 # Precambrian Upgrades
 class GeneticMutation(Upgrade):
