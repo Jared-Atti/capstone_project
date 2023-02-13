@@ -36,6 +36,19 @@ class GravitationalCompression(Upgrade):
             game.production = True
             game.purchasedupgrades += self.name
 
+class SubatomicSynthesis(Upgrade):
+    def __init__(self):
+        super().__init__("Subatomic Synthesis", [("Energy", 150)], "Unlocks the production of Quarks.")
+
+    def afford(self, game):
+        if game.energy >= 150:
+            return True
+
+    def purchase(self, game):
+        if self.afford(game):
+            game.energy -= 150
+            game.purchaseUpgrades += self.name
+
 
 # Precambrian Upgrades
 class GeneticMutation(Upgrade):

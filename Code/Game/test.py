@@ -115,7 +115,7 @@ def increase_compression():
 
 tlL = Label(timeline, text = "Timeline:", font = ('Terminal', 10))
 
-lifeL = Label(lifeForms, text = "Lifeforms: ?", font = ("Terminal", 10))
+lifeL = Label(lifeForms, text = "Lifeforms: ", font = ("Terminal", 10))
 
 eraL = Label(visuals, text = "Era: ", font = ("Terminal", 10))
 
@@ -216,6 +216,11 @@ def check_milestones():
         compressors_cost = Label(productionF, text = auto_Comp.showCost(), font = ('Terminal', 9))
         compressors_cost.place(x = 0, y = 50)
         active_autos.append(auto_Comp)
+
+    #Activate subatomic synthesis upgrade at 100 energy
+    if game.energy >= 100:
+        global up_SS
+        
         
     root.after(100, check_milestones)
 
