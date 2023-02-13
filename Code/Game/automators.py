@@ -24,6 +24,6 @@ class Compressor(Automator):
     def increase(self, game):
         if self.afford(game):
             game.energy -= self.cost[1]
-            self.cost = (self.cost[0], round(self.cost[1] * 1.5))
+            self.cost = (self.cost[0], round(self.cost[1] * 1.25))
             self.count += 1
 

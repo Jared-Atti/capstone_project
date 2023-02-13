@@ -115,7 +115,7 @@ def increase_compression():
 
 tlL = Label(timeline, text = "Timeline:", font = ('Terminal', 10))
 
-lifeL = Label(lifeForms, text = "Lifeforms: ", font = ("Terminal", 10))
+lifeL = Label(lifeForms, text = "Lifeforms: ?", font = ("Terminal", 10))
 
 eraL = Label(visuals, text = "Era: ", font = ("Terminal", 10))
 
