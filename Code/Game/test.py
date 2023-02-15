@@ -44,15 +44,17 @@ upgradeL = None
 productionL = None
 
 # Global Labels
-energy = None
-compressors = None
-compressors_desc = None
-compressors_cost = None
+energyLab = None
+compLab = None
+compDescLab = None
+compCostLab = None
 
 # Global Buttons
-upB_GC = None
-upB_SS = None
-inc_Comp = None
+# Upgrades
+upBut_GC = None # Gravitational Compression
+upBut_SS = None # Subatomic Synthesis
+# Automators
+autoBut_Comp = None # Compressor
 
 
 #CREATING Frames to go on root
@@ -100,22 +102,24 @@ def create_energy():
 
 def buy_GC():
     game.buy_upgrade(up_GC)
-    global upB_GC
-    upB_GC.destroy()
+    global upBut_GC
     up_GC.active = 2
+    root.after(100)
+    upBut_GC.destroy()
 
 def buy_SS():
     game.buy_upgrade(up_SS)
-    global upB_SS
-    upB_SS.destroy()
-    upB_SS.active = 2
+    global upBut_SS
+    up_SS.active = 2
+    root.after(100)
+    upBut_SS.destroy()
 
 def increase_compression():
     auto_Comp.increase(game)
-    global compressors
+    global compLab
     global compressor_costs
-    compressors.config(compressors, text = "Compressors: " + str(auto_Comp.count))
-    compressors_cost.config(compressors_cost, text = auto_Comp.showCost())
+    compLab.config(compLab, text = "Compressors: " + str(auto_Comp.count))
+    compCostLab.config(compCostLab, text = auto_Comp.showCost())
     
 
 #CREATION of Labels that go onto Frames/Buttons
@@ -170,87 +174,108 @@ timeB.place(in_ = time, x = 25, y = 5)
 
 # upg_SiphonRadition.place(in_ = upgrades, x = 35, y = 20)
 
-#If statement for upgrade button DOES NOT CURRENTLY WORK
 
 # Checks milestone conditions, activating new game mechanics when achieved
 def check_milestones():
     game = Game() # get the instance of the game class
+    # Any preinitialized tk objects need a global call
+
     ## Cosmic Era
-    # Activate resources after 1 energy is gained
+    # ACTIVATE RESOURCE FRAME after 1 energy is gained
     global resourcesF
     if game.energy >= 1 and resourcesF == None:
         global resourcesL
-        global energy
+        global energyLab
+        # Creating and placing RESOURCE frame
         resourcesF = Frame(root, relief = RAISED, bd = 5, bg = "red", height = resourceSize, width = 325)
         resourcesF.place(x = 20, y = resourcePOS)
+        # Creating and placing frame title
         resourcesL = Label(resourcesF, text = "Resources", font = ("Terminal", 10))
         resourcesL.place(x = 90, y = 0)
-        energy = Label(resourcesF, text = "Energy: " + str(game.energy), font = ('Terminal', 10))
-        energy.place(x = 0, y = 25)
-        game.resources = True
-    # Activate upgrades frame at 10 energy
+        # Initializing ENERGY label
+        energyLab = Label(resourcesF, text = "Energy: " + str(game.energy), font = ('Terminal', 10))
+        energyLab.place(x = 0, y = 25)
+        # Updating 'game' to recognize resource frame is active
+        game.resourcesFrame = True
+
+    # ACTIVATE UPGRADES FRAME at 10 energy
     global upgradesF
     if game.energy >= 10 and upgradesF == None:
         global upgradeL
-        global upB_GC
+        global upBut_GC
+        # Creating and placing UPGRADES frame
         upgradesF = Frame (root, relief = RAISED, bd = 5, bg = "teal", height = upgradeSize, width = 503)
         upgradesF.place(x = 350, y = resourcePOS)
+        # Creating and placing frame title
         upgradesL = Label(upgradesF, text = "Upgrades", font = ("Terminal", 10))
         upgradesL.place(x = 200, y = 0)
-        upB_GC = tk.Button(upgradesF, 
+        # Creating first upgrade button (Gravitational Compression)
+        upBut_GC = tk.Button(upgradesF, 
             text = up_GC.name + "\n" + up_GC.description + "\n" + up_GC.showCosts(),
             command = buy_GC, font = ('Terminal', 10), height = 5, width = 50, state = DISABLED)
-        upB_GC.place(in_ = upgradesF, x = 35, y = 20)
+        upBut_GC.place(in_ = upgradesF, x = 35, y = 20)
+        # Setting upgrade instance (not button) to active = 1 (available to buy)
         up_GC.active = 1
-        game.upgrades = True
-    # Activate production frame after gravitational compression upgrade
+        # Updating 'game' to recognize upgrades frame is active
+        game.upgradesFrame = True
+
+    # ACTIVATE PRODUCTION FRAME after gravitational compression upgrade
     global productionF
-    if game.production == True and productionF == None:
+    if game.productionFrame == True and productionF == None:
         global productionL
-        global compressors
-        global compressors_desc
-        global compressors_cost
+        global compLab
+        global compDescLab
+        global compCostLab
+        # Creating and placing PRODUCTION frame
         productionF = Frame(root, relief = RAISED, bd = 5, bg = "green", height = productionSize, width = 325)
         productionF.place(x = 20, y = resourcePOS + resourceSize + 5)
+        # Creating and placing frame title
         productionL = Label(productionF, text = "Production", font = ("Terminal", 10))
         productionL.place(x = 90, y = 0)
-        game.production = True
-        compressors = Label(productionF, text = "Compressors: " + str(auto_Comp.count), font = ('Terminal', 10))
-        compressors.place(x = 0, y = 25)
-        inc_Comp = tk.Button(productionF, text = "+", font = ("Terminal", 10), command = increase_compression)
-        inc_Comp.place(x = ((len(compressors.cget("text")) * 10) - 15), y = 24)
-        compressors_desc = Label(productionF, text = auto_Comp.description, font = ('Terminal', 8))
-        compressors_desc.place(x = 0, y = 65)
-        compressors_cost = Label(productionF, text = auto_Comp.showCost(), font = ('Terminal', 9))
-        compressors_cost.place(x = 0, y = 50)
+        # Updating 'game' to recognize production frame is active
+        game.productionFrame = True
+        # Label for Compressors automator
+        compLab = Label(productionF, text = "Compressors: " + str(auto_Comp.count), font = ('Terminal', 10))
+        compLab.place(x = 0, y = 25)
+        # Button for Compressor automator
+        autoBut_Comp = tk.Button(productionF, text = "+", font = ("Terminal", 10), command = increase_compression)
+        autoBut_Comp.place(x = ((len(compLab.cget("text")) * 10) - 15), y = 24)
+        # Cost of Compressor (below)
+        compCostLab = Label(productionF, text = auto_Comp.showCost(), font = ('Terminal', 9))
+        compCostLab.place(x = 0, y = 50)
+        # Description for Compressor (two below)
+        compDescLab = Label(productionF, text = auto_Comp.description, font = ('Terminal', 8))
+        compDescLab.place(x = 0, y = 65)
+        # Adds compressors to the list of active autos
         active_autos.append(auto_Comp)
 
     #Activate subatomic synthesis upgrade at 100 energy
-    global up_SS
+    global upBut_SS
     if game.energy >= 100 and up_SS.active == 0 and up_GC.active == 2:
-        upB_SS = tk.Button(upgradesF, 
+        upBut_SS = tk.Button(upgradesF, 
             text = up_SS.name + "\n" + up_SS.description + "\n" + up_SS.showCosts(),
             command = buy_SS, font = ('Terminal', 10), height = 5, width = 50, state = DISABLED)
-        upB_SS.place(in_ = upgradesF, x = 35, y = 20)
+        upBut_SS.place(in_ = upgradesF, x = 35, y = 20)
         up_SS.active = 1
         
     root.after(100, check_milestones)
 
 # Checks if upgrades are affordable, if not disables them
 def afford_upgrades():
+    # up_* represents the instance of the upgrade, check this for active call afford(game) function
+    # upBut_ * represents the button for the upgrade, enable/disable this
     # Cosmic
     if up_GC.active == 1:
         if up_GC.afford(game):
-            upB_GC.config(upB_GC, state = ACTIVE)
+            upBut_GC.config(upBut_GC, state = ACTIVE)
         else:
-            upB_GC.config(upB_GC, state = DISABLED)
+            upBut_GC.config(upBut_GC, state = DISABLED)
 
     if up_SS.active == 1:
-        #global upB_SS
         if up_SS.afford(game):
-            upB_SS.config(upB_SS, state = ACTIVE)
+            upBut_SS.config(upBut_SS, state = ACTIVE)
         else:
-            upB_SS.config(upB_SS, state = DISABLED)
+            upBut_SS.config(upBut_SS, state = DISABLED)
 
     root.after(100, afford_upgrades)
 
@@ -258,15 +283,16 @@ def afford_upgrades():
 #Function that constantly updates game Labels
 def update_labels():
     game = Game() # get the instance of the game class
-    if game.resources == True:
-        global energy
-        energy.config(energy, text = "Energy: " + str(round(game.energy)))
+    if game.resourcesFrame == True:
+        global energyLab
+        energyLab.config(energyLab, text = "Energy: " + str(round(game.energy)))
     # if game.production == True:
     #     None
 
     root.after(100, update_labels) # schedule the function to be called again after 1000ms
 
 def calculate_revenues():
+    # For every active automator, calculate revenue in game
     for a in active_autos:
         game.calculate_revenue(a)
     

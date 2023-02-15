@@ -33,7 +33,7 @@ class GravitationalCompression(Upgrade):
         if self.afford(game):
             game.energy -= 20
             # game.energyRev += 0.1
-            game.production = True
+            game.productionFrame = True
             game.purchasedupgrades += self.name
 
 class SubatomicSynthesis(Upgrade):

@@ -13,9 +13,9 @@ class Game:
 
     def init(self):
         #Frame flags
-        self.resources = False
-        self.upgrades = False
-        self.production = False
+        self.resourcesFrame = False
+        self.upgradesFrame = False
+        self.productionFrame = False
 
 
         # General
@@ -49,7 +49,7 @@ class Game:
         return self
 
     def create_energy(self):
-        self.energy += 100
+        self.energy += 20
 
     def create_life(self):
         self.microbes += 1
