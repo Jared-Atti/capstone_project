@@ -49,7 +49,7 @@ class Game:
         return self
 
     def create_energy(self):
-        self.energy += 1
+        self.energy += 100
 
     def create_life(self):
         self.microbes += 1

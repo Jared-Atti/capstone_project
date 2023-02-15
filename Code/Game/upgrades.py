@@ -47,7 +47,7 @@ class SubatomicSynthesis(Upgrade):
     def purchase(self, game):
         if self.afford(game):
             game.energy -= 150
-            game.purchaseUpgrades += self.name
+            game.purchasedupgrades += self.name
 
 
 # Precambrian Upgrades

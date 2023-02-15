@@ -11,6 +11,7 @@ game.init()
 
 # Initializing Upgrades
 up_GC = upgrades.GravitationalCompression()
+up_SS = upgrades.SubatomicSynthesis()
 
 # Initializing Automators
 active_autos = []
@@ -50,6 +51,7 @@ compressors_cost = None
 
 # Global Buttons
 upB_GC = None
+upB_SS = None
 inc_Comp = None
 
 
@@ -101,6 +103,12 @@ def buy_GC():
     global upB_GC
     upB_GC.destroy()
     up_GC.active = 2
+
+def buy_SS():
+    game.buy_upgrade(up_SS)
+    global upB_SS
+    upB_SS.destroy()
+    upB_SS.active = 2
 
 def increase_compression():
     auto_Comp.increase(game)
@@ -218,9 +226,13 @@ def check_milestones():
         active_autos.append(auto_Comp)
 
     #Activate subatomic synthesis upgrade at 100 energy
-    if game.energy >= 100:
-        global up_SS
-        
+    global up_SS
+    if game.energy >= 100 and up_SS.active == 0 and up_GC.active == 2:
+        upB_SS = tk.Button(upgradesF, 
+            text = up_SS.name + "\n" + up_SS.description + "\n" + up_SS.showCosts(),
+            command = buy_SS, font = ('Terminal', 10), height = 5, width = 50, state = DISABLED)
+        upB_SS.place(in_ = upgradesF, x = 35, y = 20)
+        up_SS.active = 1
         
     root.after(100, check_milestones)
 
@@ -232,6 +244,13 @@ def afford_upgrades():
             upB_GC.config(upB_GC, state = ACTIVE)
         else:
             upB_GC.config(upB_GC, state = DISABLED)
+
+    if up_SS.active == 1:
+        #global upB_SS
+        if up_SS.afford(game):
+            upB_SS.config(upB_SS, state = ACTIVE)
+        else:
+            upB_SS.config(upB_SS, state = DISABLED)
 
     root.after(100, afford_upgrades)
 
