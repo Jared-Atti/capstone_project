@@ -27,3 +27,16 @@ class Compressor(Automator):
             self.cost = (self.cost[0], round(self.cost[1] * 1.25))
             self.count += 1
 
+class Siphoner(Automator):
+    def __init__(self):
+        super().__init__("Siphoner", ("Energy", 100), "Each Siphoner reduces price of Quarks", ("Energy", 1))
+    
+    def afford(self, game):
+        if game.energy >= self.cost[1]:
+            return True
+    
+    def decrease(self, game):
+        if self.afford(game):
+            game.energy -= self.cost[1]
+            self.cost = (self.cost[0], round(self.cost[1] * 1.25))
+            self.count += 1

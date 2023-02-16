@@ -35,6 +35,7 @@ class GravitationalCompression(Upgrade):
             # game.energyRev += 0.1
             game.productionFrame = True
             game.purchasedupgrades += self.name
+            self.active = 2
 
 class SubatomicSynthesis(Upgrade):
     def __init__(self):
@@ -48,6 +49,7 @@ class SubatomicSynthesis(Upgrade):
         if self.afford(game):
             game.energy -= 150
             game.purchasedupgrades += self.name
+            self.active = 2
 
 
 # Precambrian Upgrades

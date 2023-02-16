@@ -16,6 +16,7 @@ up_SS = upgrades.SubatomicSynthesis()
 # Initializing Automators
 active_autos = []
 auto_Comp = automators.Compressor()
+auto_Siph = automators.Siphoner()
 
 #Main Frame of Game
 root = tk.Tk()
@@ -48,6 +49,7 @@ energyLab = None
 compLab = None
 compDescLab = None
 compCostLab = None
+siphCostLab = None
 
 # Global Buttons
 # Upgrades
@@ -56,6 +58,7 @@ upBut_SS = None # Subatomic Synthesis
 
 # Automators
 autoBut_Comp = None # Compressor
+autoBut_Siph = None # Siphoner
 
 
 #CREATING Frames to go on root
@@ -109,6 +112,13 @@ def increase_compression():
     global compressor_costs
     compLab.config(compLab, text = "Compressors: " + str(auto_Comp.count))
     compCostLab.config(compCostLab, text = auto_Comp.showCost())
+
+def increase_siphoner():
+    auto_Siph.decrease(game)
+    global siphLab
+    global siphoner_costs
+    siphLab.config(siphLab, text = "Siphoners: " + str(auto_Siph.count))
+    siphCostLab.config(siphCostLab, text = auto_Siph.showCost())
     
 
 #CREATION of Labels that go onto Frames/Buttons
@@ -222,6 +232,21 @@ def check_milestones():
         up_SS.active = 1
         
     root.after(100, check_milestones)
+
+    #Moves subatomic synthesis to PRODUCTION Frame
+    if up_SS.active == 2:
+        global siphLab
+        #Label for Siphoner on PRODUCTION label
+        siphLab = Label(productionF, text = "Siphoners: " + str(auto_Siph.count), font = ('Terminal', 10))
+        siphLab.place(x = 0, y = 85)
+        #Updates size of PRODUCTION Frame
+        productionF.place(width = 325, height = productionSize + 25)
+        #Button to increase Siphoners
+        global autoBut_Siph
+        autoBut_Siph = tk.Button(productionF, text = "+", font = ("Terminal", 10), command = increase_compression)
+        autoBut_Siph.place(x = ((len(siphLab.cget("text")) * 10) - 10), y = 85)
+
+        
 
 # Checks if upgrades are affordable, if not disables them
 def afford_upgrades():
