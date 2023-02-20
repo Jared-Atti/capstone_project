@@ -23,7 +23,7 @@ class Upgrade():
 # Cosmic Upgrades
 class GravitationalCompression(Upgrade):
     def __init__(self):
-        super().__init__("Gravitational Compression", [("Energy", 20)], "Siphon energy from space dust collapsing under\nits own gravity. Unlocks production menu.")
+        super().__init__("Gravitational Compression", [("Energy", 20)], "Siphon energy from space dust collapsing under its own gravity. Unlocks production menu.")
     
     def afford(self, game):
         if game.energy >= 20:
