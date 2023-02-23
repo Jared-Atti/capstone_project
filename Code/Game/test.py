@@ -58,6 +58,7 @@ sb.pack(side = LEFT, fill = Y)
 resourcesF = None
 upgradesF = None
 productionF = None
+temporalF = None
 
 # Global Titles
 resourcesL = None
@@ -217,7 +218,7 @@ def check_milestones():
         global autoBut_Comp
         # Creating and placing PRODUCTION frame
         productionF = Frame(root, relief = RAISED, bd = 5, bg = "green", height = PRODUCTION_FRAME_HEIGHT, width = 325)
-        productionF.place(x = 20, y = TOP_Y + RESOURCE_FRAME_HEIGHT + 5)
+        productionF.place(x = LEFT_COLUMN_X, y = TOP_Y + RESOURCE_FRAME_HEIGHT + 5)
         # Creating and placing frame title
         productionL = Label(productionF, text = "Production", font = ("Terminal", 10))
         productionL.place(relx = 0.5, y = 10, anchor="center")
@@ -236,9 +237,15 @@ def check_milestones():
 
     #Activate subatomic synthesis upgrade at 100 energy
     global upBut_SS
-    if game.energy >= 100 and up_SS.active == 0 and up_GC.active == 2:
+    if up_GC.active == 2 and up_SS.active == 0 and game.energy >= 100:
         upBut_SS = createUpgradeButton(upBut_SS, up_SS, buy_SS)
-        
+
+    #Unlock temporal momentum at 100 energy
+    global temporalF
+    if temporalF == None and game.energy >= 100:
+        temporalF = Frame(root, relief = RAISED, bd = 5, bg = "green", height = PRODUCTION_FRAME_HEIGHT, width = 325)
+        temporalF.place(x = MIDDLE_COLUMN_X, y = TOP_Y + RESOURCE_FRAME_HEIGHT + 5)
+
     root.after(100, check_milestones)
 
     #Moves subatomic synthesis to PRODUCTION Frame

@@ -39,7 +39,7 @@ class GravitationalCompression(Upgrade):
 
 class SubatomicSynthesis(Upgrade):
     def __init__(self):
-        super().__init__("Subatomic Synthesis", [("Energy", 150)], "Unlocks the production of Quarks.")
+        super().__init__("Subatomic Synthesis", [("Energy", 150)], "Smash particles together and convert the energy into quarks.")
 
     def afford(self, game):
         if game.energy >= 150:
