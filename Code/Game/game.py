@@ -21,13 +21,16 @@ class Game:
         # General
         self.speciesList = []
         self.purchasedupgrades = []
+        self.time = 0
+        self.innovation = 0
+        self.potential = 1
+        self.productivity = 1
+        self.expansion = 1
         
         ## Cosmic
         self.protons = 0
         self.neutrons = 0
         self.energy = 0
-        self.time = 0
-        self.innovation = 0
         self.hydrogen = 0
         self.helium = 0
         self.oxygen = 0
@@ -51,7 +54,7 @@ class Game:
         return self
 
     def create_energy(self):
-        self.energy += 20
+        self.energy += 200
 
     def create_life(self):
         self.microbes += 1

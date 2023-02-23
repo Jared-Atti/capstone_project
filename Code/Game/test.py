@@ -25,7 +25,9 @@ root.title = ("Eco-Evolution")
 root.geometry("1440x1100")
 
 #Variables for Sizes
+SPADDING = 5
 PADDING = 10
+LPADDING = 15
 
 LEFT_COLUMN_WIDTH = 325
 MIDDLE_COLUMN_WIDTH = 500
@@ -42,6 +44,7 @@ UPGRADE_BUTTON_NEXTY = 55
 PRODUCTION_FRAME_HEIGHT = 30
 PRODUCTION_LABEL_NEXTY = 25
 
+TEMPORAL_FRAME_HEIGHT = 30
 
 #Variables for Position
 TOP_Y = 180
@@ -65,14 +68,24 @@ temporalF = None
 resourcesL = None
 upgradeL = None
 productionL = None
+temporalL = None
 
 # Global Labels
+# Resources
 energyLab = None
 microbeLab = None
+# Production
 compLab = None
 compDescLab = None
 compCostLab = None
 siphCostLab = None
+# Temporal
+potentialLab = None
+potentailDescLab = None
+productivityLab = None
+expansionLab = None
+timeLab = None
+innovationLab = None
 
 # Global Buttons
 # Upgrades
@@ -247,22 +260,50 @@ def check_milestones():
     #Activate subatomic synthesis upgrade at 100 energy
     global upBut_SS
     global upBut_TM
-    global temporalF
     if up_GC.active == 2 and up_SS.active == 0 and game.energy >= 100 and up_TM.active == 0:
         upBut_SS = createUpgradeButton(upBut_SS, up_SS, buy_SS)
         upBut_TM = createUpgradeButton(upBut_TM, up_TM, buy_TM)
-        #upBut_TM.place(y = UPGRADE_BUTTON_NEXTY + UPGRADE_BUTTON_NEXTY)
-
-    #Activate Temporal Momentum at 100 energy
-    #global temporalF
-    #if temporalF == None and game.energy >= 100:
-     #   upBut_TM = createUpgradeButton(upBut_TM, up_TM, buy_TM)
     
     #Creates Temporal Momentum Frame
+    global temporalF
     if temporalF == None and up_TM.active == 2:
-        temporalF = Frame(root, relief = RAISED, bd = 5, bg = "green", height = PRODUCTION_FRAME_HEIGHT, width = 325)
-        upgradesF.place(x = MIDDLE_COLUMN_X + MIDDLE_COLUMN_X, y = TOP_Y + TOP_Y + 5)
-        temporalF.place(x = MIDDLE_COLUMN_X, y = TOP_Y + 5)
+        global temporalL
+        global potentialLab
+        global potentialDescLab
+        global productivityLab
+        global expansionLab
+        global timeLab
+        global innovationLab
+        global TEMPORAL_FRAME_HEIGHT
+        temporalF = Frame(root, relief = RAISED, bd = 5, bg = "cyan", height = TEMPORAL_FRAME_HEIGHT, width = MIDDLE_COLUMN_WIDTH)
+        temporalF.place(x = MIDDLE_COLUMN_X, y = TOP_Y)
+
+        temporalL = Label(temporalF, text = "Temporal Momentum", font = ("Terminal", 10))
+        temporalL.place(relx = 0.5, y = 10, anchor="center")
+        temporalF.update_idletasks()
+        label_height = temporalL.winfo_height()
+
+        potentialLab = Label(temporalF, text = "Potential: " + game.potential, font = ("Terminal", 10))
+        potentialLab.place(x = 0, y = label_height + PADDING)
+        temporalF.update_idletasks()
+        label_height = label_height + potentialLab.winfo_height()
+
+        potentialDescLab = Label(temporalF, text = "+1 Potential at " + game.energy + " lifeforms", font = ("Terminal", 10))
+        
+        productivityLab = Label(temporalF, text = game.productivity, font = ("Terminal", 10))
+        
+        expansionLab = Label(temporalF, text = game.expansion, font = ("Terminal", 10))
+        
+        timeLab = Label(temporalF, text = "Time: " + game.time + "/" + game.expansion * 1000, font = ("Terminal", 10))
+        
+        innovationLab = Label(temporalF, text = "Innovation: " + game.innovation, font = ("Terminal", 10))
+
+        temporalF.update_idletasks()
+        label_height = label_height + innovationLab.winfo_height()
+        TEMPORAL_FRAME_HEIGHT = TEMPORAL_FRAME_HEIGHT + label_height
+        temporalF.config(height=TEMPORAL_FRAME_HEIGHT)
+        temporalF.place(x = MIDDLE_COLUMN_X, y = TOP_Y)
+        upgradesF.place(x = MIDDLE_COLUMN_X, y = TOP_Y + TEMPORAL_FRAME_HEIGHT + SPADDING)
         game.temporalFrame = True
 
     root.after(100, check_milestones)
