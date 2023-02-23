@@ -51,6 +51,20 @@ class SubatomicSynthesis(Upgrade):
             game.purchasedupgrades += self.name
             self.active = 2
 
+class Temporal(Upgrade):
+    def __init__(self):
+        super().__init__("Temporal", ("Energy", 100), "Unlocks the production of Time and Innovation.")
+    
+    def afford(self, game):
+        if game.energy >= self.cost[1]:
+            return True
+    
+    def increase(self, game):
+        if self.afford(game):
+            game.energy -= self.cost[1]
+            self.cost = (self.cost[0], round(self.cost[1] * 1.25))
+            self.count += 1
+
 
 # Precambrian Upgrades
 class GeneticMutation(Upgrade):
