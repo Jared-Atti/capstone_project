@@ -26,6 +26,8 @@ class Game:
         self.protons = 0
         self.neutrons = 0
         self.energy = 0
+        self.time = 0
+        self.innovation = 0
         self.hydrogen = 0
         self.helium = 0
         self.oxygen = 0

@@ -12,6 +12,7 @@ game.init()
 # Initializing Upgrades
 up_GC = upgrades.GravitationalCompression()
 up_SS = upgrades.SubatomicSynthesis()
+up_TM = upgrades.Temporal()
 
 # Initializing Automators
 active_autos = []
@@ -77,6 +78,7 @@ siphCostLab = None
 # Upgrades
 upBut_GC = None # Gravitational Compression
 upBut_SS = None # Subatomic Synthesis
+upBut_TM = None # Temporal Momentum
 
 # Automators
 autoBut_Comp = None # Compressor
@@ -127,6 +129,13 @@ def buy_SS():
     up_SS.active = 2
     root.after(100)
     destroyUpgradeButton(upBut_SS, up_SS)
+
+def buy_TM():
+    game.buy_upgrade(up_TM)
+    global upBut_TM
+    up_TM.active = 2
+    root.after(100)
+    destroyUpgradeButton(upBut_TM, up_TM)
 
 def increase_compression():
     auto_Comp.increase(game)
@@ -237,14 +246,24 @@ def check_milestones():
 
     #Activate subatomic synthesis upgrade at 100 energy
     global upBut_SS
-    if up_GC.active == 2 and up_SS.active == 0 and game.energy >= 100:
-        upBut_SS = createUpgradeButton(upBut_SS, up_SS, buy_SS)
-
-    #Unlock temporal momentum at 100 energy
+    global upBut_TM
     global temporalF
-    if temporalF == None and game.energy >= 100:
+    if up_GC.active == 2 and up_SS.active == 0 and game.energy >= 100 and up_TM.active == 0:
+        upBut_SS = createUpgradeButton(upBut_SS, up_SS, buy_SS)
+        upBut_TM = createUpgradeButton(upBut_TM, up_TM, buy_TM)
+        #upBut_TM.place(y = UPGRADE_BUTTON_NEXTY + UPGRADE_BUTTON_NEXTY)
+
+    #Activate Temporal Momentum at 100 energy
+    #global temporalF
+    #if temporalF == None and game.energy >= 100:
+     #   upBut_TM = createUpgradeButton(upBut_TM, up_TM, buy_TM)
+    
+    #Creates Temporal Momentum Frame
+    if temporalF == None and up_TM.active == 2:
         temporalF = Frame(root, relief = RAISED, bd = 5, bg = "green", height = PRODUCTION_FRAME_HEIGHT, width = 325)
-        temporalF.place(x = MIDDLE_COLUMN_X, y = TOP_Y + RESOURCE_FRAME_HEIGHT + 5)
+        upgradesF.place(x = MIDDLE_COLUMN_X + MIDDLE_COLUMN_X, y = TOP_Y + TOP_Y + 5)
+        temporalF.place(x = MIDDLE_COLUMN_X, y = TOP_Y + 5)
+        game.temporalFrame = True
 
     root.after(100, check_milestones)
 
@@ -309,7 +328,7 @@ def createUpgradeButton(button, upgrade, cmd):
         text = upgrade.name + "\n" + upgrade.description + "\n" + upgrade.showCosts(),
         command = cmd, font = ('Terminal', 10), height = 5, state = DISABLED, wraplength=UPGRADE_BUTTON_WIDTH, width=55)
     button.place(in_ = upgradesF, relx = 0.5, y = UPGRADE_BUTTON_NEXTY, anchor="center")
-    # Updating frame heigh values
+    # Updating frame height values
     upgradesF.update_idletasks()
     button_height = button.winfo_height()
     UPGRADE_BUTTON_NEXTY = UPGRADE_BUTTON_NEXTY + button_height + PADDING
@@ -430,6 +449,12 @@ def afford_upgrades():
             upBut_SS.config(upBut_SS, state = ACTIVE)
         else:
             upBut_SS.config(upBut_SS, state = DISABLED)
+
+    if up_TM.active == 1:
+        if up_TM.afford(game):
+            upBut_TM.config(upBut_TM, state = ACTIVE)
+        else:
+            upBut_TM.config(upBut_TM, state = DISABLED)
 
     root.after(100, afford_upgrades)
 

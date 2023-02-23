@@ -53,18 +53,108 @@ class SubatomicSynthesis(Upgrade):
 
 class Temporal(Upgrade):
     def __init__(self):
-        super().__init__("Temporal", ("Energy", 100), "Unlocks the production of Time and Innovation.")
+        super().__init__("Temporal", [("Energy", 200)], "Unlocks the production of Time and Innovation.")
     
     def afford(self, game):
-        if game.energy >= self.cost[1]:
+        if game.energy >= 200:
             return True
     
-    def increase(self, game):
+    def purchase(self, game):
         if self.afford(game):
-            game.energy -= self.cost[1]
-            self.cost = (self.cost[0], round(self.cost[1] * 1.25))
-            self.count += 1
+            game.energy -= 200
+            game.purchasedupgrades += self.name
+            self.active = 2
 
+class Innovation(Upgrade):
+    def __init__(self):
+        super().__init__("Innovation", [("Time", 1000)], "Unlocks the production of Innovation.")
+
+    def afford(self, game):
+        if game.time >= 1000:
+            return True
+    
+    def purchase(self, game):
+        if self.afford(game):
+            game.time -= 1000
+            game.purchasedupgrades += self.name
+            self.active = 2
+
+class Nucleosynthesis(Upgrade):
+    def __init__(self):
+        super().__init__("Nucleosynthesis", [("Quarks", 100), ("Innovation", 20)], "Unlocks proton & neutron automator & resource.")
+
+    def afford(self, game):
+        if game.quarks >= 100 and game.innovation >= 20:
+            return True
+    
+    def purchase(self, game):
+        if self.afford(game):
+            game.quarks -= 100
+            game.innovation -= 20
+            game.purchasedupgrades += self.name
+            self.active = 2
+
+class Gravitational_Amplification(Upgrade):
+    def __init__(self):
+        super().__init__("Gravitational Amplification", [("Energy", 1000), ("Time", 2000)], "Improves comrpessor automator.")
+
+    def afford(self, game):
+        if game.energy >= 1000 and game.time >= 2000:
+            return True
+    
+    def purchase(self, game):
+        if self.afford(game):
+            game.energy -= 1000
+            game.time -= 2000
+            game.purchasedupgrades += self.name
+            self.active = 2
+
+class Quark_Fusion(Upgrade):
+    def __init__(self):
+        super().__init__("Quark Fusion", [("Innovation", 30), ("Energy", 1500)], "Halves the cost of quarks, doubles the production.")
+
+    def afford(self, game):
+        if game.innovation >= 30 and game.energy >= 1500:
+            return True
+    
+    def purchase(self, game):
+        if self.afford(game):
+            game.energy -= 1500
+            game.innovation -= 30
+            game.purchasedupgrades += self.name
+            self.active = 2
+
+class Atomic_Fabrication(Upgrade):
+    def __init__(self):
+        super().__init__("Atomic Fabrication", [("Innovation", 100), ("Quarks", 200), ("Energy", 1000)], "Unlocks Hydrogen production.")
+
+    def afford(self, game):
+        if game.innovation >= 100 and game.quarks >= 200 and game.energy >= 1000:
+            return True
+    
+    def purchase(self, game):
+        if self.afford(game):
+            game.energy -= 1000
+            game.innovation -= 100
+            game.quarks -= 200
+            game.purchasedupgrades += self.name
+            self.active = 2
+
+class Discover_Helium(Upgrade):
+    def __init__(self):
+        super().__init__("Discover Helium", [("Innovation", 150), ("Quarks", 300), ("Energy", 1000)], "Unlocks Helium production.")
+
+    def afford(self, game):
+        if game.innovation >= 150 and game.quarks >= 300 and game.energy >= 1000:
+            return True
+    
+    def purchase(self, game):
+        if self.afford(game):
+            game.energy -= 1000
+            game.innovation -= 150
+            game.quarks -= 300
+            game.purchasedupgrades += self.name
+            self.active = 2
 
 # Precambrian Upgrades
 class GeneticMutation(Upgrade):
