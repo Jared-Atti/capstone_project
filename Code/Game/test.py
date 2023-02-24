@@ -29,17 +29,17 @@ SPADDING = 5
 PADDING = 10
 LPADDING = 15
 
-LEFT_COLUMN_WIDTH = 325
-MIDDLE_COLUMN_WIDTH = 500
+LEFT_COLUMN_WIDTH = 300
+MIDDLE_COLUMN_WIDTH = 300
 RIGHT_COLUMN_WIDTH = 500
 
 RESOURCE_FRAME_HEIGHT = 30
 RESOURCE_LABEL_NEXTY = 25
 
 UPGRADE_FRAME_HEIGHT = 35
-UPGRADE_BUTTON_WIDTH = 450
+UPGRADE_BUTTON_WIDTH = 250
 UPGRADE_BUTTON_HEIGHT = 75
-UPGRADE_BUTTON_NEXTY = 55
+UPGRADE_BUTTON_NEXTY = 50
 
 PRODUCTION_FRAME_HEIGHT = 30
 PRODUCTION_LABEL_NEXTY = 25
@@ -49,7 +49,7 @@ TEMPORAL_FRAME_HEIGHT = 30
 #Variables for Position
 TOP_Y = 180
 LEFT_COLUMN_X = 20
-MIDDLE_COLUMN_X = 350
+MIDDLE_COLUMN_X = LEFT_COLUMN_WIDTH + 25
 RIGHT_COLUMN_X = 0
 PRODUCTION_FRAME_TOP = RESOURCE_FRAME_HEIGHT + TOP_Y + PADDING
 
@@ -220,12 +220,15 @@ def check_milestones():
     if game.energy >= 10 and upgradesF == None:
         global upgradeL
         global upBut_GC
+        global  UPGRADE_BUTTON_NEXTY
         # Creating and placing UPGRADES frame
         upgradesF = Frame (root, relief = RAISED, bd = 5, bg = "teal", height = UPGRADE_FRAME_HEIGHT, width = MIDDLE_COLUMN_WIDTH)
         upgradesF.place(x = MIDDLE_COLUMN_X, y = TOP_Y)
         # Creating and placing frame title
         upgradesL = Label(upgradesF, text = "Upgrades", font = ("Terminal", 10))
         upgradesL.place(relx = 0.5, y = 10, anchor="center")
+        upgradesF.update_idletasks()
+        UPGRADE_BUTTON_NEXTY = UPGRADE_BUTTON_NEXTY + upgradesL.winfo_height()
         # Creating first upgrade button (Gravitational Compression)
         upBut_GC = createUpgradeButton(upBut_GC, up_GC, buy_GC)
         game.upgradesFrame = True
@@ -239,7 +242,7 @@ def check_milestones():
         global compCostLab
         global autoBut_Comp
         # Creating and placing PRODUCTION frame
-        productionF = Frame(root, relief = RAISED, bd = 5, bg = "green", height = PRODUCTION_FRAME_HEIGHT, width = 325)
+        productionF = Frame(root, relief = RAISED, bd = 5, bg = "green", height = PRODUCTION_FRAME_HEIGHT, width = LEFT_COLUMN_WIDTH)
         productionF.place(x = LEFT_COLUMN_X, y = TOP_Y + RESOURCE_FRAME_HEIGHT + 5)
         # Creating and placing frame title
         productionL = Label(productionF, text = "Production", font = ("Terminal", 10))
@@ -283,23 +286,37 @@ def check_milestones():
         temporalF.update_idletasks()
         label_height = temporalL.winfo_height()
 
-        potentialLab = Label(temporalF, text = "Potential: " + game.potential, font = ("Terminal", 10))
-        potentialLab.place(x = 0, y = label_height + PADDING)
+        potentialLab = Label(temporalF, text = "Potential: " + str(game.potential), font = ("Terminal", 10))
+        potentialLab.place(x = PADDING, y = label_height + PADDING)
         temporalF.update_idletasks()
         label_height = label_height + potentialLab.winfo_height()
 
-        potentialDescLab = Label(temporalF, text = "+1 Potential at " + game.energy + " lifeforms", font = ("Terminal", 10))
-        
-        productivityLab = Label(temporalF, text = game.productivity, font = ("Terminal", 10))
-        
-        expansionLab = Label(temporalF, text = game.expansion, font = ("Terminal", 10))
-        
-        timeLab = Label(temporalF, text = "Time: " + game.time + "/" + game.expansion * 1000, font = ("Terminal", 10))
-        
-        innovationLab = Label(temporalF, text = "Innovation: " + game.innovation, font = ("Terminal", 10))
+        potentialDescLab = Label(temporalF, text = "+1 Potential at " + str(game.energy) + " lifeforms", font = ("Terminal", 8))
+        potentialDescLab.place(x = PADDING, y = label_height + PADDING)
+        temporalF.update_idletasks()
+        label_height = label_height + potentialDescLab.winfo_height()
 
+        productivityLab = Label(temporalF, text = "Button " + str(game.productivity), font = ("Terminal", 9))
+        productivityLab.place(x = PADDING, y = label_height + LPADDING)
+        temporalF.update_idletasks()
+        label_height = label_height + productivityLab.winfo_height()
+
+        expansionLab = Label(temporalF, text = "Button " + str(game.expansion), font = ("Terminal", 9))
+        expansionLab.place(x = PADDING, y = label_height + PADDING)
+        temporalF.update_idletasks()
+        label_height = label_height + expansionLab.winfo_height()
+
+        timeLab = Label(temporalF, text = "Time: " + str(game.time) + " / " + str(game.expansion * 1000), font = ("Terminal", 10))
+        timeLab.place(x = PADDING, y = label_height + LPADDING)
+        temporalF.update_idletasks()
+        label_height = label_height + timeLab.winfo_height()
+
+        innovationLab = Label(temporalF, text = "Innovation: " + str(game.innovation), font = ("Terminal", 10))
+        innovationLab.place(x = PADDING, y = label_height + PADDING)
         temporalF.update_idletasks()
         label_height = label_height + innovationLab.winfo_height()
+
+        temporalF.update_idletasks()
         TEMPORAL_FRAME_HEIGHT = TEMPORAL_FRAME_HEIGHT + label_height
         temporalF.config(height=TEMPORAL_FRAME_HEIGHT)
         temporalF.place(x = MIDDLE_COLUMN_X, y = TOP_Y)
@@ -332,7 +349,7 @@ def createResourceLabel(label, resource, name):
     global RESOURCE_LABEL_NEXTY
     global PRODUCTION_FRAME_TOP
     label = Label(resourcesF, text = name + ": " + str(resource), font = ('Terminal', 10))
-    label.place(x = 0, y = RESOURCE_LABEL_NEXTY)
+    label.place(x = PADDING, y = RESOURCE_LABEL_NEXTY)
     resourcesF.update_idletasks()
     label_height = label.winfo_height()
     RESOURCE_FRAME_HEIGHT = RESOURCE_FRAME_HEIGHT + label_height + PADDING
@@ -366,8 +383,8 @@ def createUpgradeButton(button, upgrade, cmd):
     global upgradesF
     # Creating the button
     button = tk.Button(upgradesF, 
-        text = upgrade.name + "\n" + upgrade.description + "\n" + upgrade.showCosts(),
-        command = cmd, font = ('Terminal', 10), height = 5, state = DISABLED, wraplength=UPGRADE_BUTTON_WIDTH, width=55)
+        text = "\u0332".join(upgrade.name) + "\n" + upgrade.description + "\n" + upgrade.showCosts(),
+        command = cmd, font = ('Terminal', 10), state = DISABLED, wraplength=UPGRADE_BUTTON_WIDTH, width=32)
     button.place(in_ = upgradesF, relx = 0.5, y = UPGRADE_BUTTON_NEXTY, anchor="center")
     # Updating frame height values
     upgradesF.update_idletasks()
@@ -399,7 +416,7 @@ def destroyUpgradeButton(button, upgrade):
             widget.place(y=current_y - PADDING - 5 - button_height / 2)
 
     # Updating variables
-    UPGRADE_BUTTON_NEXTY = UPGRADE_BUTTON_NEXTY - button_height - PADDING
+    UPGRADE_BUTTON_NEXTY = UPGRADE_BUTTON_NEXTY - button_height - (PADDING * 2)
     UPGRADE_FRAME_HEIGHT = UPGRADE_FRAME_HEIGHT - button_height - PADDING
     upgradesF.config(height=UPGRADE_FRAME_HEIGHT)
     # Updating upgrade status
@@ -412,18 +429,18 @@ def createProducer(namelabel, name, button, cmd, costlabel, desclabel, togglefla
     global productionF
 
     namelabel = Label(productionF, text = name + ": " + str(automator.count), font = ('Terminal', 10))
-    namelabel.place(x = 0, y = PRODUCTION_LABEL_NEXTY)
+    namelabel.place(x = PADDING, y = PRODUCTION_LABEL_NEXTY)
     productionF.update_idletasks()
     button = tk.Button(productionF, text = "+", font = ("Terminal", 10), command = cmd)
-    button.place(x = (namelabel.winfo_width() + PADDING), y = PRODUCTION_LABEL_NEXTY)
+    button.place(x = (namelabel.winfo_width() + LPADDING), y = PRODUCTION_LABEL_NEXTY)
 
     productionF.update_idletasks()
     costlabel = Label(productionF, text = automator.showCost(), font = ('Terminal', 9))
-    costlabel.place(x = 0, y = PRODUCTION_LABEL_NEXTY + PADDING / 2 + namelabel.winfo_height())
+    costlabel.place(x = PADDING, y = PRODUCTION_LABEL_NEXTY + PADDING / 2 + namelabel.winfo_height())
 
     productionF.update_idletasks()
-    desclabel = Label(productionF, text = automator.description, font = ('Terminal', 8))
-    desclabel.place(x = 0, y = PRODUCTION_LABEL_NEXTY + 2 * PADDING / 2 + namelabel.winfo_height() + costlabel.winfo_height())
+    desclabel = Label(productionF, text = automator.description, font = ('Terminal', 8), wraplength=LEFT_COLUMN_WIDTH - (PADDING * 2))
+    desclabel.place(x = PADDING, y = PRODUCTION_LABEL_NEXTY + 2 * PADDING / 2 + namelabel.winfo_height() + costlabel.winfo_height())
     
     productionF.update_idletasks()
     if (toggleflag):
