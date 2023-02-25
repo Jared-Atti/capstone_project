@@ -1,21 +1,23 @@
 class Automator():
-    def __init__(self, name, cost, description, revenue):
+    def __init__(self, name, cost, revenue):
         self.name = name
         self.cost = cost
-        self.description = description
         self.revenue = revenue
         self.count = 0
         self.active = 0 # 0 = Not yet unlocked, 1 = Unlocked but not purchased, 2 = Purchased
     
     def showCost(self):
-        return "Cost: " + str(self.cost[1]) + " " + str(self.cost[0])
+        return "Cost: " + "{:,.0f}".format(self.cost[1]) + " " + self.cost[0]
 
     def calc_revenue(self):
         return (self.revenue[1] * self.count) / 10
+    
+    def desc(self):
+        return "Each " + self.name + " produces " + "{:,.0f}".format(self.revenue[1]) + " " + self.revenue[0] + " per tick"
 
 class Compressor(Automator):
     def __init__(self):
-        super().__init__("Compressor", ("Energy", 10), "Each Compressor produces 1 Energy per second", ("Energy", 1))
+        super().__init__("Compressor", ("Energy", 10), ("Energy", 1))
     
     def afford(self, game):
         if game.energy >= self.cost[1]:
@@ -29,7 +31,7 @@ class Compressor(Automator):
 
 class Siphoner(Automator):
     def __init__(self):
-        super().__init__("Siphoner", ("Energy", 100), "Each Siphoner reduces price of Quarks", ("Energy", 1))
+        super().__init__("Siphoner", ("Energy", 100), ("Energy", 1))
     
     def afford(self, game):
         if game.energy >= self.cost[1]:

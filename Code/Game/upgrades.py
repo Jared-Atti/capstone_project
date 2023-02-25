@@ -33,7 +33,6 @@ class GravitationalCompression(Upgrade):
         if self.afford(game):
             game.energy -= 20
             # game.energyRev += 0.1
-            game.productionFrame = True
             game.purchasedupgrades += self.name
             self.active = 2
 
@@ -53,7 +52,7 @@ class SubatomicSynthesis(Upgrade):
 
 class Temporal(Upgrade):
     def __init__(self):
-        super().__init__("Temporal", [("Energy", 200)], "Unlocks the production of Time and Innovation.")
+        super().__init__("Temporal", [("Energy", 200)], "By harnessing the power of cosmic forces, you have unlocked the ability to manipulate time and expand the fabric of space itself.")
     
     def afford(self, game):
         if game.energy >= 200:
@@ -62,6 +61,7 @@ class Temporal(Upgrade):
     def purchase(self, game):
         if self.afford(game):
             game.energy -= 200
+            game.timeFlag = True
             game.purchasedupgrades += self.name
             self.active = 2
 
@@ -76,6 +76,7 @@ class Innovation(Upgrade):
     def purchase(self, game):
         if self.afford(game):
             game.time -= 1000
+            game.innovationFlag = True
             game.purchasedupgrades += self.name
             self.active = 2
 

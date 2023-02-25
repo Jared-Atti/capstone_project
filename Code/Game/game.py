@@ -16,16 +16,21 @@ class Game:
         self.resourcesFrame = False
         self.upgradesFrame = False
         self.productionFrame = False
-
+        self.temporalFrame = False
 
         # General
         self.speciesList = []
         self.purchasedupgrades = []
+        self.timeFlag = False
         self.time = 0
+        self.innovationFlag = True
         self.innovation = 0
-        self.potential = 1
+        self.maxpotential = 1
+        self.potential = 0
+        self.potentialincrease = 1
         self.productivity = 1
         self.expansion = 1
+        self.currentEra = 0 # 0 = Cosmic, 1 = Precambrian
         
         ## Cosmic
         self.protons = 0
@@ -67,7 +72,20 @@ class Game:
         automator.increase(self)
 
     def calculate_revenue(self, auto):
-        self.energy += (auto.calc_revenue())
+        # Every era
+        # Time and innovation
+        if (self.temporalFrame == True):
+            if (self.time + self.productivity > self.expansion * 1000):
+                self.time = self.expansion * 1000
+            elif (self.time < self.expansion * 1000):
+                self.time += self.productivity * 0.99
+            
+            if (self.innovationFlag and self.time >= self.expansion * 1000):
+                self.innovation += self.productivity * 0.025
+
+
+        if self.currentEra == 0:
+            self.energy += (auto.calc_revenue())
 
 _instance = Game()
 def Game():
