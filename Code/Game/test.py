@@ -82,8 +82,8 @@ siphCostLab = None
 # Temporal
 potentialLab = None
 potentailDescLab = None
-productivityLab = None
-expansionLab = None
+productivityBut = None
+expansionBut = None
 timeLab = None
 innovationLab = None
 
@@ -273,8 +273,10 @@ def check_milestones():
         global temporalL
         global potentialLab
         global potentialDescLab
+        global productivityBut
         global productivityLab
         global expansionLab
+        global expansionBut
         global timeLab
         global innovationLab
         global TEMPORAL_FRAME_HEIGHT
@@ -294,17 +296,24 @@ def check_milestones():
         potentialDescLab = Label(temporalF, text = "+1 Potential at " + str(game.energy) + " lifeforms", font = ("Terminal", 8))
         potentialDescLab.place(x = PADDING, y = label_height + PADDING)
         temporalF.update_idletasks()
-        label_height = label_height + potentialDescLab.winfo_height()
+        label_height = label_height + potentialDescLab.winfo_height() + LPADDING
 
-        productivityLab = Label(temporalF, text = "Button " + str(game.productivity), font = ("Terminal", 9))
-        productivityLab.place(x = PADDING, y = label_height + LPADDING)
+        productivityBut = tk.Button(temporalF, text = "Productivity", font = ("Terminal", 9), width = 13)
+        productivityBut.place(x = PADDING, y = label_height + LPADDING)
         temporalF.update_idletasks()
-        label_height = label_height + productivityLab.winfo_height()
+        
+        productivityLab = Label(temporalF, text = str(game.productivity), font = ("Terminal", 9))
+        productivityLab.place(x = productivityBut.winfo_width() + LPADDING, y = label_height + LPADDING)
+        label_height = label_height + productivityBut.winfo_height() + SPADDING
 
-        expansionLab = Label(temporalF, text = "Button " + str(game.expansion), font = ("Terminal", 9))
-        expansionLab.place(x = PADDING, y = label_height + PADDING)
         temporalF.update_idletasks()
-        label_height = label_height + expansionLab.winfo_height()
+        expansionBut = tk.Button(temporalF, text = "Expansion", font = ("Terminal", 9), width = 13)
+        expansionBut.place(x = PADDING, y = label_height + LPADDING)
+        temporalF.update_idletasks()
+        
+        expansionLab = Label(temporalF, text = str(game.expansion), font = ("Terminal", 9))
+        expansionLab.place(x = expansionBut.winfo_width() + LPADDING, y = label_height + LPADDING)
+        label_height = label_height + expansionBut.winfo_height() + LPADDING
 
         timeLab = Label(temporalF, text = "Time: " + str(game.time) + " / " + str(game.expansion * 1000), font = ("Terminal", 10))
         timeLab.place(x = PADDING, y = label_height + LPADDING)
