@@ -18,7 +18,7 @@ up_IN = upgrades.Innovation()
 # Initializing Automators
 active_autos = []
 auto_Comp = automators.Compressor()
-auto_Syn = automators.Subatomic_Synthesis()
+auto_Syn = automators.Quark_Synthesizer()
 
 #Main Frame of Game
 root = tk.Tk()
@@ -99,7 +99,7 @@ upBut_IN = None # Innovation
 
 # Automators
 autoBut_Comp = None # Compressor
-autoBut_Syn = None # Synthesizer
+autoBut_QSyn = None # Synthesizer
 
 
 #CREATING Frames to go on root
@@ -143,7 +143,7 @@ def buy_GC():
 def buy_SS():
     global up_SS
     global upBut_SS
-    global autoBut_SS
+    global autoBut_QSyn
     global synLab
     global synCostLab
     global synDescLab
@@ -152,7 +152,7 @@ def buy_SS():
     up_SS.active = 2
     root.after(100)
     destroyUpgradeButton(upBut_SS, up_SS)
-    results = createProducer(synLab, "Synthesizers", autoBut_Syn, increase_synthesis, synCostLab, synDescLab, False, None, auto_Syn)
+    results = createProducer(synLab, "Quark Synthesizer", autoBut_QSyn, increase_synthesis, synCostLab, synDescLab, False, None, auto_Syn)
     synLab = results[0]
     autoBut_Syn = results[1]
     synCostLab = results[2]
@@ -183,13 +183,14 @@ def increase_compression():
     autoBut_Comp.place(x = (compLab.winfo_width() + LPADDING))
 
 def increase_synthesis():
-    auto_Syn.decrease(game)
-    global siphLab
-    global siphoner_costs
-    siphLab.config(siphLab, text = "Synthesizers: " + "{:,.0f}".format(auto_Syn.count))
+    auto_Syn.increase(game)
+    global synLab
+    global synCostLab
+    global autoBut_QSyn
+    synLab.config(synLab, text = "Quark Synthesizers: " + "{:,.0f}".format(auto_Syn.count))
     synCostLab.config(synCostLab, text = auto_Syn.showCost())
     productionF.update_idletasks()
-    autoBut_Syn.place(x = (synLab.winfo_width() + LPADDING))
+    autoBut_QSyn.place(x = (synLab.winfo_width() + LPADDING))
 
 #CREATION of Labels that go onto Frames/Buttons
 tlL = Label(timeline, text = "Timeline:", font = ('Terminal', 10))

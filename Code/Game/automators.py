@@ -29,9 +29,9 @@ class Compressor(Automator):
             self.cost = (self.cost[0], round(self.cost[1] * 1.25))
             self.count += 1
 
-class Subatomic_Synthesis(Automator):
+class Quark_Synthesizer(Automator):
     def __init__(self):
-        super().__init__("Subatomic Synthesis", ("Energy", 150), ("Energy", 1))
+        super().__init__("Quark Synthesiser", ("Energy", 100), ("Quark", 1))
     
     def afford(self, game):
         if game.energy >= self.cost[1]:

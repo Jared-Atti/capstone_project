@@ -33,6 +33,7 @@ class Game:
         self.currentEra = 0 # 0 = Cosmic, 1 = Precambrian
         
         ## Cosmic
+        self.quarks = 0
         self.protons = 0
         self.neutrons = 0
         self.energy = 0
