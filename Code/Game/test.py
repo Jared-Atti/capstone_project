@@ -13,11 +13,12 @@ game.init()
 up_GC = upgrades.GravitationalCompression()
 up_SS = upgrades.SubatomicSynthesis()
 up_TM = upgrades.Temporal()
+up_IN = upgrades.Innovation()
 
 # Initializing Automators
 active_autos = []
 auto_Comp = automators.Compressor()
-auto_Siph = automators.Siphoner()
+auto_Syn = automators.Subatomic_Synthesis()
 
 #Main Frame of Game
 root = tk.Tk()
@@ -78,7 +79,9 @@ microbeLab = None
 compLab = None
 compDescLab = None
 compCostLab = None
-siphCostLab = None
+synLab = None
+synDescLab = None
+synCostLab = None
 # Temporal
 potentialLab = None
 potentailDescLab = None
@@ -92,10 +95,11 @@ innovationLab = None
 upBut_GC = None # Gravitational Compression
 upBut_SS = None # Subatomic Synthesis
 upBut_TM = None # Temporal Momentum
+upBut_IN = None # Innovation
 
 # Automators
 autoBut_Comp = None # Compressor
-autoBut_Siph = None # Siphoner
+autoBut_Syn = None # Synthesizer
 
 
 #CREATING Frames to go on root
@@ -137,11 +141,23 @@ def buy_GC():
     destroyUpgradeButton(upBut_GC, up_GC)
 
 def buy_SS():
-    game.buy_upgrade(up_SS)
+    global up_SS
     global upBut_SS
+    global autoBut_SS
+    global synLab
+    global synCostLab
+    global synDescLab
+    global auto_syn
+    game.buy_upgrade(up_SS)
     up_SS.active = 2
     root.after(100)
     destroyUpgradeButton(upBut_SS, up_SS)
+    results = createProducer(synLab, "Synthesizers", autoBut_Syn, increase_synthesis, synCostLab, synDescLab, False, None, auto_Syn)
+    synLab = results[0]
+    autoBut_Syn = results[1]
+    synCostLab = results[2]
+    synDescLab = results[3]
+    active_autos.append(auto_Syn)
 
 def buy_TM():
     game.buy_upgrade(up_TM)
@@ -149,6 +165,13 @@ def buy_TM():
     up_TM.active = 2
     root.after(100)
     destroyUpgradeButton(upBut_TM, up_TM)
+
+def buy_IN():
+    game.buy_upgrade(up_IN)
+    global upBut_IN
+    up_IN.active = 2
+    root.after(100)
+    destroyUpgradeButton(upBut_IN, up_IN)
 
 def increase_compression():
     auto_Comp.increase(game)
@@ -159,13 +182,14 @@ def increase_compression():
     productionF.update_idletasks()
     autoBut_Comp.place(x = (compLab.winfo_width() + LPADDING))
 
-def increase_siphoner():
-    auto_Siph.decrease(game)
+def increase_synthesis():
+    auto_Syn.decrease(game)
     global siphLab
     global siphoner_costs
-    siphLab.config(siphLab, text = "Siphoners: " + "{:,.0f}".format(auto_Siph.count))
-    siphCostLab.config(siphCostLab, text = auto_Siph.showCost())
-    
+    siphLab.config(siphLab, text = "Synthesizers: " + "{:,.0f}".format(auto_Syn.count))
+    synCostLab.config(synCostLab, text = auto_Syn.showCost())
+    productionF.update_idletasks()
+    autoBut_Syn.place(x = (synLab.winfo_width() + LPADDING))
 
 #CREATION of Labels that go onto Frames/Buttons
 tlL = Label(timeline, text = "Timeline:", font = ('Terminal', 10))
@@ -281,6 +305,7 @@ def check_milestones():
         global expansionBut
         global timeLab
         global innovationLab
+        global upBut_IN
         global TEMPORAL_FRAME_HEIGHT
         temporalF = Frame(root, relief = RAISED, bd = 5, bg = "cyan", height = TEMPORAL_FRAME_HEIGHT, width = MIDDLE_COLUMN_WIDTH)
         temporalF.place(x = MIDDLE_COLUMN_X, y = TOP_Y)
@@ -333,6 +358,10 @@ def check_milestones():
         temporalF.place(x = MIDDLE_COLUMN_X, y = TOP_Y)
         upgradesF.place(x = MIDDLE_COLUMN_X, y = TOP_Y + TEMPORAL_FRAME_HEIGHT + SPADDING)
         game.temporalFrame = True
+
+        global upBut_IN
+        upBut_IN = createUpgradeButton(upBut_IN, up_IN, buy_IN)
+        
 
     root.after(100, check_milestones)
 
@@ -493,6 +522,7 @@ def destroyProducer(namelabel, costlabel, desclabel, button, togglebutton, autom
 def afford_upgrades():
     # up_* represents the instance of the upgrade, check this for active call afford(game) function
     # upBut_ * represents the button for the upgrade, enable/disable this
+    game = Game()
     # Cosmic
     if up_GC.active == 1:
         if up_GC.afford(game):
@@ -511,6 +541,12 @@ def afford_upgrades():
             upBut_TM.config(upBut_TM, state = ACTIVE)
         else:
             upBut_TM.config(upBut_TM, state = DISABLED)
+
+    if up_IN.active == 1:
+        if up_IN.afford(game):
+            upBut_IN.config(upBut_IN, state = ACTIVE)
+        else:
+            upBut_IN.config(upBut_IN, state = DISABLED)
 
     root.after(100, afford_upgrades)
 

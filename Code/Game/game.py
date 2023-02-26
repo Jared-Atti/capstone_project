@@ -23,7 +23,7 @@ class Game:
         self.purchasedupgrades = []
         self.timeFlag = False
         self.time = 0
-        self.innovationFlag = True
+        self.innovationFlag = False
         self.innovation = 0
         self.maxpotential = 1
         self.potential = 0
