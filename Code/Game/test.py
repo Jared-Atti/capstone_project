@@ -75,6 +75,7 @@ temporalL = None
 # Resources
 energyLab = None
 microbeLab = None
+quarkLab = None
 # Production
 compLab = None
 compDescLab = None
@@ -147,7 +148,8 @@ def buy_SS():
     global synLab
     global synCostLab
     global synDescLab
-    global auto_syn
+    global autoBut_Syn
+    global quarkLab
     game.buy_upgrade(up_SS)
     up_SS.active = 2
     root.after(100)
@@ -158,6 +160,7 @@ def buy_SS():
     synCostLab = results[2]
     synDescLab = results[3]
     active_autos.append(auto_Syn)
+    quarkLab = createResourceLabel(quarkLab, game.quarks, "Quarks")
 
 def buy_TM():
     game.buy_upgrade(up_TM)
@@ -293,7 +296,7 @@ def check_milestones():
     if up_GC.active == 2 and up_SS.active == 0 and game.energy >= 100 and up_TM.active == 0:
         upBut_SS = createUpgradeButton(upBut_SS, up_SS, buy_SS)
         upBut_TM = createUpgradeButton(upBut_TM, up_TM, buy_TM)
-    
+
     #Creates Temporal Momentum Frame
     global temporalF
     if temporalF == None and up_TM.active == 2:
