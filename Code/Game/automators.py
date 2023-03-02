@@ -12,6 +12,9 @@ class Automator():
     def calc_revenue(self):
         return (self.revenue[1] * self.count) / 10
     
+    def calc_cost(self):
+        return (self.cost[1] * self.count) / 10
+    
     def desc(self):
         return "Each " + self.name + " produces " + "{:,.0f}".format(self.revenue[1]) + " " + self.revenue[0] + " per tick"
 

@@ -72,7 +72,7 @@ class Game:
     def increase_automator(self, automator):
         automator.increase(self)
 
-    def calculate_revenue(self, auto):
+    def calculate_revenue(self, autos):
         # Every era
         # Time and innovation
         if (self.temporalFrame == True):
@@ -85,8 +85,18 @@ class Game:
                 self.innovation += self.productivity * 0.025
 
 
-        if self.currentEra == 0:
-            self.energy += (auto.calc_revenue())
+        for a in autos:
+            # Adding revenue
+            if a.revenue[0] == "Energy":
+                self.energy += a.calc_revenue()
+            elif a.revenue[0] == "Quarks":
+                self.quarks += a.calc_revenue()
+
+            # Applying cost
+            if a.cost[0] == "Energy":
+                self.energy -= a.calc_cost()
+            elif a.cost[0] == "Quarks":
+                self.quarks -= a.calc_cost()
 
 _instance = Game()
 def Game():
