@@ -157,6 +157,66 @@ class Discover_Helium(Upgrade):
             game.purchasedupgrades += self.name
             self.active = 2
 
+class Cosmic_Burst(Upgrade):
+    def __init__(self):
+        super().__init__("Cosmic Burst ", [("Innovation", 25)], "+1 Potential")
+
+    def afford(self, game):
+        if game.innovation >= 25:
+            return True
+    
+    def purchase(self, game):
+        if self.afford(game):
+            game.innovation -= 25
+            game.purchasedupgrades += self.name
+            game.potential += 1
+            self.active = 2
+
+class Starlight_Path(Upgrade):
+    def __init__(self):
+        super().__init__("Starlight Path ", [("Innovation", 50)], "+1 Potential")
+
+    def afford(self, game):
+        if game.innovation >= 50:
+            return True
+    
+    def purchase(self, game):
+        if self.afford(game):
+            game.innovation -= 50
+            game.purchasedupgrades += self.name
+            game.potential += 1
+            self.active = 2
+
+class Quantum_Leap(Upgrade):
+    def __init__(self):
+        super().__init__("Quantum Leap ", [("Innovation", 200)], "+5 Potential")
+
+    def afford(self, game):
+        if game.innovation >= 200:
+            return True
+    
+    def purchase(self, game):
+        if self.afford(game):
+            game.innovation -= 200
+            game.purchasedupgrades += self.name
+            game.potential += 5
+            self.active = 2
+
+class Galatic_Investment(Upgrade):
+    def __init__(self):
+        super().__init__("Galatic Investment ", [("Innovation", 400)], "+5 Potential")
+
+    def afford(self, game):
+        if game.innovation >= 400:
+            return True
+    
+    def purchase(self, game):
+        if self.afford(game):
+            game.innovation -= 400
+            game.purchasedupgrades += self.name
+            game.potential += 5
+            self.active = 2
+
 # Precambrian Upgrades
 class GeneticMutation(Upgrade):
     def __init__(self):
