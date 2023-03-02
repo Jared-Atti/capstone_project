@@ -87,6 +87,8 @@ a2_QS_Cost = None
 # Temporal
 potentialLab = None
 potentailDescLab = None
+productivityLab = None
+expansionLab = None
 productivityBut = None
 expansionBut = None
 timeLab = None
@@ -136,6 +138,32 @@ root.rowconfigure(1, weight = 1)
 def create_energy():
     game.create_energy()
 
+def buy_Productivity():
+    global productivityBut
+    global expansionBut
+    global productivityLab
+    if (productivityLab):
+        if game.potential > 0:
+            game.productivity += 1
+            productivityLab.config(productivityLab, text = game.productivity)
+            game.potential -= 1
+        if game.potential == 0:
+            productivityBut.config(productivityBut, state = DISABLED)
+            expansionBut.config(expansionBut, state = DISABLED)
+
+def buy_Expansion():
+    global productivityBut
+    global expansionBut
+    global expansionLab
+    if (expansionLab):
+        if game.potential > 0:
+            game.expansion += 1
+            expansionLab.config(expansionLab, text = game.expansion)
+            game.potential -= 1
+        if game.potential == 0:
+            productivityBut.config(productivityBut, state = DISABLED)
+            expansionBut.config(expansionBut, state = DISABLED)
+
 def buy_GC():
     game.buy_upgrade(u1_GC)
     global u1_GC_Button
@@ -156,7 +184,7 @@ def buy_SS():
     u2_SS.active = 2
     root.after(100)
     destroyUpgradeButton(u2_SS_Button, u2_SS)
-    results = createProducer(a2_QS_Name, "Quark Synthesizer", a2_QS_Button, increase_synthesis, a2_QS_Cost, a2_QS_Desc, False, None, a2_QS)
+    results = createProducer(a2_QS_Name, "Quark Synthesizer", a2_QS_Button, increase_a2_QS, a2_QS_Cost, a2_QS_Desc, False, None, a2_QS)
     a2_QS_Name = results[0]
     a2_QS_Button = results[1]
     a2_QS_Cost = results[2]
@@ -179,7 +207,14 @@ def buy_IN():
     root.after(100)
     destroyUpgradeButton(u4_IN_Button, u4_IN)
 
-def increase_compression():
+    # Testing, remove later
+    game.potential += 10
+    game.set_max_potential()
+    productivityBut.config(productivityBut, state = ACTIVE)
+    expansionBut.config(expansionBut, state = ACTIVE)
+
+
+def increase_a1_GC():
     a1_GC.increase(game)
     global a1_GC_Name
     global compressor_costs
@@ -188,7 +223,7 @@ def increase_compression():
     productionF.update_idletasks()
     a1_GC_Button.place(x = (a1_GC_Name.winfo_width() + LPADDING))
 
-def increase_synthesis():
+def increase_a2_QS():
     a2_QS.increase(game)
     global a2_QS_Name
     global a2_QS_Cost
@@ -284,7 +319,7 @@ def check_milestones():
         game.productionFrame = True
 
         # Creating the compressor automator
-        results = createProducer(a1_GC_Name, "Compressors", a1_GC_Button, increase_compression, a1_GC_Cost, a1_GC_Desc, False, None, a1_GC)
+        results = createProducer(a1_GC_Name, "Compressors", a1_GC_Button, increase_a1_GC, a1_GC_Cost, a1_GC_Desc, False, None, a1_GC)
         a1_GC_Name = results[0]
         a1_GC_Button = results[1]
         a1_GC_Cost = results[2]
@@ -327,12 +362,12 @@ def check_milestones():
         temporalF.update_idletasks()
         label_height = label_height + potentialLab.winfo_height()
 
-        potentialDescLab = Label(temporalF, text = "+1 Potential at " + "{:,.0f}".format(game.potentialincrease) + " lifeforms", font = ("Terminal", 8))
+        potentialDescLab = Label(temporalF, text = "+1 Potential at " + "{:,.0f}".format(game.potential_lifeforms_req) + " lifeforms", font = ("Terminal", 8))
         potentialDescLab.place(x = PADDING, y = label_height + PADDING)
         temporalF.update_idletasks()
         label_height = label_height + potentialDescLab.winfo_height() + LPADDING
 
-        productivityBut = tk.Button(temporalF, text = "Productivity", font = ("Terminal", 9), width = 13)
+        productivityBut = tk.Button(temporalF, text = "Productivity", font = ("Terminal", 9), width = 13, command = buy_Productivity, state = DISABLED)
         productivityBut.place(x = PADDING, y = label_height + LPADDING)
         temporalF.update_idletasks()
         
@@ -341,7 +376,7 @@ def check_milestones():
         label_height = label_height + productivityBut.winfo_height() + SPADDING
 
         temporalF.update_idletasks()
-        expansionBut = tk.Button(temporalF, text = "Expansion", font = ("Terminal", 9), width = 13)
+        expansionBut = tk.Button(temporalF, text = "Expansion", font = ("Terminal", 9), width = 13, command = buy_Expansion, state = DISABLED)
         expansionBut.place(x = PADDING, y = label_height + LPADDING)
         temporalF.update_idletasks()
         
@@ -368,7 +403,6 @@ def check_milestones():
 
         global u4_IN_Button
         u4_IN_Button = createUpgradeButton(u4_IN_Button, u4_IN, buy_IN)
-        
 
     root.after(100, check_milestones)
 
@@ -575,7 +609,7 @@ def update_labels():
         global timeLab
         global innovationLab
         potentialLab.config(potentialLab, text = "Potential: " + "{:,.0f}".format(game.maxpotential))
-        potentialDescLab.config(potentialDescLab, text = "+1 Potential at " + "{:,.0f}".format(game.potentialincrease) + " lifeforms")
+        potentialDescLab.config(potentialDescLab, text = "+1 Potential at " + "{:,.0f}".format(game.potential_lifeforms_req) + " lifeforms")
         timeLab.config(timeLab, text = "Time: " + "{:,.0f}".format(game.time) + " / " + "{:,.0f}".format(game.expansion * 1000))
         innovationLab.config(innovationLab, text = "Innovation: " + "{:,.0f}".format(game.innovation))
 

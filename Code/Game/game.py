@@ -25,11 +25,11 @@ class Game:
         self.time = 0
         self.innovationFlag = False
         self.innovation = 0
-        self.maxpotential = 1
-        self.potential = 0
-        self.potential_lifeformsincrease = 1
+        self.potential = 1
+        self.potential_lifeforms_req = 1
         self.productivity = 1
         self.expansion = 1
+        self.maxpotential = self.potential + self.productivity + self.expansion
         self.currentEra = 0 # 0 = Cosmic, 1 = Precambrian
         
         ## Cosmic
@@ -44,11 +44,6 @@ class Game:
         self.aluminum = 0
         self.iron = 0
         self.suppelements = 0 # supplementary
-
-        # Automators
-        self.compression_count = 0
-        self.compression_cost = 10
-        self.compression_rev = 0
         
         # Precambrian
         self.microbes = 0
@@ -61,11 +56,15 @@ class Game:
 
     def create_energy(self):
         self.energy += 200
-        self.time += 100
+        self.time += 1000
+        self.potential += 1
+        self.maxpotential += 1
 
     def create_life(self):
         self.microbes += 1
-        
+    
+    def set_max_potential(self):
+        self.maxpotential = self.potential + self.productivity + self.expansion
 
     def buy_upgrade(self, upgrade):
         upgrade.purchase(self)
