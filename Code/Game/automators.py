@@ -5,6 +5,7 @@ class Automator():
         self.revenue = revenue
         self.tickcost = tickcost
         self.count = 0
+        self.toggle = 1
         self.active = 0 # 0 = Not yet unlocked, 1 = Unlocked but not purchased, 2 = Purchased
     
     def showCost(self):

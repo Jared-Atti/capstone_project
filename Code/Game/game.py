@@ -55,7 +55,7 @@ class Game:
         return self
 
     def create_energy(self):
-        self.energy += 200
+        self.energy += 200000
         self.time += 1000
         self.potential += 1
         self.maxpotential += 1
@@ -86,24 +86,25 @@ class Game:
 
 
         for a in autos:
-            afford = False
-            # Checking cost
-            if (a.tickcost):
-                if a.tickcost[0] == "Energy" and a.calc_cost() <= self.energy:
-                    self.energy -= a.calc_cost()
+            if a.toggle == 1:
+                afford = False
+                # Checking cost
+                if (a.tickcost):
+                    if a.tickcost[0] == "Energy" and a.calc_cost() <= self.energy:
+                        self.energy -= a.calc_cost()
+                        afford = True
+                    elif a.tickcost[0] == "Quark" and a.calc_cost() <= self.quarks:
+                        self.quarks -= a.calc_cost()
+                        afford = True
+                else:
                     afford = True
-                elif a.tickcost[0] == "Quark" and a.calc_cost() <= self.quarks:
-                    self.quarks -= a.calc_cost()
-                    afford = True
-            else:
-                afford = True
-            
-            # Adding revenue
-            if afford:
-                if a.revenue[0] == "Energy":
-                    self.energy += a.calc_revenue()
-                elif a.revenue[0] == "Quark":
-                    self.quarks += a.calc_revenue()
+                
+                # Adding revenue
+                if afford:
+                    if a.revenue[0] == "Energy":
+                        self.energy += a.calc_revenue()
+                    elif a.revenue[0] == "Quark":
+                        self.quarks += a.calc_revenue()
 
             
 

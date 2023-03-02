@@ -84,6 +84,7 @@ a1_GC_Cost = None
 a2_QS_Name = None
 a2_QS_Desc = None
 a2_QS_Cost = None
+a2_QS_Toggle = None
 # Temporal
 potentialLab = None
 potentailDescLab = None
@@ -179,16 +180,18 @@ def buy_SS():
     global a2_QS_Cost
     global a2_QS_Desc
     global a2_QS_Button
+    global a2_QS_Toggle
     global quarkLab
     game.buy_upgrade(u2_SS)
     u2_SS.active = 2
     root.after(100)
     destroyUpgradeButton(u2_SS_Button, u2_SS)
-    results = createProducer(a2_QS_Name, "Quark Synthesizer", a2_QS_Button, increase_a2_QS, a2_QS_Cost, a2_QS_Desc, False, None, a2_QS)
+    results = createProducer(a2_QS_Name, "Quark Synthesizers", a2_QS_Button, increase_a2_QS, a2_QS_Cost, a2_QS_Desc, True, a2_QS_Toggle, toggle_a2_QS, a2_QS)
     a2_QS_Name = results[0]
     a2_QS_Button = results[1]
     a2_QS_Cost = results[2]
     a2_QS_Desc = results[3]
+    a2_QS_Toggle = results[4]
     active_autos.append(a2_QS)
     quarkLab = createResourceLabel(quarkLab, game.quarks, "Quarks")
     #upBut_NS = createUpgradeButton(nucleoLab, game)
@@ -213,7 +216,6 @@ def buy_IN():
     productivityBut.config(productivityBut, state = ACTIVE)
     expansionBut.config(expansionBut, state = ACTIVE)
 
-
 def increase_a1_GC():
     a1_GC.increase(game)
     global a1_GC_Name
@@ -228,10 +230,22 @@ def increase_a2_QS():
     global a2_QS_Name
     global a2_QS_Cost
     global a2_QS_Button
+    global a2_QS_Toggle
     a2_QS_Name.config(a2_QS_Name, text = "Quark Synthesizers: " + "{:,.0f}".format(a2_QS.count))
     a2_QS_Cost.config(a2_QS_Cost, text = a2_QS.showCost())
     productionF.update_idletasks()
     a2_QS_Button.place(x = (a2_QS_Name.winfo_width() + LPADDING))
+    a2_QS_Toggle.place(x = (a2_QS_Name.winfo_width() + a2_QS_Button.winfo_width() + LPADDING + SPADDING))
+
+def toggle_a2_QS():
+    global a2_QS_Toggle
+    if (a2_QS.toggle == 1):
+        a2_QS.toggle = 0
+        a2_QS_Toggle.config(a2_QS_Toggle, text = "OFF")
+    else:
+        a2_QS.toggle = 1
+        a2_QS_Toggle.config(a2_QS_Toggle, text = "ON")
+
 
 #CREATION of Labels that go onto Frames/Buttons
 tlL = Label(timeline, text = "Timeline:", font = ('Terminal', 10))
@@ -319,7 +333,7 @@ def check_milestones():
         game.productionFrame = True
 
         # Creating the compressor automator
-        results = createProducer(a1_GC_Name, "Compressors", a1_GC_Button, increase_a1_GC, a1_GC_Cost, a1_GC_Desc, False, None, a1_GC)
+        results = createProducer(a1_GC_Name, "Compressors", a1_GC_Button, increase_a1_GC, a1_GC_Cost, a1_GC_Desc, False, None, None, a1_GC)
         a1_GC_Name = results[0]
         a1_GC_Button = results[1]
         a1_GC_Cost = results[2]
@@ -493,7 +507,7 @@ def destroyUpgradeButton(button, upgrade):
     upgrade.active = 2
 
 # Function for adding a new producer to productions
-def createProducer(namelabel, name, button, cmd, costlabel, desclabel, toggleflag, togglebut, automator):
+def createProducer(namelabel, name, button, cmd, costlabel, desclabel, toggleflag, togglebut, togglecommand, automator):
     global PRODUCTION_LABEL_NEXTY
     global PRODUCTION_FRAME_HEIGHT
     global productionF
@@ -503,6 +517,14 @@ def createProducer(namelabel, name, button, cmd, costlabel, desclabel, togglefla
     productionF.update_idletasks()
     button = tk.Button(productionF, text = "+", font = ("Terminal", 10), command = cmd)
     button.place(x = (namelabel.winfo_width() + LPADDING), y = PRODUCTION_LABEL_NEXTY)
+    productionF.update_idletasks()
+
+    if (toggleflag):
+        length = button.winfo_width() + namelabel.winfo_width() + LPADDING + SPADDING
+        togglebut = tk.Button(productionF, text = "ON", font = ("Terminal", 10), command = togglecommand)
+        togglebut.place(x = length, y = PRODUCTION_LABEL_NEXTY)
+    
+        productionF.update_idletasks()
 
     productionF.update_idletasks()
     costlabel = Label(productionF, text = automator.showCost(), font = ('Terminal', 9))
@@ -513,13 +535,7 @@ def createProducer(namelabel, name, button, cmd, costlabel, desclabel, togglefla
     desclabel.place(x = PADDING, y = PRODUCTION_LABEL_NEXTY + 2 * PADDING / 2 + namelabel.winfo_height() + costlabel.winfo_height())
     
     productionF.update_idletasks()
-    if (toggleflag):
-        desclength = desclabel.winfo_width()
-        # Fix cmd later
-        togglebut = tk.Button(productionF, text = "OFF", font = ("Terminal", 10), command = cmd)
-        togglebut.place(x = desclength + PADDING, y = PRODUCTION_LABEL_NEXTY + 2 * PADDING)
     
-        productionF.update_idletasks()
     totalheight = namelabel.winfo_height() + costlabel.winfo_height() + desclabel.winfo_height()
 
     PRODUCTION_LABEL_NEXTY = PRODUCTION_LABEL_NEXTY + totalheight + PADDING * 2
@@ -529,7 +545,7 @@ def createProducer(namelabel, name, button, cmd, costlabel, desclabel, togglefla
     # Adds automator to the list of active autos
     active_autos.append(automator)
 
-    return namelabel, button, costlabel, desclabel
+    return namelabel, button, costlabel, desclabel, togglebut
 
 # Function for destroying a producer within productions frame
 def destroyProducer(namelabel, costlabel, desclabel, button, togglebutton, automator):
@@ -616,10 +632,7 @@ def update_labels():
     root.after(100, update_labels) # schedule the function to be called again after 1000ms
 
 def calculate_revenues():
-    # # For every active automator, calculate revenue in game
-    # for a in active_autos:
-    #     game.calculate_revenue(a)
-
+    # Calls game to calculate revenue, giving the current active automators as well
     game.calculate_revenue(active_autos)
     
     root.after(100, calculate_revenues)
