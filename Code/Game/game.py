@@ -27,7 +27,7 @@ class Game:
         self.innovation = 0
         self.maxpotential = 1
         self.potential = 0
-        self.potentialincrease = 1
+        self.potential_lifeformsincrease = 1
         self.productivity = 1
         self.expansion = 1
         self.currentEra = 0 # 0 = Cosmic, 1 = Precambrian
@@ -61,6 +61,7 @@ class Game:
 
     def create_energy(self):
         self.energy += 200
+        self.time += 100
 
     def create_life(self):
         self.microbes += 1
@@ -82,21 +83,30 @@ class Game:
                 self.time += self.productivity * 0.99
             
             if (self.innovationFlag and self.time >= self.expansion * 1000):
-                self.innovation += self.productivity * 0.025
+                self.innovation += self.productivity * 0.1
 
 
         for a in autos:
+            afford = False
+            # Checking cost
+            if (a.tickcost):
+                if a.tickcost[0] == "Energy" and a.calc_cost() <= self.energy:
+                    self.energy -= a.calc_cost()
+                    afford = True
+                elif a.tickcost[0] == "Quark" and a.calc_cost() <= self.quarks:
+                    self.quarks -= a.calc_cost()
+                    afford = True
+            else:
+                afford = True
+            
             # Adding revenue
-            if a.revenue[0] == "Energy":
-                self.energy += a.calc_revenue()
-            elif a.revenue[0] == "Quarks":
-                self.quarks += a.calc_revenue()
+            if afford:
+                if a.revenue[0] == "Energy":
+                    self.energy += a.calc_revenue()
+                elif a.revenue[0] == "Quark":
+                    self.quarks += a.calc_revenue()
 
-            # Applying cost
-            if a.cost[0] == "Energy":
-                self.energy -= a.calc_cost()
-            elif a.cost[0] == "Quarks":
-                self.quarks -= a.calc_cost()
+            
 
 _instance = Game()
 def Game():
