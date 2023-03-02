@@ -14,6 +14,7 @@ up_GC = upgrades.GravitationalCompression()
 up_SS = upgrades.SubatomicSynthesis()
 up_TM = upgrades.Temporal()
 up_IN = upgrades.Innovation()
+up_NS = upgrades.Nucleosynthesis()
 
 # Initializing Automators
 active_autos = []
@@ -97,6 +98,7 @@ upBut_GC = None # Gravitational Compression
 upBut_SS = None # Subatomic Synthesis
 upBut_TM = None # Temporal Momentum
 upBut_IN = None # Innovation
+upBut_NS = None # Nucleosynthesis
 
 # Automators
 autoBut_Comp = None # Compressor
@@ -161,6 +163,7 @@ def buy_SS():
     synDescLab = results[3]
     active_autos.append(auto_Syn)
     quarkLab = createResourceLabel(quarkLab, game.quarks, "Quarks")
+    #upBut_NS = createUpgradeButton(nucleoLab, game)
 
 def buy_TM():
     game.buy_upgrade(up_TM)
