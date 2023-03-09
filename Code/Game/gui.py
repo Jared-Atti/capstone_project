@@ -15,11 +15,22 @@ u2_SS = upgrades.SubatomicSynthesis()
 u3_TM = upgrades.Temporal()
 u4_IN = upgrades.Innovation()
 u5_NS = upgrades.Nucleosynthesis()
+u6_GA = upgrades.Gravitational_Amplification()
+u7_QF = upgrades.Quark_Fusion()
+u8_AF = upgrades.Atomic_Fabrication()
+u9_DH = upgrades.Discover_Helium()
+u10_P1 = upgrades.Cosmic_Burst()
+u11_P2 = upgrades.Starlight_Path()
+u12_P3 = upgrades.Quantum_Leap()
+u13_P4 = upgrades.Galatic_Investment()
+
 
 # Initializing Automators
 active_autos = []
 a1_GC = automators.Compressor()
 a2_QS = automators.Quark_Synthesizer()
+a3_PS = automators.Proton_Synthesizer()
+a4_NS = automators.Neutron_Synthesizer()
 
 #Main Frame of Game
 root = tk.Tk()
@@ -58,6 +69,7 @@ PRODUCTION_FRAME_TOP = RESOURCE_FRAME_HEIGHT + TOP_Y + PADDING
 
 sb = Scrollbar(root)
 sb.pack(side = LEFT, fill = Y)
+# root.configure(yscrollcommand=sb.set)
 
 # GLOBAL LISTS
 # Global Frames
@@ -77,6 +89,8 @@ temporalTitleLabel = None
 energyLab = None
 microbeLab = None
 quarkLab = None
+protonLab = None
+neutronLab = None
 # Production
 a1_GC_Name = None
 a1_GC_Desc = None
@@ -85,6 +99,14 @@ a2_QS_Name = None
 a2_QS_Desc = None
 a2_QS_Cost = None
 a2_QS_Toggle = None
+a3_PS_Name = None
+a3_PS_Desc = None
+a3_PS_Cost = None
+a3_PS_Toggle = None
+a4_NS_Name = None
+a4_NS_Desc = None
+a4_NS_Cost = None
+a4_NS_Toggle = None
 # Temporal
 potentialLab = None
 potentailDescLab = None
@@ -102,10 +124,20 @@ u2_SS_Button = None # Subatomic Synthesis
 u3_TM_Button = None # Temporal Momentum
 u4_IN_Button = None # Innovation
 u5_NS_Button = None # Nucleosynthesis
+u6_GA_Button = None
+u7_QF_Button = None
+u8_AF_Button = None
+u9_DH_Button = None
+u10_P1_Button = None
+u11_P2_Button = None
+u12_P3_Button = None
+u13_P4_Button = None
 
 # Automators
 a1_GC_Button = None # Compressor
-a2_QS_Button = None # Synthesizer
+a2_QS_Button = None # Quark Synthesizer
+a3_PS_Button = None # Proton Synthesizer
+a4_NS_Button = None # Neutron Synthesizer
 
 
 #CREATING Frames to go on root
@@ -179,7 +211,6 @@ def buy_SS():
     global a2_QS_Name
     global a2_QS_Cost
     global a2_QS_Desc
-    global a2_QS_Button
     global a2_QS_Toggle
     global quarkLab
     game.buy_upgrade(u2_SS)
@@ -194,7 +225,10 @@ def buy_SS():
     a2_QS_Toggle = results[4]
     active_autos.append(a2_QS)
     quarkLab = createResourceLabel(quarkLab, game.quarks, "Quarks")
-    #upBut_NS = createUpgradeButton(nucleoLab, game)
+    global u5_NS_Button
+    global u7_QF_Button
+    u5_NS_Button = createUpgradeButton(u5_NS_Button, u5_NS, buy_NS)
+    u7_QF_Button = createUpgradeButton(u7_QF_Button, u7_QF, buy_QF)
 
 def buy_TM():
     game.buy_upgrade(u3_TM)
@@ -210,12 +244,124 @@ def buy_IN():
     root.after(100)
     destroyUpgradeButton(u4_IN_Button, u4_IN)
 
+    global u10_P1_Button
+    u10_P1_Button = createUpgradeButton(u10_P1_Button, u10_P1, buy_P1)
+
     # Testing, remove later
-    game.potential += 10
+    # game.potential += 10
+    # game.set_max_potential()
+    # productivityBut.config(productivityBut, state = ACTIVE)
+    # expansionBut.config(expansionBut, state = ACTIVE)
+
+
+def buy_NS():
+    game.buy_upgrade(u5_NS)
+    global u5_NS_Button
+    global a3_PS_Button
+    global a3_PS_Name
+    global a3_PS_Cost
+    global a3_PS_Desc
+    global a3_PS_Toggle
+    global a4_NS_Button
+    global a4_NS_Name
+    global a4_NS_Cost
+    global a4_NS_Desc
+    global a4_NS_Toggle
+    global protonLab
+    global neutronLab
+    u5_NS.active = 2
+    root.after(100)
+    destroyUpgradeButton(u5_NS_Button, u5_NS)
+    results = createProducer(a3_PS_Name, "Proton Synthesizers", a3_PS_Button, increase_a3_PS, a3_PS_Cost, a3_PS_Desc, True, a3_PS_Toggle, toggle_a3_PS, a3_PS)
+    a3_PS_Name = results[0]
+    a3_PS_Button = results[1]
+    a3_PS_Cost = results[2]
+    a3_PS_Desc = results[3]
+    a3_PS_Toggle = results[4]
+    active_autos.append(a3_PS)
+    results = createProducer(a4_NS_Name, "Neutron Synthesizers", a4_NS_Button, increase_a4_NS, a4_NS_Cost, a4_NS_Desc, True, a4_NS_Toggle, toggle_a4_NS, a4_NS)
+    a4_NS_Name = results[0]
+    a4_NS_Button = results[1]
+    a4_NS_Cost = results[2]
+    a4_NS_Desc = results[3]
+    a4_NS_Toggle = results[4]
+    active_autos.append(a4_NS)
+    protonLab = createResourceLabel(protonLab, game.protons, "Protons")
+    neutronLab = createResourceLabel(neutronLab, game.neutrons, "Neutron")
+
+def buy_GA():
+    global a1_GC
+    a1_GC = game.buy_autoupgrade(u6_GA, a1_GC)
+    global u6_GA_Button
+    u6_GA.active = 2
+    root.after(100)
+    destroyUpgradeButton(u6_GA_Button, u6_GA)
+    global a1_GC_Desc
+    a1_GC_Desc.config(a1_GC_Desc, text = a1_GC.desc())
+
+def buy_QF():
+    global a2_QS
+    a2_QS = game.buy_autoupgrade(u7_QF, a2_QS)
+    global u7_QF_Button
+    u7_QF.active = 2
+    root.after(100)
+    destroyUpgradeButton(u7_QF_Button, u7_QF)
+    global a2_QS_Desc
+    a2_QS_Desc.config(a2_QS_Desc, text = a2_QS.desc())
+
+def buy_P1():
+    game.buy_upgrade(u10_P1)
+    global u10_P1_Button
+    u10_P1.active = 2
+    root.after(100)
+    destroyUpgradeButton(u10_P1_Button, u10_P1)
     game.set_max_potential()
     productivityBut.config(productivityBut, state = ACTIVE)
     expansionBut.config(expansionBut, state = ACTIVE)
 
+    global u11_P2_Button
+    u11_P2_Button = createUpgradeButton(u11_P2_Button, u11_P2, buy_P2)
+
+def buy_P2():
+    game.buy_upgrade(u11_P2)
+    global u11_P2_Button
+    u11_P2.active = 2
+    root.after(100)
+    destroyUpgradeButton(u11_P2_Button, u11_P2)
+    game.set_max_potential()
+    productivityBut.config(productivityBut, state = ACTIVE)
+    expansionBut.config(expansionBut, state = ACTIVE)
+
+    global u12_P3_Button
+    u12_P3_Button = createUpgradeButton(u12_P3_Button, u12_P3, buy_P3)
+
+def buy_P3():
+    game.buy_upgrade(u12_P3)
+    global u12_P3_Button
+    u12_P3.active = 2
+    root.after(100)
+    destroyUpgradeButton(u12_P3_Button, u12_P3)
+    game.set_max_potential()
+    productivityBut.config(productivityBut, state = ACTIVE)
+    expansionBut.config(expansionBut, state = ACTIVE)
+
+    global u13_P4_Button
+    u13_P4_Button = createUpgradeButton(u13_P4_Button, u13_P4, buy_P4)
+
+def buy_P4():
+    game.buy_upgrade(u13_P4)
+    global u13_P4_Button
+    u13_P4.active = 2
+    root.after(100)
+    destroyUpgradeButton(u13_P4_Button, u13_P4)
+    game.set_max_potential()
+    productivityBut.config(productivityBut, state = ACTIVE)
+    expansionBut.config(expansionBut, state = ACTIVE)
+
+    # global u14_P5_Button
+    # u14_P5_Button = createUpgradeButton(u14_P5_Button, u13_P5, buy_P5)
+
+# Increasing Automators
 def increase_a1_GC():
     a1_GC.increase(game)
     global a1_GC_Name
@@ -237,6 +383,35 @@ def increase_a2_QS():
     a2_QS_Button.place(x = (a2_QS_Name.winfo_width() + LPADDING))
     a2_QS_Toggle.place(x = (a2_QS_Name.winfo_width() + a2_QS_Button.winfo_width() + LPADDING + SPADDING))
 
+def increase_a3_PS():
+    a3_PS.increase(game)
+    global a3_PS_Name
+    global a3_PS_Cost
+    global a3_PS_Button
+    global a3_PS_Toggle
+    a3_PS_Name.config(a3_PS_Name, text = "Proton Synthesizers: " + "{:,.0f}".format(a3_PS.count))
+    a3_PS_Cost.config(a3_PS_Cost, text = a3_PS.showCost())
+    productionF.update_idletasks()
+    a3_PS_Button.place(x = (a3_PS_Name.winfo_width() + LPADDING))
+    a3_PS_Toggle.place(x = (a3_PS_Name.winfo_width() + a3_PS_Button.winfo_width() + LPADDING + SPADDING))
+
+def increase_a4_NS():
+    a4_NS.increase(game)
+    global a4_NS_Name
+    global a4_NS_Cost
+    global a4_NS_Button
+    global a4_NS_Toggle
+    a4_NS_Name.config(a4_NS_Name, text = "Neutron Synthesizers: " + "{:,.0f}".format(a4_NS.count))
+    a4_NS_Cost.config(a4_NS_Cost, text = a4_NS.showCost())
+    productionF.update_idletasks()
+    a4_NS_Button.place(x = (a4_NS_Name.winfo_width() + LPADDING))
+    a4_NS_Toggle.place(x = (a4_NS_Name.winfo_width() + a4_NS_Button.winfo_width() + LPADDING + SPADDING))
+
+
+
+
+
+# Toggling Automators
 def toggle_a2_QS():
     global a2_QS_Toggle
     if (a2_QS.toggle == 1):
@@ -246,33 +421,48 @@ def toggle_a2_QS():
         a2_QS.toggle = 1
         a2_QS_Toggle.config(a2_QS_Toggle, text = "ON")
 
+def toggle_a3_PS():
+    global a3_PS_Toggle
+    if (a3_PS.toggle == 1):
+        a3_PS.toggle = 0
+        a3_PS_Toggle.config(a3_PS_Toggle, text = "OFF")
+    else:
+        a3_PS.toggle = 1
+        a3_PS_Toggle.config(a3_PS_Toggle, text = "ON")
+
+def toggle_a4_NS():
+    global a4_NS_Toggle
+    if (a4_NS.toggle == 1):
+        a4_NS.toggle = 0
+        a4_NS_Toggle.config(a4_NS_Toggle, text = "OFF")
+    else:
+        a4_NS.toggle = 1
+        a4_NS_Toggle.config(a4_NS_Toggle, text = "ON")
+
+
+
 
 #CREATION of Labels that go onto Frames/Buttons
 tlL = Label(timeline, text = "Timeline:", font = ('Terminal', 10))
-
 lifeL = Label(lifeForms, text = "Lifeforms: ", font = ("Terminal", 10))
-
 eraL = Label(visuals, text = "Era: ", font = ("Terminal", 10))
-
 lifeL.place(x = 0, y = 0)
-
 tlL.place(x = 0, y = 0)
-
 eraL.place(x = 0, y = 0)
 
 #CREATION of Buttons
 energyB = tk.Button(createLabel, text ="Energy", command = create_energy, font=('Terminal', 10))#, image = img)
-
 protonB = tk.Button()
-
 neutronB = tk.Button()
-
 timeB = tk.Button(time, text = "Advance Time", font=('Terminal', 10), state = DISABLED)
 
 #PLACEMENT of Buttons in Frames
 energyB.place(in_ = createLabel, y = 10, x = 20)
-
 timeB.place(in_ = time, x = 25, y = 5)
+
+
+
+
 
 # Checks milestone conditions, activating new game mechanics when achieved
 def check_milestones():
@@ -299,7 +489,7 @@ def check_milestones():
 
     # ACTIVATE UPGRADES FRAME at 10 energy
     global upgradesF
-    if game.energy >= 10 and upgradesF == None:
+    if game.energy >= 5 and upgradesF == None:
         global upgradeTitleLabel
         global u1_GC_Button
         global UPGRADE_BUTTON_NEXTY
@@ -345,7 +535,7 @@ def check_milestones():
     #Activate subatomic synthesis upgrade at 100 energy
     global u2_SS_Button
     global u3_TM_Button
-    if u1_GC.active == 2 and u2_SS.active == 0 and game.energy >= 100 and u3_TM.active == 0:
+    if u1_GC.active == 2 and u2_SS.active == 0 and game.energy >= 50 and u3_TM.active == 0:
         u2_SS_Button = createUpgradeButton(u2_SS_Button, u2_SS, buy_SS)
         u3_TM_Button = createUpgradeButton(u3_TM_Button, u3_TM, buy_TM)
 
@@ -417,6 +607,11 @@ def check_milestones():
 
         global u4_IN_Button
         u4_IN_Button = createUpgradeButton(u4_IN_Button, u4_IN, buy_IN)
+
+    # u6_GA Unlock milestone
+    if (a1_GC.count >= 10 and u6_GA.active == 0):
+        global u6_GA_Button
+        u6_GA_Button = createUpgradeButton(u6_GA_Button, u6_GA, buy_GA)
 
     root.after(100, check_milestones)
 
@@ -607,6 +802,66 @@ def afford_upgrades():
         else:
             u4_IN_Button.config(u4_IN_Button, state = DISABLED)
 
+    if u5_NS.active == 1:
+        if u5_NS.afford(game):
+            u5_NS_Button.config(u5_NS_Button, state = ACTIVE)
+        else:
+            u5_NS_Button.config(u5_NS_Button, state = DISABLED)
+    
+    if u6_GA.active == 1:
+        if u6_GA.afford(game):
+            u6_GA_Button.config(u6_GA_Button, state = ACTIVE)
+        else:
+            u6_GA_Button.config(u6_GA_Button, state = DISABLED)
+    
+    if u7_QF.active == 1:
+        if u7_QF.afford(game):
+            u7_QF_Button.config(u7_QF_Button, state = ACTIVE)
+        else:
+            u7_QF_Button.config(u7_QF_Button, state = DISABLED)
+    
+    if u8_AF.active == 1:
+        if u8_AF.afford(game):
+            u8_AF_Button.config(u8_AF_Button, state = ACTIVE)
+        else:
+            u8_AF_Button.config(u8_AF_Button, state = DISABLED)
+
+    if u9_DH.active == 1:
+        if u9_DH.afford(game):
+            u9_DH_Button.config(u9_DH_Button, state = ACTIVE)
+        else:
+            u9_DH_Button.config(u9_DH_Button, state = DISABLED)
+
+    if u10_P1.active == 1:
+        if u10_P1.afford(game):
+            u10_P1_Button.config(u10_P1_Button, state = ACTIVE)
+        else:
+            u10_P1_Button.config(u10_P1_Button, state = DISABLED)
+
+    if u11_P2.active == 1:
+        if u11_P2.afford(game):
+            u11_P2_Button.config(u11_P2_Button, state = ACTIVE)
+        else:
+            u11_P2_Button.config(u11_P2_Button, state = DISABLED)
+
+    if u12_P3.active == 1:
+        if u12_P3.afford(game):
+            u12_P3_Button.config(u12_P3_Button, state = ACTIVE)
+        else:
+            u12_P3_Button.config(u12_P3_Button, state = DISABLED)
+
+    if u13_P4.active == 1:
+        if u13_P4.afford(game):
+            u13_P4_Button.config(u13_P4_Button, state = ACTIVE)
+        else:
+            u13_P4_Button.config(u13_P4_Button, state = DISABLED)
+
+    if u13_P4.active == 1:
+        if u13_P4.afford(game):
+            u13_P4_Button.config(u13_P4_Button, state = ACTIVE)
+        else:
+            u13_P4_Button.config(u13_P4_Button, state = DISABLED)
+
     root.after(100, afford_upgrades)
 
 
@@ -616,10 +871,16 @@ def update_labels():
     if game.resourcesFrame == True:
         global energyLab
         global quarkLab
+        global protonLab
+        global neutronLab
         if (energyLab):
             energyLab.config(energyLab, text = "Energy: " + "{:,.0f}".format(game.energy))
         if (quarkLab):
             quarkLab.config(quarkLab, text = "Quarks: " + "{:,.0f}".format(game.quarks))
+        if (protonLab):
+            protonLab.config(protonLab, text = "Protons: " + "{:,.0f}".format(game.protons))
+        if (neutronLab):
+            neutronLab.config(neutronLab, text = "Neutrons: " + "{:,.0f}".format(game.neutrons))
 
     if game.temporalFrame == True:
         global timeLab

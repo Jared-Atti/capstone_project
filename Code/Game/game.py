@@ -25,7 +25,7 @@ class Game:
         self.time = 0
         self.innovationFlag = False
         self.innovation = 0
-        self.potential = 1
+        self.potential = 0
         self.potential_lifeforms_req = 1
         self.productivity = 1
         self.expansion = 1
@@ -55,19 +55,26 @@ class Game:
         return self
 
     def create_energy(self):
+        self.energy += 1
+        # # Testing
         self.energy += 200000
         self.time += 1000
-        self.potential += 1
-        self.maxpotential += 1
+        # self.potential += 1
+        # self.maxpotential += 1
+        self.innovation += 10
+        self.quarks += 100
 
     def create_life(self):
         self.microbes += 1
     
     def set_max_potential(self):
         self.maxpotential = self.potential + self.productivity + self.expansion
-
+      
     def buy_upgrade(self, upgrade):
         upgrade.purchase(self)
+
+    def buy_autoupgrade(self, upgrade, *autos):
+        return upgrade.purchase(self, autos)
 
     def increase_automator(self, automator):
         automator.increase(self)
@@ -96,6 +103,12 @@ class Game:
                     elif a.tickcost[0] == "Quark" and a.calc_cost() <= self.quarks:
                         self.quarks -= a.calc_cost()
                         afford = True
+                    elif a.tickcost[0] == "Proton" and a.calc_cost() <= self.protons:
+                        self.protons -= a.calc_cost()
+                        afford = True
+                    elif a.tickcost[0] == "Neutron" and a.calc_cost() <= self.neutrons:
+                        self.neutrons -= a.calc_cost()
+                        afford = True
                 else:
                     afford = True
                 
@@ -105,6 +118,10 @@ class Game:
                         self.energy += a.calc_revenue()
                     elif a.revenue[0] == "Quark":
                         self.quarks += a.calc_revenue()
+                    elif a.revenue[0] == "Proton":
+                        self.protons += a.calc_revenue()
+                    elif a.revenue[0] == "Neutron":
+                        self.neutrons += a.calc_revenue()
 
             
 

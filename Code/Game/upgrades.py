@@ -23,44 +23,43 @@ class Upgrade():
 # Cosmic Upgrades
 class GravitationalCompression(Upgrade):
     def __init__(self):
-        super().__init__("Gravitational Compression ", [("Energy", 20)], "Siphon energy from space dust collapsing under its own gravity. Unlocks production menu.")
+        super().__init__("Gravitational Compression ", [("Energy", 15)], "Siphon energy from space dust collapsing under its own gravity. Unlocks production menu.")
     
     def afford(self, game):
-        if game.energy >= 20:
+        if game.energy >= 15:
             return True
     
     def purchase(self, game):
         if self.afford(game):
-            game.energy -= 20
-            # game.energyRev += 0.1
+            game.energy -= 15
             game.purchasedupgrades += self.name
             self.active = 2
 
 class SubatomicSynthesis(Upgrade):
     def __init__(self):
-        super().__init__("Subatomic Synthesis ", [("Energy", 150)], "Smash particles together and convert the energy into quarks.")
+        super().__init__("Subatomic Synthesis ", [("Energy", 75)], "Smash particles together and convert the energy into quarks.")
 
     def afford(self, game):
-        if game.energy >= 150:
+        if game.energy >= 75:
             return True
 
     def purchase(self, game):
         if self.afford(game):
-            game.energy -= 150
+            game.energy -= 75
             game.purchasedupgrades += self.name
             self.active = 2
 
 class Temporal(Upgrade):
     def __init__(self):
-        super().__init__("Temporal Momentum ", [("Energy", 200)], "By harnessing the power of cosmic forces, you have unlocked the ability to manipulate time and expand the fabric of space itself.")
+        super().__init__("Temporal Momentum ", [("Energy", 75)], "By harnessing the power of cosmic forces, you have unlocked the ability to manipulate time and expand the fabric of space itself.")
     
     def afford(self, game):
-        if game.energy >= 200:
+        if game.energy >= 75:
             return True
     
     def purchase(self, game):
         if self.afford(game):
-            game.energy -= 200
+            game.energy -= 75
             game.timeFlag = True
             game.purchasedupgrades += self.name
             self.active = 2
@@ -103,27 +102,34 @@ class Gravitational_Amplification(Upgrade):
         if game.energy >= 1000 and game.time >= 2000:
             return True
     
-    def purchase(self, game):
+    def purchase(self, game, autos):
         if self.afford(game):
             game.energy -= 1000
             game.time -= 2000
             game.purchasedupgrades += self.name
             self.active = 2
+            autos[0].revenue = (autos[0].revenue[0], autos[0].revenue[1] * 5)
+            return autos[0]
 
 class Quark_Fusion(Upgrade):
     def __init__(self):
-        super().__init__("Quark Fusion ", [("Innovation", 30), ("Energy", 1500)], "Halves the cost of quarks, doubles the production.")
+        super().__init__("Quark Fusion ", [("Innovation", 30), ("Energy", 1500)], "Halves the cost of quarks, quintuples the production.")
 
     def afford(self, game):
         if game.innovation >= 30 and game.energy >= 1500:
             return True
     
-    def purchase(self, game):
+    def purchase(self, game, autos):
         if self.afford(game):
             game.energy -= 1500
             game.innovation -= 30
             game.purchasedupgrades += self.name
             self.active = 2
+            newcost = (autos[0].tickcost[0], autos[0].tickcost[1] / 2)
+            newrev = (autos[0].revenue[0], autos[0].revenue[1] * 5)
+            autos[0].tickcost = newcost
+            autos[0].revenue = newrev
+            return autos[0]
 
 class Atomic_Fabrication(Upgrade):
     def __init__(self):
@@ -170,6 +176,7 @@ class Cosmic_Burst(Upgrade):
             game.innovation -= 25
             game.purchasedupgrades += self.name
             game.potential += 1
+            game.maxpotential += 1
             self.active = 2
 
 class Starlight_Path(Upgrade):
@@ -185,6 +192,7 @@ class Starlight_Path(Upgrade):
             game.innovation -= 50
             game.purchasedupgrades += self.name
             game.potential += 1
+            game.maxpotential += 1
             self.active = 2
 
 class Quantum_Leap(Upgrade):
@@ -200,6 +208,7 @@ class Quantum_Leap(Upgrade):
             game.innovation -= 200
             game.purchasedupgrades += self.name
             game.potential += 5
+            game.maxpotential += 1
             self.active = 2
 
 class Galatic_Investment(Upgrade):
@@ -215,6 +224,7 @@ class Galatic_Investment(Upgrade):
             game.innovation -= 400
             game.purchasedupgrades += self.name
             game.potential += 5
+            game.maxpotential += 1
             self.active = 2
 
 # Precambrian Upgrades
