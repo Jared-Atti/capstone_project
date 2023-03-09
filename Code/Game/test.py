@@ -1,5 +1,7 @@
 from tkinter import *
 import tkinter as tk
+from PIL import Image, ImageTk
+import os
 from game import Game
 import upgrades
 import automators
@@ -15,6 +17,7 @@ u2_SS = upgrades.SubatomicSynthesis()
 u3_TM = upgrades.Temporal()
 u4_IN = upgrades.Innovation()
 u5_NS = upgrades.Nucleosynthesis()
+u10_P = upgrades.Cosmic_Burst()
 
 # Initializing Automators
 active_autos = []
@@ -54,10 +57,6 @@ LEFT_COLUMN_X = 20
 MIDDLE_COLUMN_X = LEFT_COLUMN_WIDTH + 25
 RIGHT_COLUMN_X = 0
 PRODUCTION_FRAME_TOP = RESOURCE_FRAME_HEIGHT + TOP_Y + PADDING
-
-
-sb = Scrollbar(root)
-sb.pack(side = LEFT, fill = Y)
 
 # GLOBAL LISTS
 # Global Frames
@@ -102,11 +101,24 @@ u2_SS_Button = None # Subatomic Synthesis
 u3_TM_Button = None # Temporal Momentum
 u4_IN_Button = None # Innovation
 u5_NS_Button = None # Nucleosynthesis
+u10_P_But = None    # Potential UP 1
 
 # Automators
 a1_GC_Button = None # Compressor
 a2_QS_Button = None # Synthesizer
 
+# Add a scrollbar widget to the root and link it to the canvas
+scrollbar = Scrollbar(root, orient=VERTICAL)
+scrollbar.pack(side=tk.LEFT, fill=tk.Y)
+
+image_path = r'C:\Users\Joe\Desktop\Final Semester\Capstone\capstone_project\Assets\BackGround\pixel-rain-abstract-background\3145326.jpg'
+
+image = Image.open(image_path)
+
+bg_image = ImageTk.PhotoImage(image)
+
+bg_label = tk.Label(root, image=bg_image)
+bg_label.place(x=0, y=0, relwidth=1, relheight=1)
 
 #CREATING Frames to go on root
 timeline = Frame(root, relief = RAISED, bd = 5, bg = "white", height = 90, width = 2000)
@@ -215,6 +227,13 @@ def buy_IN():
     game.set_max_potential()
     productivityBut.config(productivityBut, state = ACTIVE)
     expansionBut.config(expansionBut, state = ACTIVE)
+
+def buy_P1():
+    global u10_P
+    global u10_P_But
+    game.buy_upgrade(u10_P)
+    u10_P.active = 2
+    destroyUpgradeButton(u10_P_But, u10_P)
 
 def increase_a1_GC():
     a1_GC.increase(game)
@@ -417,6 +436,9 @@ def check_milestones():
 
         global u4_IN_Button
         u4_IN_Button = createUpgradeButton(u4_IN_Button, u4_IN, buy_IN)
+
+    if temporalF == True and game.time >= 500 and u10_P.active == 0:
+        u10_P_But = createUpgradeButton(u10_P_But, u10_P, buy_P1)
 
     root.after(100, check_milestones)
 
