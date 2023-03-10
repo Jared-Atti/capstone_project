@@ -10,13 +10,27 @@ game = Game()
 game.init()
 
 # Initializing Upgrades
-up_GC = upgrades.GravitationalCompression()
-up_SS = upgrades.SubatomicSynthesis()
+u1_GC = upgrades.GravitationalCompression()
+u2_SS = upgrades.SubatomicSynthesis()
+u3_TM = upgrades.Temporal()
+u4_IN = upgrades.Innovation()
+u5_NS = upgrades.Nucleosynthesis()
+u6_GA = upgrades.Gravitational_Amplification()
+u7_QF = upgrades.Quark_Fusion()
+u8_AF = upgrades.Atomic_Fabrication()
+u9_DH = upgrades.Discover_Helium()
+u10_P1 = upgrades.Cosmic_Burst()
+u11_P2 = upgrades.Starlight_Path()
+u12_P3 = upgrades.Quantum_Leap()
+u13_P4 = upgrades.Galatic_Investment()
+
 
 # Initializing Automators
 active_autos = []
-auto_Comp = automators.Compressor()
-auto_Siph = automators.Siphoner()
+a1_GC = automators.Compressor()
+a2_QS = automators.Quark_Synthesizer()
+a3_PS = automators.Proton_Synthesizer()
+a4_NS = automators.Neutron_Synthesizer()
 
 #Main Frame of Game
 root = tk.Tk()
@@ -24,62 +38,106 @@ root.title = ("Eco-Evolution")
 root.geometry("1440x1100")
 
 #Variables for Sizes
+SPADDING = 5
 PADDING = 10
+LPADDING = 15
 
-LEFT_COLUMN_WIDTH = 325
-MIDDLE_COLUMN_WIDTH = 500
+LEFT_COLUMN_WIDTH = 300
+MIDDLE_COLUMN_WIDTH = 350
 RIGHT_COLUMN_WIDTH = 500
 
 RESOURCE_FRAME_HEIGHT = 30
 RESOURCE_LABEL_NEXTY = 25
 
 UPGRADE_FRAME_HEIGHT = 35
-UPGRADE_BUTTON_WIDTH = 450
+UPGRADE_BUTTON_WIDTH = 300
 UPGRADE_BUTTON_HEIGHT = 75
-UPGRADE_BUTTON_NEXTY = 55
+UPGRADE_BUTTON_NEXTY = 50
 
 PRODUCTION_FRAME_HEIGHT = 30
 PRODUCTION_LABEL_NEXTY = 25
 
+TEMPORAL_FRAME_HEIGHT = 30
 
 #Variables for Position
 TOP_Y = 180
 LEFT_COLUMN_X = 20
-MIDDLE_COLUMN_X = 350
+MIDDLE_COLUMN_X = LEFT_COLUMN_WIDTH + 25
 RIGHT_COLUMN_X = 0
 PRODUCTION_FRAME_TOP = RESOURCE_FRAME_HEIGHT + TOP_Y + PADDING
 
 
 sb = Scrollbar(root)
 sb.pack(side = LEFT, fill = Y)
+# root.configure(yscrollcommand=sb.set)
 
 # GLOBAL LISTS
 # Global Frames
 resourcesF = None
 upgradesF = None
 productionF = None
+temporalF = None
 
 # Global Titles
-resourcesL = None
-upgradeL = None
-productionL = None
+resourcesTitleLabel = None
+upgradeTitleLabel = None
+productionTitleLabel = None
+temporalTitleLabel = None
 
 # Global Labels
+# Resources
 energyLab = None
 microbeLab = None
-compLab = None
-compDescLab = None
-compCostLab = None
-siphCostLab = None
+quarkLab = None
+protonLab = None
+neutronLab = None
+# Production
+a1_GC_Name = None
+a1_GC_Desc = None
+a1_GC_Cost = None
+a2_QS_Name = None
+a2_QS_Desc = None
+a2_QS_Cost = None
+a2_QS_Toggle = None
+a3_PS_Name = None
+a3_PS_Desc = None
+a3_PS_Cost = None
+a3_PS_Toggle = None
+a4_NS_Name = None
+a4_NS_Desc = None
+a4_NS_Cost = None
+a4_NS_Toggle = None
+# Temporal
+potentialLab = None
+potentailDescLab = None
+productivityLab = None
+expansionLab = None
+productivityBut = None
+expansionBut = None
+timeLab = None
+innovationLab = None
 
 # Global Buttons
 # Upgrades
-upBut_GC = None # Gravitational Compression
-upBut_SS = None # Subatomic Synthesis
+u1_GC_Button = None # Gravitational Compression
+u2_SS_Button = None # Subatomic Synthesis
+u3_TM_Button = None # Temporal Momentum
+u4_IN_Button = None # Innovation
+u5_NS_Button = None # Nucleosynthesis
+u6_GA_Button = None
+u7_QF_Button = None
+u8_AF_Button = None
+u9_DH_Button = None
+u10_P1_Button = None
+u11_P2_Button = None
+u12_P3_Button = None
+u13_P4_Button = None
 
 # Automators
-autoBut_Comp = None # Compressor
-autoBut_Siph = None # Siphoner
+a1_GC_Button = None # Compressor
+a2_QS_Button = None # Quark Synthesizer
+a3_PS_Button = None # Proton Synthesizer
+a4_NS_Button = None # Neutron Synthesizer
 
 
 #CREATING Frames to go on root
@@ -113,66 +171,298 @@ root.rowconfigure(1, weight = 1)
 def create_energy():
     game.create_energy()
 
+def buy_Productivity():
+    global productivityBut
+    global expansionBut
+    global productivityLab
+    if (productivityLab):
+        if game.potential > 0:
+            game.productivity += 1
+            productivityLab.config(productivityLab, text = game.productivity)
+            game.potential -= 1
+        if game.potential == 0:
+            productivityBut.config(productivityBut, state = DISABLED)
+            expansionBut.config(expansionBut, state = DISABLED)
+
+def buy_Expansion():
+    global productivityBut
+    global expansionBut
+    global expansionLab
+    if (expansionLab):
+        if game.potential > 0:
+            game.expansion += 1
+            expansionLab.config(expansionLab, text = game.expansion)
+            game.potential -= 1
+        if game.potential == 0:
+            productivityBut.config(productivityBut, state = DISABLED)
+            expansionBut.config(expansionBut, state = DISABLED)
+
 def buy_GC():
-    game.buy_upgrade(up_GC)
-    global upBut_GC
-    up_GC.active = 2
+    game.buy_upgrade(u1_GC)
+    global u1_GC_Button
+    u1_GC.active = 2
     root.after(100)
-    destroyUpgradeButton(upBut_GC, up_GC)
+    destroyUpgradeButton(u1_GC_Button, u1_GC)
 
 def buy_SS():
-    game.buy_upgrade(up_SS)
-    global upBut_SS
-    up_SS.active = 2
+    global u2_SS
+    global u2_SS_Button
+    global a2_QS_Button
+    global a2_QS_Name
+    global a2_QS_Cost
+    global a2_QS_Desc
+    global a2_QS_Toggle
+    global quarkLab
+    game.buy_upgrade(u2_SS)
+    u2_SS.active = 2
     root.after(100)
-    destroyUpgradeButton(upBut_SS, up_SS)
-    # testing
-    global microbeLab
-    destroyResourceLabel(microbeLab)
-    global compLab, compCostLab, compDescLab, autoBut_Comp
-    destroyProducer(compLab, compCostLab, compDescLab, autoBut_Comp, None, auto_Comp)
+    destroyUpgradeButton(u2_SS_Button, u2_SS)
+    results = createProducer(a2_QS_Name, "Quark Synthesizers", a2_QS_Button, increase_a2_QS, a2_QS_Cost, a2_QS_Desc, True, a2_QS_Toggle, toggle_a2_QS, a2_QS)
+    a2_QS_Name = results[0]
+    a2_QS_Button = results[1]
+    a2_QS_Cost = results[2]
+    a2_QS_Desc = results[3]
+    a2_QS_Toggle = results[4]
+    active_autos.append(a2_QS)
+    quarkLab = createResourceLabel(quarkLab, game.quarks, "Quarks")
+    global u5_NS_Button
+    global u7_QF_Button
+    u5_NS_Button = createUpgradeButton(u5_NS_Button, u5_NS, buy_NS)
+    u7_QF_Button = createUpgradeButton(u7_QF_Button, u7_QF, buy_QF)
 
-def increase_compression():
-    auto_Comp.increase(game)
-    global compLab
+def buy_TM():
+    game.buy_upgrade(u3_TM)
+    global u3_TM_Button
+    u3_TM.active = 2
+    root.after(100)
+    destroyUpgradeButton(u3_TM_Button, u3_TM)
+
+def buy_IN():
+    game.buy_upgrade(u4_IN)
+    global u4_IN_Button
+    u4_IN.active = 2
+    root.after(100)
+    destroyUpgradeButton(u4_IN_Button, u4_IN)
+
+    global u10_P1_Button
+    u10_P1_Button = createUpgradeButton(u10_P1_Button, u10_P1, buy_P1)
+
+    # Testing, remove later
+    # game.potential += 10
+    # game.set_max_potential()
+    # productivityBut.config(productivityBut, state = ACTIVE)
+    # expansionBut.config(expansionBut, state = ACTIVE)
+
+
+def buy_NS():
+    game.buy_upgrade(u5_NS)
+    global u5_NS_Button
+    global a3_PS_Button
+    global a3_PS_Name
+    global a3_PS_Cost
+    global a3_PS_Desc
+    global a3_PS_Toggle
+    global a4_NS_Button
+    global a4_NS_Name
+    global a4_NS_Cost
+    global a4_NS_Desc
+    global a4_NS_Toggle
+    global protonLab
+    global neutronLab
+    u5_NS.active = 2
+    root.after(100)
+    destroyUpgradeButton(u5_NS_Button, u5_NS)
+    results = createProducer(a3_PS_Name, "Proton Synthesizers", a3_PS_Button, increase_a3_PS, a3_PS_Cost, a3_PS_Desc, True, a3_PS_Toggle, toggle_a3_PS, a3_PS)
+    a3_PS_Name = results[0]
+    a3_PS_Button = results[1]
+    a3_PS_Cost = results[2]
+    a3_PS_Desc = results[3]
+    a3_PS_Toggle = results[4]
+    active_autos.append(a3_PS)
+    results = createProducer(a4_NS_Name, "Neutron Synthesizers", a4_NS_Button, increase_a4_NS, a4_NS_Cost, a4_NS_Desc, True, a4_NS_Toggle, toggle_a4_NS, a4_NS)
+    a4_NS_Name = results[0]
+    a4_NS_Button = results[1]
+    a4_NS_Cost = results[2]
+    a4_NS_Desc = results[3]
+    a4_NS_Toggle = results[4]
+    active_autos.append(a4_NS)
+    protonLab = createResourceLabel(protonLab, game.protons, "Protons")
+    neutronLab = createResourceLabel(neutronLab, game.neutrons, "Neutron")
+
+def buy_GA():
+    global a1_GC
+    a1_GC = game.buy_autoupgrade(u6_GA, a1_GC)
+    global u6_GA_Button
+    u6_GA.active = 2
+    root.after(100)
+    destroyUpgradeButton(u6_GA_Button, u6_GA)
+    global a1_GC_Desc
+    a1_GC_Desc.config(a1_GC_Desc, text = a1_GC.desc())
+
+def buy_QF():
+    global a2_QS
+    a2_QS = game.buy_autoupgrade(u7_QF, a2_QS)
+    global u7_QF_Button
+    u7_QF.active = 2
+    root.after(100)
+    destroyUpgradeButton(u7_QF_Button, u7_QF)
+    global a2_QS_Desc
+    a2_QS_Desc.config(a2_QS_Desc, text = a2_QS.desc())
+
+def buy_P1():
+    game.buy_upgrade(u10_P1)
+    global u10_P1_Button
+    u10_P1.active = 2
+    root.after(100)
+    destroyUpgradeButton(u10_P1_Button, u10_P1)
+    game.set_max_potential()
+    productivityBut.config(productivityBut, state = ACTIVE)
+    expansionBut.config(expansionBut, state = ACTIVE)
+
+    global u11_P2_Button
+    u11_P2_Button = createUpgradeButton(u11_P2_Button, u11_P2, buy_P2)
+
+def buy_P2():
+    game.buy_upgrade(u11_P2)
+    global u11_P2_Button
+    u11_P2.active = 2
+    root.after(100)
+    destroyUpgradeButton(u11_P2_Button, u11_P2)
+    game.set_max_potential()
+    productivityBut.config(productivityBut, state = ACTIVE)
+    expansionBut.config(expansionBut, state = ACTIVE)
+
+    global u12_P3_Button
+    u12_P3_Button = createUpgradeButton(u12_P3_Button, u12_P3, buy_P3)
+
+def buy_P3():
+    game.buy_upgrade(u12_P3)
+    global u12_P3_Button
+    u12_P3.active = 2
+    root.after(100)
+    destroyUpgradeButton(u12_P3_Button, u12_P3)
+    game.set_max_potential()
+    productivityBut.config(productivityBut, state = ACTIVE)
+    expansionBut.config(expansionBut, state = ACTIVE)
+
+    global u13_P4_Button
+    u13_P4_Button = createUpgradeButton(u13_P4_Button, u13_P4, buy_P4)
+
+def buy_P4():
+    game.buy_upgrade(u13_P4)
+    global u13_P4_Button
+    u13_P4.active = 2
+    root.after(100)
+    destroyUpgradeButton(u13_P4_Button, u13_P4)
+    game.set_max_potential()
+    productivityBut.config(productivityBut, state = ACTIVE)
+    expansionBut.config(expansionBut, state = ACTIVE)
+
+    # global u14_P5_Button
+    # u14_P5_Button = createUpgradeButton(u14_P5_Button, u13_P5, buy_P5)
+
+# Increasing Automators
+def increase_a1_GC():
+    a1_GC.increase(game)
+    global a1_GC_Name
     global compressor_costs
-    compLab.config(compLab, text = "Compressors: " + str(auto_Comp.count))
-    compCostLab.config(compCostLab, text = auto_Comp.showCost())
+    a1_GC_Name.config(a1_GC_Name, text = "Compressors: " + "{:,.0f}".format(a1_GC.count))
+    a1_GC_Cost.config(a1_GC_Cost, text = a1_GC.showCost())
+    productionF.update_idletasks()
+    a1_GC_Button.place(x = (a1_GC_Name.winfo_width() + LPADDING))
 
-def increase_siphoner():
-    auto_Siph.decrease(game)
-    global siphLab
-    global siphoner_costs
-    siphLab.config(siphLab, text = "Siphoners: " + str(auto_Siph.count))
-    siphCostLab.config(siphCostLab, text = auto_Siph.showCost())
-    
+def increase_a2_QS():
+    a2_QS.increase(game)
+    global a2_QS_Name
+    global a2_QS_Cost
+    global a2_QS_Button
+    global a2_QS_Toggle
+    a2_QS_Name.config(a2_QS_Name, text = "Quark Synthesizers: " + "{:,.0f}".format(a2_QS.count))
+    a2_QS_Cost.config(a2_QS_Cost, text = a2_QS.showCost())
+    productionF.update_idletasks()
+    a2_QS_Button.place(x = (a2_QS_Name.winfo_width() + LPADDING))
+    a2_QS_Toggle.place(x = (a2_QS_Name.winfo_width() + a2_QS_Button.winfo_width() + LPADDING + SPADDING))
+
+def increase_a3_PS():
+    a3_PS.increase(game)
+    global a3_PS_Name
+    global a3_PS_Cost
+    global a3_PS_Button
+    global a3_PS_Toggle
+    a3_PS_Name.config(a3_PS_Name, text = "Proton Synthesizers: " + "{:,.0f}".format(a3_PS.count))
+    a3_PS_Cost.config(a3_PS_Cost, text = a3_PS.showCost())
+    productionF.update_idletasks()
+    a3_PS_Button.place(x = (a3_PS_Name.winfo_width() + LPADDING))
+    a3_PS_Toggle.place(x = (a3_PS_Name.winfo_width() + a3_PS_Button.winfo_width() + LPADDING + SPADDING))
+
+def increase_a4_NS():
+    a4_NS.increase(game)
+    global a4_NS_Name
+    global a4_NS_Cost
+    global a4_NS_Button
+    global a4_NS_Toggle
+    a4_NS_Name.config(a4_NS_Name, text = "Neutron Synthesizers: " + "{:,.0f}".format(a4_NS.count))
+    a4_NS_Cost.config(a4_NS_Cost, text = a4_NS.showCost())
+    productionF.update_idletasks()
+    a4_NS_Button.place(x = (a4_NS_Name.winfo_width() + LPADDING))
+    a4_NS_Toggle.place(x = (a4_NS_Name.winfo_width() + a4_NS_Button.winfo_width() + LPADDING + SPADDING))
+
+
+
+
+
+# Toggling Automators
+def toggle_a2_QS():
+    global a2_QS_Toggle
+    if (a2_QS.toggle == 1):
+        a2_QS.toggle = 0
+        a2_QS_Toggle.config(a2_QS_Toggle, text = "OFF")
+    else:
+        a2_QS.toggle = 1
+        a2_QS_Toggle.config(a2_QS_Toggle, text = "ON")
+
+def toggle_a3_PS():
+    global a3_PS_Toggle
+    if (a3_PS.toggle == 1):
+        a3_PS.toggle = 0
+        a3_PS_Toggle.config(a3_PS_Toggle, text = "OFF")
+    else:
+        a3_PS.toggle = 1
+        a3_PS_Toggle.config(a3_PS_Toggle, text = "ON")
+
+def toggle_a4_NS():
+    global a4_NS_Toggle
+    if (a4_NS.toggle == 1):
+        a4_NS.toggle = 0
+        a4_NS_Toggle.config(a4_NS_Toggle, text = "OFF")
+    else:
+        a4_NS.toggle = 1
+        a4_NS_Toggle.config(a4_NS_Toggle, text = "ON")
+
+
+
 
 #CREATION of Labels that go onto Frames/Buttons
 tlL = Label(timeline, text = "Timeline:", font = ('Terminal', 10))
-
 lifeL = Label(lifeForms, text = "Lifeforms: ", font = ("Terminal", 10))
-
 eraL = Label(visuals, text = "Era: ", font = ("Terminal", 10))
-
 lifeL.place(x = 0, y = 0)
-
 tlL.place(x = 0, y = 0)
-
 eraL.place(x = 0, y = 0)
 
 #CREATION of Buttons
 energyB = tk.Button(createLabel, text ="Energy", command = create_energy, font=('Terminal', 10))#, image = img)
-
 protonB = tk.Button()
-
 neutronB = tk.Button()
-
 timeB = tk.Button(time, text = "Advance Time", font=('Terminal', 10), state = DISABLED)
 
 #PLACEMENT of Buttons in Frames
 energyB.place(in_ = createLabel, y = 10, x = 20)
-
 timeB.place(in_ = time, x = 25, y = 5)
+
+
+
+
 
 # Checks milestone conditions, activating new game mechanics when achieved
 def check_milestones():
@@ -183,110 +473,156 @@ def check_milestones():
     # ACTIVATE RESOURCE FRAME after 1 energy is gained
     global resourcesF
     if game.energy >= 1 and resourcesF == None:
-        global resourcesL
+        global resourcesTitleLabel
         global energyLab
         global microbeLab
         # Creating and placing RESOURCE frame
         resourcesF = Frame(root, relief = RAISED, bd = 5, bg = "red", height = RESOURCE_FRAME_HEIGHT, width = LEFT_COLUMN_WIDTH)
         resourcesF.place(x = LEFT_COLUMN_X, y = TOP_Y)
         # Creating and placing frame title
-        resourcesL = Label(resourcesF, text = "Resources", font = ("Terminal", 10))
-        resourcesL.place(relx = 0.5, y = 10, anchor="center")
+        resourcesTitleLabel = Label(resourcesF, text = "Resources", font = ("Terminal", 10))
+        resourcesTitleLabel.place(relx = 0.5, y = 10, anchor="center")
 
         energyLab = createResourceLabel(energyLab, game.energy, "Energy")
-        microbeLab = createResourceLabel(microbeLab, game.microbes, "Microbes")
 
-        # Initializing ENERGY label
-        # energyLab = Label(resourcesF, text = "Energy: " + str(game.energy), font = ('Terminal', 10))
-        # energyLab.place(x = 0, y = 25)
-        # Updating 'game' to recognize resource frame is active
         game.resourcesFrame = True
 
     # ACTIVATE UPGRADES FRAME at 10 energy
     global upgradesF
-    if game.energy >= 10 and upgradesF == None:
-        global upgradeL
-        global upBut_GC
+    if game.energy >= 5 and upgradesF == None:
+        global upgradeTitleLabel
+        global u1_GC_Button
+        global UPGRADE_BUTTON_NEXTY
         # Creating and placing UPGRADES frame
         upgradesF = Frame (root, relief = RAISED, bd = 5, bg = "teal", height = UPGRADE_FRAME_HEIGHT, width = MIDDLE_COLUMN_WIDTH)
         upgradesF.place(x = MIDDLE_COLUMN_X, y = TOP_Y)
         # Creating and placing frame title
         upgradesL = Label(upgradesF, text = "Upgrades", font = ("Terminal", 10))
         upgradesL.place(relx = 0.5, y = 10, anchor="center")
+        upgradesF.update_idletasks()
+        UPGRADE_BUTTON_NEXTY = upgradesL.winfo_height() + upgradesL.winfo_y()
         # Creating first upgrade button (Gravitational Compression)
-        upBut_GC = createUpgradeButton(upBut_GC, up_GC, buy_GC)
+        u1_GC_Button = createUpgradeButton(u1_GC_Button, u1_GC, buy_GC)
         game.upgradesFrame = True
 
     # ACTIVATE PRODUCTION FRAME after gravitational compression upgrade
     global productionF
-    if game.productionFrame == True and productionF == None:
-        global productionL
-        global compLab
-        global compDescLab
-        global compCostLab
-        global autoBut_Comp
+    if game.productionFrame == False and productionF == None and u1_GC.active == 2:
+        global productionTitleLabel
+        global a1_GC_Name
+        global a1_GC_Desc
+        global a1_GC_Cost
+        global a1_GC_Button
         # Creating and placing PRODUCTION frame
-        productionF = Frame(root, relief = RAISED, bd = 5, bg = "green", height = PRODUCTION_FRAME_HEIGHT, width = 325)
-        productionF.place(x = 20, y = TOP_Y + RESOURCE_FRAME_HEIGHT + 5)
+        productionF = Frame(root, relief = RAISED, bd = 5, bg = "green", height = PRODUCTION_FRAME_HEIGHT, width = LEFT_COLUMN_WIDTH)
+        productionF.place(x = LEFT_COLUMN_X, y = TOP_Y + RESOURCE_FRAME_HEIGHT + 5)
         # Creating and placing frame title
-        productionL = Label(productionF, text = "Production", font = ("Terminal", 10))
-        productionL.place(relx = 0.5, y = 10, anchor="center")
+        productionTitleLabel = Label(productionF, text = "Production", font = ("Terminal", 10))
+        productionTitleLabel.place(relx = 0.5, y = 10, anchor="center")
         # Updating 'game' to recognize production frame is active
         game.productionFrame = True
-        # # Label for Compressors automator
-        # compLab = Label(productionF, text = "Compressors: " + str(auto_Comp.count), font = ('Terminal', 10))
-        # compLab.place(x = 0, y = 25)
-        # # Button for Compressor automator
-        # autoBut_Comp = tk.Button(productionF, text = "+", font = ("Terminal", 10), command = increase_compression)
-        # autoBut_Comp.place(x = ((len(compLab.cget("text")) * 10) - 15), y = 24)
-        # # Cost of Compressor (below)
-        # compCostLab = Label(productionF, text = auto_Comp.showCost(), font = ('Terminal', 9))
-        # compCostLab.place(x = 0, y = 50)
-        # # Description for Compressor (two below)
-        # compDescLab = Label(productionF, text = auto_Comp.description, font = ('Terminal', 8))
-        # compDescLab.place(x = 0, y = 65)
 
-        results = createProducer(compLab, "Compressors", autoBut_Comp, increase_compression, compCostLab, compDescLab, False, None, auto_Comp)
-        compLab = results[0]
-        autoBut_Comp = results[1]
-        compCostLab = results[2]
-        compDescLab = results[3]
+        # Creating the compressor automator
+        results = createProducer(a1_GC_Name, "Compressors", a1_GC_Button, increase_a1_GC, a1_GC_Cost, a1_GC_Desc, False, None, None, a1_GC)
+        a1_GC_Name = results[0]
+        a1_GC_Button = results[1]
+        a1_GC_Cost = results[2]
+        a1_GC_Desc = results[3]
 
         # Adds compressors to the list of active autos
-        active_autos.append(auto_Comp)
+        active_autos.append(a1_GC)
 
     #Activate subatomic synthesis upgrade at 100 energy
-    global upBut_SS
-    if game.energy >= 100 and up_SS.active == 0 and up_GC.active == 2:
-        upBut_SS = createUpgradeButton(upBut_SS, up_SS, buy_SS)
+    global u2_SS_Button
+    global u3_TM_Button
+    if u1_GC.active == 2 and u2_SS.active == 0 and game.energy >= 50 and u3_TM.active == 0:
+        u2_SS_Button = createUpgradeButton(u2_SS_Button, u2_SS, buy_SS)
+        u3_TM_Button = createUpgradeButton(u3_TM_Button, u3_TM, buy_TM)
+
+    #Creates Temporal Momentum Frame
+    global temporalF
+    if temporalF == None and u3_TM.active == 2:
+        global temporalTitleLabel
+        global potentialLab
+        global potentialDescLab
+        global productivityBut
+        global productivityLab
+        global expansionLab
+        global expansionBut
+        global timeLab
+        global innovationLab
+        global u4_IN_Button
+        global TEMPORAL_FRAME_HEIGHT
+        temporalF = Frame(root, relief = RAISED, bd = 5, bg = "cyan", height = TEMPORAL_FRAME_HEIGHT, width = MIDDLE_COLUMN_WIDTH)
+        temporalF.place(x = MIDDLE_COLUMN_X, y = TOP_Y)
+
+        temporalTitleLabel = Label(temporalF, text = "Temporal Momentum", font = ("Terminal", 10))
+        temporalTitleLabel.place(relx = 0.5, y = 10, anchor="center")
+        temporalF.update_idletasks()
+        label_height = temporalTitleLabel.winfo_height()
+
+        potentialLab = Label(temporalF, text = "Potential: " + "{:,.0f}".format(game.maxpotential), font = ("Terminal", 10))
+        potentialLab.place(x = PADDING, y = label_height + PADDING)
+        temporalF.update_idletasks()
+        label_height = label_height + potentialLab.winfo_height()
+
+        potentialDescLab = Label(temporalF, text = "+1 Potential at " + "{:,.0f}".format(game.potential_lifeforms_req) + " lifeforms", font = ("Terminal", 8))
+        potentialDescLab.place(x = PADDING, y = label_height + PADDING)
+        temporalF.update_idletasks()
+        label_height = label_height + potentialDescLab.winfo_height() + LPADDING
+
+        productivityBut = tk.Button(temporalF, text = "Productivity", font = ("Terminal", 9), width = 13, command = buy_Productivity, state = DISABLED)
+        productivityBut.place(x = PADDING, y = label_height + LPADDING)
+        temporalF.update_idletasks()
         
+        productivityLab = Label(temporalF, text = "{:,.0f}".format(game.productivity), font = ("Terminal", 9))
+        productivityLab.place(x = productivityBut.winfo_width() + LPADDING, y = label_height + LPADDING)
+        label_height = label_height + productivityBut.winfo_height() + SPADDING
+
+        temporalF.update_idletasks()
+        expansionBut = tk.Button(temporalF, text = "Expansion", font = ("Terminal", 9), width = 13, command = buy_Expansion, state = DISABLED)
+        expansionBut.place(x = PADDING, y = label_height + LPADDING)
+        temporalF.update_idletasks()
+        
+        expansionLab = Label(temporalF, text = "{:,.0f}".format(game.expansion), font = ("Terminal", 9))
+        expansionLab.place(x = expansionBut.winfo_width() + LPADDING, y = label_height + LPADDING)
+        label_height = label_height + expansionBut.winfo_height() + LPADDING
+
+        timeLab = Label(temporalF, text = "Time: " + "{:,.0f}".format(game.time) + " / " + "{:,.0f}".format(game.expansion * 1000), font = ("Terminal", 10))
+        timeLab.place(x = PADDING, y = label_height + LPADDING)
+        temporalF.update_idletasks()
+        label_height = label_height + timeLab.winfo_height() + SPADDING
+
+        innovationLab = Label(temporalF, text = "Innovation: " + "{:,.0f}".format(game.innovation), font = ("Terminal", 10))
+        innovationLab.place(x = PADDING, y = label_height + PADDING)
+        temporalF.update_idletasks()
+        label_height = label_height + innovationLab.winfo_height()
+
+        temporalF.update_idletasks()
+        TEMPORAL_FRAME_HEIGHT = TEMPORAL_FRAME_HEIGHT + label_height
+        temporalF.config(height=TEMPORAL_FRAME_HEIGHT)
+        temporalF.place(x = MIDDLE_COLUMN_X, y = TOP_Y)
+        upgradesF.place(x = MIDDLE_COLUMN_X, y = TOP_Y + TEMPORAL_FRAME_HEIGHT + SPADDING)
+        game.temporalFrame = True
+
+        global u4_IN_Button
+        u4_IN_Button = createUpgradeButton(u4_IN_Button, u4_IN, buy_IN)
+
+    # u6_GA Unlock milestone
+    if (a1_GC.count >= 10 and u6_GA.active == 0):
+        global u6_GA_Button
+        u6_GA_Button = createUpgradeButton(u6_GA_Button, u6_GA, buy_GA)
+
     root.after(100, check_milestones)
 
-    #Moves subatomic synthesis to PRODUCTION Frame
-    # if up_SS.active == 2:
-    #     global siphLab
-    #     #Label for Siphoner on PRODUCTION label
-    #     # siphLab = Label(productionF, text = "Siphoners: " + str(auto_Siph.count), font = ('Terminal', 10))
-    #     # siphLab.place(x = 0, y = 85)
-    #     #Updates size of PRODUCTION Frame
-    #     productionF.place(width = LEFT_COLUMN_WIDTH, height = PRODUCTION_FRAME_HEIGHT + PADDING)
-    #     #Button to increase Siphoners
-    #     global autoBut_Siph
-
-    #     results = createProducer(siphLab, "Siphoners", autoBut_Siph, increase_compression, None, None, False, None, auto_Siph)
-    #     siphLab = results[0]
-    #     autoBut_Siph = results[1]
-
-        # autoBut_Siph = tk.Button(productionF, text = "+", font = ("Terminal", 10), command = increase_compression)
-        # autoBut_Siph.place(x = ((len(siphLab.cget("text")) * 10) - 10), y = 85)
 
 # Function for adding a new resource to resources frame
 def createResourceLabel(label, resource, name):
     global RESOURCE_FRAME_HEIGHT
     global RESOURCE_LABEL_NEXTY
     global PRODUCTION_FRAME_TOP
-    label = Label(resourcesF, text = name + ": " + str(resource), font = ('Terminal', 10))
-    label.place(x = 0, y = RESOURCE_LABEL_NEXTY)
+    label = Label(resourcesF, text = name + ": " + "{:,.0f}".format(resource), font = ('Terminal', 10))
+    label.place(x = PADDING, y = RESOURCE_LABEL_NEXTY)
     resourcesF.update_idletasks()
     label_height = label.winfo_height()
     RESOURCE_FRAME_HEIGHT = RESOURCE_FRAME_HEIGHT + label_height + PADDING
@@ -320,12 +656,15 @@ def createUpgradeButton(button, upgrade, cmd):
     global upgradesF
     # Creating the button
     button = tk.Button(upgradesF, 
-        text = upgrade.name + "\n" + upgrade.description + "\n" + upgrade.showCosts(),
-        command = cmd, font = ('Terminal', 10), height = 5, state = DISABLED, wraplength=UPGRADE_BUTTON_WIDTH, width=55)
-    button.place(in_ = upgradesF, relx = 0.5, y = UPGRADE_BUTTON_NEXTY, anchor="center")
-    # Updating frame heigh values
+        text = "\u0332".join(upgrade.name) + "\n" + upgrade.description + "\n" + upgrade.showCosts(),
+        command = cmd, font = ('Terminal', 10), state = DISABLED, wraplength=UPGRADE_BUTTON_WIDTH, width=37)
     upgradesF.update_idletasks()
     button_height = button.winfo_height()
+    button.place(in_ = upgradesF, relx = 0.5, y = UPGRADE_BUTTON_NEXTY + (button_height // 2), anchor="center")
+    upgradesF.update_idletasks()
+    button_height = button.winfo_height()
+    button.place(in_ = upgradesF, relx = 0.5, y = UPGRADE_BUTTON_NEXTY + (button_height // 2), anchor="center")
+    # Updating frame height values
     UPGRADE_BUTTON_NEXTY = UPGRADE_BUTTON_NEXTY + button_height + PADDING
     UPGRADE_FRAME_HEIGHT = UPGRADE_FRAME_HEIGHT + button_height + PADDING
     upgradesF.config(height=UPGRADE_FRAME_HEIGHT)
@@ -349,8 +688,11 @@ def destroyUpgradeButton(button, upgrade):
     for widget in upgradesF.winfo_children():
         current_y = widget.winfo_y()
         if current_y > button_y:
-            # Moving up 20 + 5 + button_heigh/2
-            widget.place(y=current_y - PADDING - 5 - button_height / 2)
+            current_height = widget.winfo_height()
+            if current_height < button_height:
+                widget.place(y=current_y - button_height // 2 - current_height // 2)
+            else: 
+                widget.place(y=current_y - SPADDING - button_height // 2)
 
     # Updating variables
     UPGRADE_BUTTON_NEXTY = UPGRADE_BUTTON_NEXTY - button_height - PADDING
@@ -360,33 +702,35 @@ def destroyUpgradeButton(button, upgrade):
     upgrade.active = 2
 
 # Function for adding a new producer to productions
-def createProducer(namelabel, name, button, cmd, costlabel, desclabel, toggleflag, togglebut, automator):
+def createProducer(namelabel, name, button, cmd, costlabel, desclabel, toggleflag, togglebut, togglecommand, automator):
     global PRODUCTION_LABEL_NEXTY
     global PRODUCTION_FRAME_HEIGHT
     global productionF
 
-    namelabel = Label(productionF, text = name + ": " + str(automator.count), font = ('Terminal', 10))
-    namelabel.place(x = 0, y = PRODUCTION_LABEL_NEXTY)
+    namelabel = Label(productionF, text = name + ": " + "{:,.0f}".format(automator.count), font = ('Terminal', 10))
+    namelabel.place(x = PADDING, y = PRODUCTION_LABEL_NEXTY)
     productionF.update_idletasks()
     button = tk.Button(productionF, text = "+", font = ("Terminal", 10), command = cmd)
-    button.place(x = (namelabel.winfo_width() + PADDING), y = PRODUCTION_LABEL_NEXTY)
+    button.place(x = (namelabel.winfo_width() + LPADDING), y = PRODUCTION_LABEL_NEXTY)
+    productionF.update_idletasks()
+
+    if (toggleflag):
+        length = button.winfo_width() + namelabel.winfo_width() + LPADDING + SPADDING
+        togglebut = tk.Button(productionF, text = "ON", font = ("Terminal", 10), command = togglecommand)
+        togglebut.place(x = length, y = PRODUCTION_LABEL_NEXTY)
+    
+        productionF.update_idletasks()
 
     productionF.update_idletasks()
     costlabel = Label(productionF, text = automator.showCost(), font = ('Terminal', 9))
-    costlabel.place(x = 0, y = PRODUCTION_LABEL_NEXTY + PADDING / 2 + namelabel.winfo_height())
+    costlabel.place(x = PADDING, y = PRODUCTION_LABEL_NEXTY + PADDING / 2 + namelabel.winfo_height())
 
     productionF.update_idletasks()
-    desclabel = Label(productionF, text = automator.description, font = ('Terminal', 8))
-    desclabel.place(x = 0, y = PRODUCTION_LABEL_NEXTY + 2 * PADDING / 2 + namelabel.winfo_height() + costlabel.winfo_height())
+    desclabel = Label(productionF, text = automator.desc(), font = ('Terminal', 8), wraplength=LEFT_COLUMN_WIDTH - (PADDING * 2))
+    desclabel.place(x = PADDING, y = PRODUCTION_LABEL_NEXTY + 2 * PADDING / 2 + namelabel.winfo_height() + costlabel.winfo_height())
     
     productionF.update_idletasks()
-    if (toggleflag):
-        desclength = desclabel.winfo_width()
-        # Fix cmd later
-        togglebut = tk.Button(productionF, text = "OFF", font = ("Terminal", 10), command = cmd)
-        togglebut.place(x = desclength + PADDING, y = PRODUCTION_LABEL_NEXTY + 2 * PADDING)
     
-        productionF.update_idletasks()
     totalheight = namelabel.winfo_height() + costlabel.winfo_height() + desclabel.winfo_height()
 
     PRODUCTION_LABEL_NEXTY = PRODUCTION_LABEL_NEXTY + totalheight + PADDING * 2
@@ -396,7 +740,7 @@ def createProducer(namelabel, name, button, cmd, costlabel, desclabel, togglefla
     # Adds automator to the list of active autos
     active_autos.append(automator)
 
-    return namelabel, button, costlabel, desclabel
+    return namelabel, button, costlabel, desclabel, togglebut
 
 # Function for destroying a producer within productions frame
 def destroyProducer(namelabel, costlabel, desclabel, button, togglebutton, automator):
@@ -432,18 +776,91 @@ def destroyProducer(namelabel, costlabel, desclabel, button, togglebutton, autom
 def afford_upgrades():
     # up_* represents the instance of the upgrade, check this for active call afford(game) function
     # upBut_ * represents the button for the upgrade, enable/disable this
+    game = Game()
     # Cosmic
-    if up_GC.active == 1:
-        if up_GC.afford(game):
-            upBut_GC.config(upBut_GC, state = ACTIVE)
+    if u1_GC.active == 1:
+        if u1_GC.afford(game):
+            u1_GC_Button.config(u1_GC_Button, state = ACTIVE)
         else:
-            upBut_GC.config(upBut_GC, state = DISABLED)
+            u1_GC_Button.config(u1_GC_Button, state = DISABLED)
 
-    if up_SS.active == 1:
-        if up_SS.afford(game):
-            upBut_SS.config(upBut_SS, state = ACTIVE)
+    if u2_SS.active == 1:
+        if u2_SS.afford(game):
+            u2_SS_Button.config(u2_SS_Button, state = ACTIVE)
         else:
-            upBut_SS.config(upBut_SS, state = DISABLED)
+            u2_SS_Button.config(u2_SS_Button, state = DISABLED)
+
+    if u3_TM.active == 1:
+        if u3_TM.afford(game):
+            u3_TM_Button.config(u3_TM_Button, state = ACTIVE)
+        else:
+            u3_TM_Button.config(u3_TM_Button, state = DISABLED)
+
+    if u4_IN.active == 1:
+        if u4_IN.afford(game):
+            u4_IN_Button.config(u4_IN_Button, state = ACTIVE)
+        else:
+            u4_IN_Button.config(u4_IN_Button, state = DISABLED)
+
+    if u5_NS.active == 1:
+        if u5_NS.afford(game):
+            u5_NS_Button.config(u5_NS_Button, state = ACTIVE)
+        else:
+            u5_NS_Button.config(u5_NS_Button, state = DISABLED)
+    
+    if u6_GA.active == 1:
+        if u6_GA.afford(game):
+            u6_GA_Button.config(u6_GA_Button, state = ACTIVE)
+        else:
+            u6_GA_Button.config(u6_GA_Button, state = DISABLED)
+    
+    if u7_QF.active == 1:
+        if u7_QF.afford(game):
+            u7_QF_Button.config(u7_QF_Button, state = ACTIVE)
+        else:
+            u7_QF_Button.config(u7_QF_Button, state = DISABLED)
+    
+    if u8_AF.active == 1:
+        if u8_AF.afford(game):
+            u8_AF_Button.config(u8_AF_Button, state = ACTIVE)
+        else:
+            u8_AF_Button.config(u8_AF_Button, state = DISABLED)
+
+    if u9_DH.active == 1:
+        if u9_DH.afford(game):
+            u9_DH_Button.config(u9_DH_Button, state = ACTIVE)
+        else:
+            u9_DH_Button.config(u9_DH_Button, state = DISABLED)
+
+    if u10_P1.active == 1:
+        if u10_P1.afford(game):
+            u10_P1_Button.config(u10_P1_Button, state = ACTIVE)
+        else:
+            u10_P1_Button.config(u10_P1_Button, state = DISABLED)
+
+    if u11_P2.active == 1:
+        if u11_P2.afford(game):
+            u11_P2_Button.config(u11_P2_Button, state = ACTIVE)
+        else:
+            u11_P2_Button.config(u11_P2_Button, state = DISABLED)
+
+    if u12_P3.active == 1:
+        if u12_P3.afford(game):
+            u12_P3_Button.config(u12_P3_Button, state = ACTIVE)
+        else:
+            u12_P3_Button.config(u12_P3_Button, state = DISABLED)
+
+    if u13_P4.active == 1:
+        if u13_P4.afford(game):
+            u13_P4_Button.config(u13_P4_Button, state = ACTIVE)
+        else:
+            u13_P4_Button.config(u13_P4_Button, state = DISABLED)
+
+    if u13_P4.active == 1:
+        if u13_P4.afford(game):
+            u13_P4_Button.config(u13_P4_Button, state = ACTIVE)
+        else:
+            u13_P4_Button.config(u13_P4_Button, state = DISABLED)
 
     root.after(100, afford_upgrades)
 
@@ -453,14 +870,31 @@ def update_labels():
     game = Game() # get the instance of the game class
     if game.resourcesFrame == True:
         global energyLab
-        energyLab.config(energyLab, text = "Energy: " + str(round(game.energy)))
+        global quarkLab
+        global protonLab
+        global neutronLab
+        if (energyLab):
+            energyLab.config(energyLab, text = "Energy: " + "{:,.0f}".format(game.energy))
+        if (quarkLab):
+            quarkLab.config(quarkLab, text = "Quarks: " + "{:,.0f}".format(game.quarks))
+        if (protonLab):
+            protonLab.config(protonLab, text = "Protons: " + "{:,.0f}".format(game.protons))
+        if (neutronLab):
+            neutronLab.config(neutronLab, text = "Neutrons: " + "{:,.0f}".format(game.neutrons))
+
+    if game.temporalFrame == True:
+        global timeLab
+        global innovationLab
+        potentialLab.config(potentialLab, text = "Potential: " + "{:,.0f}".format(game.maxpotential))
+        potentialDescLab.config(potentialDescLab, text = "+1 Potential at " + "{:,.0f}".format(game.potential_lifeforms_req) + " lifeforms")
+        timeLab.config(timeLab, text = "Time: " + "{:,.0f}".format(game.time) + " / " + "{:,.0f}".format(game.expansion * 1000))
+        innovationLab.config(innovationLab, text = "Innovation: " + "{:,.0f}".format(game.innovation))
 
     root.after(100, update_labels) # schedule the function to be called again after 1000ms
 
 def calculate_revenues():
-    # For every active automator, calculate revenue in game
-    for a in active_autos:
-        game.calculate_revenue(a)
+    # Calls game to calculate revenue, giving the current active automators as well
+    game.calculate_revenue(active_autos)
     
     root.after(100, calculate_revenues)
 
