@@ -111,14 +111,14 @@ a2_QS_Button = None # Synthesizer
 scrollbar = Scrollbar(root, orient=VERTICAL)
 scrollbar.pack(side=tk.LEFT, fill=tk.Y)
 
-image_path = r'C:\Users\Joe\Desktop\Final Semester\Capstone\capstone_project\Assets\BackGround\pixel-rain-abstract-background\3145326.jpg'
+image_path = r'C:\Users\Joe\Desktop\Final Semester\Capstone\capstone_project\Assets\BackGround\space.jpg'
 
 image = Image.open(image_path)
 
 bg_image = ImageTk.PhotoImage(image)
 
 bg_label = tk.Label(root, image=bg_image)
-bg_label.place(x=0, y=0, relwidth=1, relheight=1)
+bg_label.place(x=2000, y=1000, relx=1, rely=1)
 
 #CREATING Frames to go on root
 timeline = Frame(root, relief = RAISED, bd = 5, bg = "white", height = 90, width = 2000)
