@@ -66,7 +66,7 @@ class Temporal(Upgrade):
 
 class Innovation(Upgrade):
     def __init__(self):
-        super().__init__("Innovation ", [("Time", 1000)], "Unlocks the production of Innovation.")
+        super().__init__("Innovation ", [("Time", 1000)], "Take your progress to the next level with Innovation. Use your full time to generate innovation and advance even faster!")
 
     def afford(self, game):
         if game.time >= 1000:
@@ -81,7 +81,7 @@ class Innovation(Upgrade):
 
 class Nucleosynthesis(Upgrade):
     def __init__(self):
-        super().__init__("Nucleosynthesis ", [("Quarks", 100), ("Innovation", 20)], "Unlocks proton & neutron automator & resource.")
+        super().__init__("Nucleosynthesis ", [("Quarks", 100), ("Innovation", 20)], "Combine quarks and innovation to unlock the ability to create protons and neutrons through the magic of nucleosynthesis!")
 
     def afford(self, game):
         if game.quarks >= 100 and game.innovation >= 20:
@@ -96,7 +96,7 @@ class Nucleosynthesis(Upgrade):
 
 class Gravitational_Amplification(Upgrade):
     def __init__(self):
-        super().__init__("Gravitational Amplification ", [("Energy", 1000), ("Time", 2000)], "Improves comrpessor automator.")
+        super().__init__("Gravitational Amplification ", [("Energy", 1000), ("Time", 2000)], "Amplify the gravitational force to increase energy production efficiency.")
 
     def afford(self, game):
         if game.energy >= 1000 and game.time >= 2000:
@@ -113,7 +113,7 @@ class Gravitational_Amplification(Upgrade):
 
 class Quark_Fusion(Upgrade):
     def __init__(self):
-        super().__init__("Quark Fusion ", [("Innovation", 30), ("Energy", 1500)], "Halves the cost of quarks, quintuples the production.")
+        super().__init__("Quark Fusion ", [("Innovation", 30), ("Energy", 1500)], "Master the art of quark fusion to improve your efficiency and cut your quark costs in half!")
 
     def afford(self, game):
         if game.innovation >= 30 and game.energy >= 1500:
@@ -125,7 +125,7 @@ class Quark_Fusion(Upgrade):
             game.innovation -= 30
             game.purchasedupgrades += self.name
             self.active = 2
-            newcost = (autos[0].tickcost[0], autos[0].tickcost[1] / 2)
+            newcost = (autos[0].tickcost[0][0], autos[0].tickcost[0][1] / 2)
             newrev = (autos[0].revenue[0], autos[0].revenue[1] * 5)
             autos[0].tickcost = newcost
             autos[0].revenue = newrev
@@ -133,7 +133,7 @@ class Quark_Fusion(Upgrade):
 
 class Atomic_Fabrication(Upgrade):
     def __init__(self):
-        super().__init__("Atomic Fabrication ", [("Innovation", 100), ("Quarks", 200), ("Energy", 1000)], "Unlocks Hydrogen production.")
+        super().__init__("Atomic Fabrication ", [("Innovation", 100), ("Quarks", 200), ("Energy", 1000)], "Unleash the Power of Atomic Fabrication to Produce Hydrogen!")
 
     def afford(self, game):
         if game.innovation >= 100 and game.quarks >= 200 and game.energy >= 1000:
@@ -149,7 +149,7 @@ class Atomic_Fabrication(Upgrade):
 
 class Discover_Helium(Upgrade):
     def __init__(self):
-        super().__init__("Discover Helium ", [("Innovation", 150), ("Quarks", 300), ("Energy", 1000)], "Unlocks Helium production.")
+        super().__init__("Discover Helium ", [("Innovation", 150), ("Quarks", 300), ("Energy", 1000)], "Take your atomic knowledge to new heights with helium!")
 
     def afford(self, game):
         if game.innovation >= 150 and game.quarks >= 300 and game.energy >= 1000:

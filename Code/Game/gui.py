@@ -116,6 +116,7 @@ productivityBut = None
 expansionBut = None
 timeLab = None
 innovationLab = None
+respecBut = None
 
 # Global Buttons
 # Upgrades
@@ -183,6 +184,7 @@ def buy_Productivity():
         if game.potential == 0:
             productivityBut.config(productivityBut, state = DISABLED)
             expansionBut.config(expansionBut, state = DISABLED)
+        respecBut.config(respecBut, state = ACTIVE)
 
 def buy_Expansion():
     global productivityBut
@@ -196,6 +198,28 @@ def buy_Expansion():
         if game.potential == 0:
             productivityBut.config(productivityBut, state = DISABLED)
             expansionBut.config(expansionBut, state = DISABLED)
+        respecBut.config(respecBut, state = ACTIVE)
+
+def respec_temporal():
+    global productivityBut
+    global expansionBut
+    global productivityLab
+    global productivityBut
+    global expansionBut
+    global expansionLab
+    if (game.productivity + game.expansion > 2):
+        game.potential = game.potential + game.productivity + game.expansion - 2
+        game.productivity = 1
+        game.expansion = 1
+        expansionLab.config(expansionLab, text = game.expansion)
+        productivityLab.config(productivityLab, text = game.productivity)
+        if (game.potential > 0):
+            productivityBut.config(productivityBut, state = ACTIVE)
+            expansionBut.config(expansionBut, state = ACTIVE)
+        else:
+            productivityBut.config(productivityBut, state = DISABLED)
+            expansionBut.config(expansionBut, state = DISABLED)
+        respecBut.config(respecBut, state = DISABLED)
 
 def buy_GC():
     game.buy_upgrade(u1_GC)
@@ -553,6 +577,7 @@ def check_milestones():
         global innovationLab
         global u4_IN_Button
         global TEMPORAL_FRAME_HEIGHT
+        global respecBut
         temporalF = Frame(root, relief = RAISED, bd = 5, bg = "cyan", height = TEMPORAL_FRAME_HEIGHT, width = MIDDLE_COLUMN_WIDTH)
         temporalF.place(x = MIDDLE_COLUMN_X, y = TOP_Y)
 
@@ -587,6 +612,10 @@ def check_milestones():
         expansionLab = Label(temporalF, text = "{:,.0f}".format(game.expansion), font = ("Terminal", 9))
         expansionLab.place(x = expansionBut.winfo_width() + LPADDING, y = label_height + LPADDING)
         label_height = label_height + expansionBut.winfo_height() + LPADDING
+
+        respecBut = tk.Button(temporalF, text = "Respec", font = ("Terminal", 8), width = 8, command = respec_temporal, state = DISABLED)
+        respecBut.place(x = PADDING, y = label_height + SPADDING)
+        label_height = label_height + respecBut.winfo_height() + LPADDING
 
         timeLab = Label(temporalF, text = "Time: " + "{:,.0f}".format(game.time) + " / " + "{:,.0f}".format(game.expansion * 1000), font = ("Terminal", 10))
         timeLab.place(x = PADDING, y = label_height + LPADDING)

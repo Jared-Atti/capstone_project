@@ -14,12 +14,16 @@ class Automator():
     def calc_revenue(self):
         return (self.revenue[1] * self.count) / 10
     
-    def calc_cost(self):
-        return (self.tickcost[1] * self.count) / 10
+    def calc_cost(self, index):
+        return (self.tickcost[index][1] * self.count) / 10
     
     def desc(self):
         if (self.tickcost):
-            return "Each " + self.name + " produces " + "{:,.0f}".format(self.revenue[1]) + " " + self.revenue[0] + " and costs " + "{:,.0f}".format(self.tickcost[1]) + " " + self.tickcost[0] + " per tick"
+            text = "Each " + self.name + " produces " + "{:,.0f}".format(self.revenue[1]) + " " + self.revenue[0] + " and costs "
+            for i in range(len(self.tickcost)):
+                text += "({:,.0f}".format(self.tickcost[i][1]) + " " + self.tickcost[i][0] + ") "
+
+            return text + "per tick"
         else:
              return "Each " + self.name + " produces " + "{:,.0f}".format(self.revenue[1]) + " " + self.revenue[0] + " per tick"
 
@@ -39,7 +43,7 @@ class Compressor(Automator):
 
 class Quark_Synthesizer(Automator):
     def __init__(self):
-        super().__init__("Quark Synthesiser", ("Energy", 50), ("Quark", 1), ("Energy", 8))
+        super().__init__("Quark Synthesiser", ("Energy", 50), ("Quark", 1), [("Energy", 8)])
     
     def afford(self, game):
         if game.energy >= self.upcost[1]:
@@ -53,7 +57,7 @@ class Quark_Synthesizer(Automator):
 
 class Proton_Synthesizer(Automator):
     def __init__(self):
-        super().__init__("Proton Synthesiser", ("Energy", 100), ("Proton", 1), ("Quark", 3))
+        super().__init__("Proton Synthesiser", ("Energy", 100), ("Proton", 1), [("Quark", 3)])
     
     def afford(self, game):
         if game.energy >= self.upcost[1]:
@@ -67,7 +71,36 @@ class Proton_Synthesizer(Automator):
 
 class Neutron_Synthesizer(Automator):
     def __init__(self):
-        super().__init__("Neutron Synthesiser", ("Energy", 100), ("Neutron", 1), ("Quark", 3))
+        super().__init__("Neutron Synthesiser", ("Energy", 100), ("Neutron", 1), [("Quark", 3)])
+    
+    def afford(self, game):
+        if game.energy >= self.upcost[1]:
+            return True
+    
+    def increase(self, game):
+        if self.afford(game):
+            game.energy -= self.upcost[1]
+            self.upcost = (self.upcost[0], round(self.upcost[1] * 1.05))
+            self.count += 1
+
+
+class Hydrogen_Fabricator(Automator):
+    def __init__(self):
+        super().__init__("Hydogen Fabricator", ("Energy", 200), ("Hydrogen", 1), [("Proton", 1)])
+    
+    def afford(self, game):
+        if game.energy >= self.upcost[1]:
+            return True
+    
+    def increase(self, game):
+        if self.afford(game):
+            game.energy -= self.upcost[1]
+            self.upcost = (self.upcost[0], round(self.upcost[1] * 1.05))
+            self.count += 1
+
+class Helium_Fabricator(Automator):
+    def __init__(self):
+        super().__init__("Helium Fabricator", ("Energy", 200), ("Helium", 1), [("Proton", 2),("Neutron", 2)])
     
     def afford(self, game):
         if game.energy >= self.upcost[1]:

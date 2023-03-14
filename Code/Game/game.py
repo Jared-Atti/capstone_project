@@ -61,7 +61,7 @@ class Game:
         self.time += 1000
         # self.potential += 1
         # self.maxpotential += 1
-        self.innovation += 10
+        self.innovation += 1000
         self.quarks += 100
 
     def create_life(self):
@@ -97,18 +97,19 @@ class Game:
                 afford = False
                 # Checking cost
                 if (a.tickcost):
-                    if a.tickcost[0] == "Energy" and a.calc_cost() <= self.energy:
-                        self.energy -= a.calc_cost()
-                        afford = True
-                    elif a.tickcost[0] == "Quark" and a.calc_cost() <= self.quarks:
-                        self.quarks -= a.calc_cost()
-                        afford = True
-                    elif a.tickcost[0] == "Proton" and a.calc_cost() <= self.protons:
-                        self.protons -= a.calc_cost()
-                        afford = True
-                    elif a.tickcost[0] == "Neutron" and a.calc_cost() <= self.neutrons:
-                        self.neutrons -= a.calc_cost()
-                        afford = True
+                    for i in range(len(a.tickcost)):
+                        if a.tickcost[i][0] == "Energy" and a.calc_cost(i) <= self.energy:
+                            self.energy -= a.calc_cost(i)
+                            afford = True
+                        elif a.tickcost[i][0] == "Quark" and a.calc_cost(i) <= self.quarks:
+                            self.quarks -= a.calc_cost(i)
+                            afford = True
+                        elif a.tickcost[i][0] == "Proton" and a.calc_cost(i) <= self.protons:
+                            self.protons -= a.calc_cost(i)
+                            afford = True
+                        elif a.tickcost[i][0] == "Neutron" and a.calc_cost(i) <= self.neutrons:
+                            self.neutrons -= a.calc_cost(i)
+                            afford = True
                 else:
                     afford = True
                 
