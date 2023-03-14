@@ -125,7 +125,7 @@ class Quark_Fusion(Upgrade):
             game.innovation -= 30
             game.purchasedupgrades += self.name
             self.active = 2
-            newcost = (autos[0].tickcost[0][0], autos[0].tickcost[0][1] / 2)
+            newcost = [(autos[0].tickcost[0][0], autos[0].tickcost[0][1] / 2)]
             newrev = (autos[0].revenue[0], autos[0].revenue[1] * 5)
             autos[0].tickcost = newcost
             autos[0].revenue = newrev
@@ -208,7 +208,7 @@ class Quantum_Leap(Upgrade):
             game.innovation -= 200
             game.purchasedupgrades += self.name
             game.potential += 5
-            game.maxpotential += 1
+            game.maxpotential += 5
             self.active = 2
 
 class Galatic_Investment(Upgrade):
@@ -224,7 +224,113 @@ class Galatic_Investment(Upgrade):
             game.innovation -= 400
             game.purchasedupgrades += self.name
             game.potential += 5
-            game.maxpotential += 1
+            game.maxpotential += 5
+            self.active = 2
+
+class Nova_Catalyst(Upgrade):
+    def __init__(self):
+        super().__init__("Nova Catalyst ", [("Innovation", 500)], "+10 Potential")
+
+    def afford(self, game):
+        if game.innovation >= 500:
+            return True
+    
+    def purchase(self, game):
+        if self.afford(game):
+            game.innovation -= 500
+            game.purchasedupgrades += self.name
+            game.potential += 10
+            game.maxpotential += 10
+            self.active = 2
+
+class Gravitational_Flucuations(Upgrade):
+    def __init__(self):
+        super().__init__("Gravitational Flucuations ", [("Energy", 5000), ("Innovation", 100)], "TBD")
+
+    def afford(self, game):
+        if game.innovation >= 100 and game.energy >= 5000:
+            return True
+    
+    def purchase(self, game):
+        if self.afford(game):
+            game.innovation -= 100
+            game.energy -= 5000
+            game.purchasedupgrades += self.name
+            self.active = 2
+
+class Quark_Acceleration(Upgrade):
+    def __init__(self):
+        super().__init__("Quark Acceleration ", [("Energy", 20000), ("Innovation", 200)], "TBD")
+
+    def afford(self, game):
+        if game.innovation >= 200 and game.energy >= 20000:
+            return True
+    
+    def purchase(self, game):
+        if self.afford(game):
+            game.innovation -= 200
+            game.energy -= 20000
+            game.purchasedupgrades += self.name
+            self.active = 2
+
+class Proton_Synthesizer(Upgrade):
+    def __init__(self):
+        super().__init__("QProton Synthesizer ", [("Quarks", 50000), ("Energy", 10000)], "TBD")
+
+    def afford(self, game):
+        if game.quarks >= 50000 and game.energy >= 10000:
+            return True
+    
+    def purchase(self, game):
+        if self.afford(game):
+            game.quarks -= 50000
+            game.energy -= 10000
+            game.purchasedupgrades += self.name
+            self.active = 2
+
+class Neutron_Processor(Upgrade):
+    def __init__(self):
+        super().__init__("Nuetron Processor ", [("Quarks", 75000), ("Energy", 15000)], "TBD")
+
+    def afford(self, game):
+        if game.quarks >= 75000 and game.energy >= 15000:
+            return True
+    
+    def purchase(self, game):
+        if self.afford(game):
+            game.quarks -= 75000
+            game.energy -= 15000
+            game.purchasedupgrades += self.name
+            self.active = 2
+
+class Hydrogenic_Catalyst(Upgrade):
+    def __init__(self):
+        super().__init__("Hydrogenic Catalyst ", [("Protons", 20000), ("Neutrons", 20000)], "TBD")
+
+    def afford(self, game):
+        if game.neutrons >= 20000 and game.protons >= 20000:
+            return True
+    
+    def purchase(self, game):
+        if self.afford(game):
+            game.protons -= 20000
+            game.neutrons -= 20000
+            game.purchasedupgrades += self.name
+            self.active = 2
+
+class Helium_Extractor(Upgrade):
+    def __init__(self):
+        super().__init__("Helium Extractor ", [("Protons", 30000), ("Neutrons", 30000)], "TBD")
+
+    def afford(self, game):
+        if game.neutrons >= 30000 and game.protons >= 30000:
+            return True
+    
+    def purchase(self, game):
+        if self.afford(game):
+            game.protons -= 30000
+            game.neutrons -= 30000
+            game.purchasedupgrades += self.name
             self.active = 2
 
 # Precambrian Upgrades
