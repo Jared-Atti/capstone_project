@@ -333,6 +333,66 @@ class Helium_Extractor(Upgrade):
             game.purchasedupgrades += self.name
             self.active = 2
 
+class Create_Sun(Upgrade):
+    def __init__(self):
+        super().__init__("Create the Sun ", [("Time", 10000), ("Hydrogen", 12400000000), ("Helium", 5310000000)], "TBD")
+
+    def afford(self, game):
+        if game.time >= 10000 and game.hydrogen >= 12400000000 and game.helium >= 5310000000:
+            return True
+    
+    def purchase(self, game):
+        if self.afford(game):
+            game.time -= 10000
+            game.hydrogen -= 12400000000
+            game.helium -= 5310000000
+            game.purchasedupgrades += self.name
+            self.active = 2
+
+class Nuclear_Fusion(Upgrade):
+    def __init__(self):
+        super().__init__("Nuclear Fusion ", [("Time", 20000), ("Innovation", 10000)], "TBD")
+
+    def afford(self, game):
+        if game.time >= 20000 and game.innovation >= 10000:
+            return True
+    
+    def purchase(self, game):
+        if self.afford(game):
+            game.time -= 20000
+            game.innovation -= 10000
+            game.purchasedupgrades += self.name
+            self.active = 2
+
+class Create_Earth(Upgrade):
+    def __init__(self):
+        super().__init__("Create the Earth ", [("Time", 20000), ("Innovation", 10000)], "TBD")
+
+    def afford(self, game):
+        if game.time >= 20000 and game.innovation >= 10000:
+            return True
+    
+    def purchase(self, game):
+        if self.afford(game):
+            game.time -= 20000
+            game.innovation -= 10000
+            game.purchasedupgrades += self.name
+            self.active = 2
+
+class Travel_Earth(Upgrade):
+    def __init__(self):
+        super().__init__("Travel to Earth ", [("Time", 24000)], "TBD")
+
+    def afford(self, game):
+        if game.time >= 24000:
+            return True
+    
+    def purchase(self, game):
+        if self.afford(game):
+            game.time -= 24000
+            game.purchasedupgrades += self.name
+            self.active = 2
+
 # Precambrian Upgrades
 class GeneticMutation(Upgrade):
     def __init__(self):

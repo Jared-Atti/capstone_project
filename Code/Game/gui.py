@@ -23,6 +23,17 @@ u10_P1 = upgrades.Cosmic_Burst()
 u11_P2 = upgrades.Starlight_Path()
 u12_P3 = upgrades.Quantum_Leap()
 u13_P4 = upgrades.Galatic_Investment()
+u14_P5 = upgrades.Nova_Catalyst()
+u15_GF = upgrades.Gravitational_Flucuations
+u16_QA = upgrades.Quark_Acceleration()
+u17_PS = upgrades.Proton_Synthesizer()
+u18_NP = upgrades.Neutron_Processor()
+u19_HC = upgrades.Hydrogenic_Catalyst()
+u20_HE = upgrades.Helium_Extractor()
+u21_CS = upgrades.Create_Sun()
+u22_NF = upgrades.Nuclear_Fusion()
+u23_CE = upgrades.Create_Earth()
+u24_TE = upgrades.Travel_Earth()
 
 
 # Initializing Automators
@@ -133,6 +144,17 @@ u10_P1_Button = None
 u11_P2_Button = None
 u12_P3_Button = None
 u13_P4_Button = None
+u14_P5_Button = None
+u15_GF_Button = None
+u16_QA_Button = None
+u17_PS_Button = None
+u18_NP_Button = None
+u19_HC_Button = None
+u20_HE_Button = None
+u21_CS_Button = None
+u22_NF_Button = None
+u23_CE_Button = None
+u24_TE_Button = None
 
 # Automators
 a1_GC_Button = None # Compressor
@@ -227,6 +249,9 @@ def buy_GC():
     u1_GC.active = 2
     root.after(100)
     destroyUpgradeButton(u1_GC_Button, u1_GC)
+
+    global u15_GF_Button
+    u15_GF_Button = createUpgradeButton(u15_GF_Button, u15_GF, buy_GF)
 
 def buy_SS():
     global u2_SS
@@ -333,6 +358,26 @@ def buy_QF():
     global a2_QS_Desc
     a2_QS_Desc.config(a2_QS_Desc, text = a2_QS.desc())
 
+    global u16_QA_Button
+    u16_QA_Button = createUpgradeButton(u16_QA_Button, u16_QA, buy_QA)
+
+def buy_AF():
+    game.buy_upgrade(u8_AF)
+    global u8_AF_Button
+    u8_AF.active = 2
+    root.after(100)
+    destroyUpgradeButton(u8_AF_Button, u8_AF)
+
+def buy_DH():
+    game.buy_upgrade(u9_DH)
+    global u9_DH_Button
+    u9_DH.active = 2
+    root.after(100)
+    destroyUpgradeButton(u9_DH_Button, u9_DH)
+
+    global u21_CS_Button
+    u21_CS_Button = createUpgradeButton(u21_CS_Button, u21_CS, buy_CS)
+
 def buy_P1():
     game.buy_upgrade(u10_P1)
     global u10_P1_Button
@@ -384,6 +429,103 @@ def buy_P4():
 
     # global u14_P5_Button
     # u14_P5_Button = createUpgradeButton(u14_P5_Button, u13_P5, buy_P5)
+
+def buy_P5():
+    game.buy_upgrade(u14_P5)
+    global u14_P5_Button
+    u14_P5.active = 2
+    root.after(100)
+    destroyUpgradeButton(u14_P5_Button, u14_P5)
+    game.set_max_potential()
+    productivityBut.config(productivityBut, state = ACTIVE)
+    expansionBut.config(expansionBut, state = ACTIVE)
+
+def buy_GF():
+    game.buy_upgrade(u15_GF)
+    global u15_GF_Button
+    u15_GF.active = 2
+    root.after(100)
+    destroyUpgradeButton(u15_GF_Button, u15_GF)
+
+def buy_QA():
+    game.buy_autoupgrade(u16_QA)
+    global u16_QA_Button
+    u16_QA.activve = 2
+    root.after(100)
+    destroyUpgradeButton(u16_QA_Button, u16_QA)
+
+def buy_PS():
+    game.buy_upgrade(u17_PS)
+    global u17_PS_Button
+    u17_PS.active = 2
+    root.after(100)
+    destroyUpgradeButton(u17_PS_Button, u17_PS)
+
+    global u18_NP_Button
+    u18_NP_Button = createUpgradeButton(u18_NP_Button, u18_NP, buy_NP)
+
+def buy_NP():
+    game.buy_upgrade(u18_NP)
+    global u18_NP_Button
+    u18_NP.active = 2
+    root.after(100)
+    destroyUpgradeButton(u18_NP_Button, u18_NP)
+
+    global u19_HC_Button
+    u19_HC_Button = createUpgradeButton(u19_HC_Button, u19_HC, buy_HC)
+
+def buy_HC():
+    game.buy_upgrade(u19_HC)
+    global u19_HC_Button
+    u19_HC.active = 2
+    root.after(100)
+    destroyUpgradeButton(u19_HC_Button, u19_HC)
+
+    global u20_HE_Button
+    u20_HE_Button = createUpgradeButton(u20_HE_Button, u20_HE, buy_HE)
+
+def buy_HE():
+    game.buy_upgrade(u20_HE)
+    global u20_HE_Button
+    u20_HE.active = 2
+    root.after(100)
+    destroyUpgradeButton(u20_HE_Button, u20_HE)
+
+def buy_CS():
+    game.buy_upgrade(u21_CS)
+    global u21_CS_Button
+    u21_CS.active = 2
+    root.after(100)
+    destroyUpgradeButton(u21_CS_Button, u21_CS)
+
+    global u22_NF_Button
+    global u23_CE_Button
+    u22_NF_Button = createUpgradeButton(u22_NF_Button, u22_NF, buy_NF)
+    u23_CE_Button = createUpgradeButton(u23_CE_Button, u23_CE, buy_CE)
+
+def buy_NF():
+    game.buy_upgrade(u22_NF)
+    global u22_NF_Button
+    u22_NF.active = 2
+    root.after(100)
+    destroyUpgradeButton(u22_NF_Button, u22_NF)
+
+def buy_CE():
+    game.buy_upgrade(u23_CE)
+    global u23_CE_Button
+    u23_CE.active = 2
+    root.after(100)
+    destroyUpgradeButton(u23_CE_Button, u23_CE)
+
+    global u24_TE_Button
+    u24_TE_Button = createUpgradeButton(u24_TE_Button, u24_TE, buy_TE)
+
+def buy_TE():
+    game.buy_upgrade(u24_TE)
+    global u24_TE_Button
+    u24_TE.active = 2
+    root.after(100)
+    destroyUpgradeButton(u24_TE_Button, u24_TE)
 
 # Increasing Automators
 def increase_a1_GC():
