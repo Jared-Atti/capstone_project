@@ -39,11 +39,7 @@ class Game:
         self.energy = 0
         self.hydrogen = 0
         self.helium = 0
-        self.oxygen = 0
-        self.silicon = 0
-        self.aluminum = 0
-        self.iron = 0
-        self.suppelements = 0 # supplementary
+        self.nuclears = 0
         
         # Precambrian
         self.microbes = 0
@@ -63,6 +59,8 @@ class Game:
         # self.maxpotential += 1
         self.innovation += 1000
         self.quarks += 100
+        self.hydrogen += 10000000000
+        self.helium += 10000000000
 
     def create_life(self):
         self.microbes += 1
@@ -101,7 +99,7 @@ class Game:
                         if a.tickcost[i][0] == "Energy" and a.calc_cost(i) <= self.energy:
                             self.energy -= a.calc_cost(i)
                             afford = True
-                        elif a.tickcost[i][0] == "Quark" and a.calc_cost(i) <= self.quarks:
+                        elif a.tickcost[i][0] == "Quarks" and a.calc_cost(i) <= self.quarks:
                             self.quarks -= a.calc_cost(i)
                             afford = True
                         elif a.tickcost[i][0] == "Proton" and a.calc_cost(i) <= self.protons:
@@ -110,6 +108,12 @@ class Game:
                         elif a.tickcost[i][0] == "Neutron" and a.calc_cost(i) <= self.neutrons:
                             self.neutrons -= a.calc_cost(i)
                             afford = True
+                        elif a.tickcost[i][0] == "Hydrogen" and a.calc_cost(i) <= self.hydrogen:
+                            self.hydrogen -= a.calc_cost(i)
+                            afford = True
+                        elif a.tickcost[i][0] == "Helium" and a.calc_cost(i) <= self.helium:
+                            self.helium -= a.calc_cost(i)
+                            afford = True
                 else:
                     afford = True
                 
@@ -117,12 +121,16 @@ class Game:
                 if afford:
                     if a.revenue[0] == "Energy":
                         self.energy += a.calc_revenue()
-                    elif a.revenue[0] == "Quark":
+                    elif a.revenue[0] == "Quarks":
                         self.quarks += a.calc_revenue()
                     elif a.revenue[0] == "Proton":
                         self.protons += a.calc_revenue()
                     elif a.revenue[0] == "Neutron":
                         self.neutrons += a.calc_revenue()
+                    elif a.revenue[0] == "Hydrogen":
+                        self.hydrogen += a.calc_revenue()
+                    elif a.revenue[0] == "Helium":
+                        self.helium += a.calc_revenue()
 
             
 

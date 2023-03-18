@@ -43,7 +43,7 @@ class Compressor(Automator):
 
 class Quark_Synthesizer(Automator):
     def __init__(self):
-        super().__init__("Quark Synthesiser", ("Energy", 50), ("Quark", 1), [("Energy", 8)])
+        super().__init__("Quark Synthesiser", ("Energy", 50), ("Quarks", 1), [("Energy", 8)])
     
     def afford(self, game):
         if game.energy >= self.upcost[1]:
@@ -57,7 +57,7 @@ class Quark_Synthesizer(Automator):
 
 class Proton_Synthesizer(Automator):
     def __init__(self):
-        super().__init__("Proton Synthesiser", ("Energy", 100), ("Proton", 1), [("Quark", 3)])
+        super().__init__("Proton Synthesiser", ("Energy", 100), ("Proton", 1), [("Quarks", 3)])
     
     def afford(self, game):
         if game.energy >= self.upcost[1]:
@@ -71,7 +71,7 @@ class Proton_Synthesizer(Automator):
 
 class Neutron_Synthesizer(Automator):
     def __init__(self):
-        super().__init__("Neutron Synthesiser", ("Energy", 100), ("Neutron", 1), [("Quark", 3)])
+        super().__init__("Neutron Synthesiser", ("Energy", 100), ("Neutron", 1), [("Quarks", 3)])
     
     def afford(self, game):
         if game.energy >= self.upcost[1]:
@@ -110,4 +110,25 @@ class Helium_Fabricator(Automator):
         if self.afford(game):
             game.energy -= self.upcost[1]
             self.upcost = (self.upcost[0], round(self.upcost[1] * 1.05))
+            self.count += 1
+
+class Nuclear_Fusion(Automator):
+    def __init__(self):
+        super().__init__("Nuclear Fusion", [("Hydrogen", 10000),("Helium", 7500)], None, None)
+        self.toggle = 0
+    
+    def desc(self):
+         return "Improves all other automators by 25% every purchase."
+    
+    def showCost(self):
+        return "Cost: " + "{:,.0f}".format(self.upcost[0][1]) + " " + self.upcost[0][0] + " and " + "{:,.0f}".format(self.upcost[1][1]) + " " + self.upcost[1][0]
+
+    def afford(self, game):
+        if game.hydrogen >= self.upcost[0][1] and game.helium >= self.upcost[1][1]:
+            return True
+    
+    def increase(self, game):
+        if self.afford(game):
+            game.hydrogen -= self.upcost[0][1]
+            self.upcost = [(self.upcost[0][0], round(self.upcost[0][1] * 1.25)), (self.upcost[1][0], round(self.upcost[1][1] * 1.25))]
             self.count += 1
