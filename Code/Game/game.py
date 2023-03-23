@@ -52,13 +52,13 @@ class Game:
 
     def create_energy(self):
         self.energy += 1
-        # # Testing
+        # Testing
         self.energy += 200000
         self.time += 1000
-        # self.potential += 1
-        # self.maxpotential += 1
-        self.innovation += 1000
-        self.quarks += 100
+        self.potential += 1
+        self.maxpotential += 1
+        self.innovation += 10000
+        self.quarks += 10000
         self.hydrogen += 10000000000
         self.helium += 10000000000
 
@@ -84,7 +84,7 @@ class Game:
             if (self.time + self.productivity > self.expansion * 1000):
                 self.time = self.expansion * 1000
             elif (self.time < self.expansion * 1000):
-                self.time += self.productivity * 0.99
+                self.time += (self.productivity * 0.99)
             
             if (self.innovationFlag and self.time >= self.expansion * 1000):
                 self.innovation += self.productivity * 0.1

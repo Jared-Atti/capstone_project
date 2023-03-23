@@ -408,12 +408,12 @@ class Nuclear_Fusion_Increase(Upgrade):
         super().__init__("Nuclear Fusion Increase ", None, None)
     
     def purchase(self, game, autos):
-        autos[0].revenue = (autos[0].revenue[0], autos[0].revenue[1] * 1.25)
-        autos[1].revenue = (autos[1].revenue[0], autos[1].revenue[1] * 1.25)
-        autos[2].revenue = (autos[2].revenue[0], autos[2].revenue[1] * 1.25)
-        autos[3].revenue = (autos[3].revenue[0], autos[3].revenue[1] * 1.25)
-        autos[4].revenue = (autos[4].revenue[0], autos[4].revenue[1] * 1.25)
-        autos[5].revenue = (autos[5].revenue[0], autos[5].revenue[1] * 1.25)
+        autos[0].revenue = (autos[0].revenue[0], autos[0].revenue[1] * 1.10)
+        autos[1].revenue = (autos[1].revenue[0], autos[1].revenue[1] * 1.10)
+        autos[2].revenue = (autos[2].revenue[0], autos[2].revenue[1] * 1.10)
+        autos[3].revenue = (autos[3].revenue[0], autos[3].revenue[1] * 1.10)
+        autos[4].revenue = (autos[4].revenue[0], autos[4].revenue[1] * 1.10)
+        autos[5].revenue = (autos[5].revenue[0], autos[5].revenue[1] * 1.10)
         return autos
 
 
