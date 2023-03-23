@@ -72,6 +72,7 @@ a7_NF = automators.Nuclear_Fusion()
 root = tk.Tk()
 root.title = ("Eco-Evolution")
 root.geometry("1440x1100")
+root.configure(background='black')
 
 #Variables for Sizes
 SPADDING = 5
@@ -632,6 +633,7 @@ def buy_CE():
 
     global u24_TE_Button
     u24_TE_Button = createUpgradeButton(u24_TE_Button, u24_TE, buy_TE)
+    root.configure(background='darkblue')
 
 def buy_TE():
     game.buy_upgrade(u24_TE)
@@ -850,7 +852,7 @@ def toggle_a6_HeF():
 
 
 #CREATING Frames to go on root
-timeline = Frame(root, relief = RAISED, bd = 5, bg = "white", height = 90, width = 2000)
+timeline = Frame(root, relief = RAISED, bd = 5, bg = "white", height = 90, width = 2000, background='black')
 
 lifeForms = Frame(root, relief= RAISED, bd = 5, bg = "purple", height = 40, width = 2000)
 
@@ -878,7 +880,7 @@ root.rowconfigure(1, weight = 1)
 
 #CREATION of Labels that go onto Frames/Buttons
 tlL = Label(timeline, text = "Timeline:", font = ('Terminal', 10))
-lifeL = Label(lifeForms, text = "Lifeforms: ", font = ("Terminal", 10))
+lifeL = Label(lifeForms, text = "Lifeforms: 0", font = ("Terminal", 10))
 eraL = Label(visuals, text = "Era: ", font = ("Terminal", 10))
 lifeL.place(x = 0, y = 0)
 tlL.place(x = 0, y = 0)
@@ -1150,15 +1152,25 @@ def createUpgradeButton(button, upgrade, cmd):
     button = tk.Button(upgradesF, 
         text = "\u0332".join(upgrade.name) + "\n" + upgrade.description + "\n" + upgrade.showCosts(),
         command = cmd, font = ('Terminal', 10), state = DISABLED, wraplength=UPGRADE_BUTTON_WIDTH, width=37)
+    
+    upgradesF.update_idletasks()
+    button.place(in_ = upgradesF, relx = 0.5, y = UPGRADE_BUTTON_NEXTY, anchor=('nw'))
+    button.place_configure(anchor='n')
     upgradesF.update_idletasks()
     button_height = button.winfo_height()
-    button.place(in_ = upgradesF, relx = 0.5, y = UPGRADE_BUTTON_NEXTY + (button_height // 2), anchor="center")
-    upgradesF.update_idletasks()
-    button_height = button.winfo_height()
-    button.place(in_ = upgradesF, relx = 0.5, y = UPGRADE_BUTTON_NEXTY + (button_height // 2), anchor="center")
+    button.place(in_ = upgradesF, relx = 0.5, y = UPGRADE_BUTTON_NEXTY, anchor=('nw'))
+    button.place_configure(anchor='n')
+    
+    # upgradesF.update_idletasks()
+    # button_height = button.winfo_height()
+    # button.place(in_ = upgradesF, relx = 0.5, y = UPGRADE_BUTTON_NEXTY + (button_height // 2), anchor="center")
+    # upgradesF.update_idletasks()
+    # button_height = button.winfo_height()
+    # button.place(in_ = upgradesF, relx = 0.5, y = UPGRADE_BUTTON_NEXTY + (button_height // 2), anchor="center")
     # Updating frame height values
-    UPGRADE_BUTTON_NEXTY = UPGRADE_BUTTON_NEXTY + button_height + PADDING
     UPGRADE_FRAME_HEIGHT = UPGRADE_FRAME_HEIGHT + button_height + PADDING
+    UPGRADE_BUTTON_NEXTY = UPGRADE_BUTTON_NEXTY + button_height + PADDING
+    # UPGRADE_FRAME_HEIGHT = UPGRADE_FRAME_HEIGHT + button_height + PADDING
     upgradesF.config(height=UPGRADE_FRAME_HEIGHT)
     # Setting active status of upgrade
     upgrade.active = 1
@@ -1179,12 +1191,9 @@ def destroyUpgradeButton(button, upgrade):
     # Moving any widgets below deleted button up
     for widget in upgradesF.winfo_children():
         current_y = widget.winfo_y()
-        if current_y > button_y:
-            current_height = widget.winfo_height()
-            if current_height < button_height:
-                widget.place(y=current_y - button_height // 2 - current_height // 2)
-            else: 
-                widget.place(y=current_y - SPADDING - button_height // 2)
+        if current_y >= button_y:
+            widget.place(y=current_y - button_height - LPADDING)
+            # widget.place(y=current_y - button_height // 2 - current_height // 2)
 
     # Updating variables
     UPGRADE_BUTTON_NEXTY = UPGRADE_BUTTON_NEXTY - button_height - PADDING

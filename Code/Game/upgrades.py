@@ -1,9 +1,3 @@
-# class Upgrades:
-#     def new(cls):
-#         if cls._instance is None:
-#             cls._instance = super().new(cls)
-#         return cls._instance
-
 class Upgrade():
     def __init__(self, name, costs, description):
         self.name = name
