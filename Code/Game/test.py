@@ -58,48 +58,13 @@ a7_NF = automators.Nuclear_Fusion()
 
 
 
-
-
-
-
-
-
-
-
-
-
-#Main Frame of Game
-root = tk.Tk()
-root.title = ("Eco-Evolution")
-root.geometry("1440x1100")
-root.configure(background='black')
-
-# Create a canvas widget
-canvas = tk.Canvas(root)
-canvas.pack(side=tk.LEFT, fill=tk.BOTH, expand=True)
-
-# add a scrollbar to the canvas
-scrollbar = tk.Scrollbar(root, orient=tk.VERTICAL, command=canvas.yview)
-scrollbar.pack(side=tk.LEFT, fill=tk.Y)
-canvas.configure(yscrollcommand=scrollbar.set)
-
-# Creating the Main Frame
-main_Frame = tk.Frame(canvas)
-main_Frame.pack()
-
-# add the new frame to the canvas
-canvas.create_window((0, 0), window = main_Frame, anchor = 'nw')
-
-# update the canvas scroll region
-main_Frame.update_idletasks()
-canvas.config(scrollregion=canvas.bbox("all"))
-
 #Variables for Sizes
 SPADDING = 5
 PADDING = 10
 LPADDING = 15
 
-ROOT_HEIGHT = 1100
+ROOT_HEIGHT = 1
+ROOT_WIDTH = 1
 
 LEFT_COLUMN_WIDTH = 300
 MIDDLE_COLUMN_WIDTH = 350
@@ -235,6 +200,126 @@ a7_NF_Button = None # Nuclear Fusion
 
 
 
+def create_energy():
+    game.create_energy()
+
+#Main Frame of Game
+root = tk.Tk()
+root.title = ("Eco-Evolution")
+root.geometry("1440x1100")
+root.configure(background='black')
+
+root.update_idletasks()
+ROOT_HEIGHT = root.winfo_height()
+ROOT_WIDTH = root.winfo_width()
+
+# Create a canvas widget
+canvas = tk.Canvas(root, height = ROOT_HEIGHT)
+canvas.pack(side=tk.LEFT, fill=tk.BOTH, expand=True)
+
+# add a scrollbar to the canvas
+scrollbar = tk.Scrollbar(root, orient=tk.VERTICAL, command=canvas.yview)
+scrollbar.pack(side=tk.LEFT, fill=tk.Y)
+canvas.configure(yscrollcommand=scrollbar.set)
+
+# Creating the Main Frame
+mainframe = tk.Frame(canvas, height = ROOT_HEIGHT)
+
+#CREATING Frames to go on root
+timeline = Frame(mainframe, relief = RAISED, bd = 5, bg = "white", height = 90, width = 2000, background='black')
+lifeForms = Frame(mainframe, relief= RAISED, bd = 5, bg = "purple", height = 40, width = 2000)
+visuals = Frame(mainframe, relief = RAISED, bd = 5, bg = "yellow", height = 450, width = 450)
+createLabel = Frame(mainframe, bg = "orange", height = 40, width = 100)
+time = Frame(mainframe, relief = RAISED, bd = 5, bg = "pink", height = 40, width = 175)
+
+mainframe.config(height = ROOT_HEIGHT, width = 1440)
+mainframe.update_idletasks()
+
+#PLACEMENT of Frames on root
+timeline.place(x = 20, y = 0)
+lifeForms.place(x = 20, y = 90)
+visuals.place(x = 900, y = TOP_Y)
+createLabel.place(x = 20, y = 135)
+time.place(x = 500, y = 135)
+
+# mainframe.config(height = ROOT_HEIGHT, width = 1440)
+mainframe.update_idletasks()
+
+# mainwidth = 0
+# mainheight = 0
+# for widget in mainframe.winfo_children():
+#     mainwidth 
+
+# timeline.pack(side=tk.TOP, expand=False)
+# lifeForms.pack(side=tk.TOP, expand=False)
+# visuals.pack(side=tk.TOP, expand=False)
+# createLabel.pack(side=tk.TOP, expand=False)
+# time.pack(side=tk.TOP, expand=True)
+# timeline.pack(side=tk.TOP, fill=tk.BOTH, expand=True)
+# lifeForms.pack(side=tk.TOP, fill=tk.BOTH, expand=True)
+# visuals.pack(side=tk.TOP, fill=tk.BOTH, expand=True)
+# createLabel.pack(side=tk.TOP, fill=tk.BOTH, expand=True)
+# time.pack(side=tk.TOP, fill=tk.BOTH, expand=True)
+
+#Makes all Frames in GUI weighted the same
+root.rowconfigure(0, weight = 1)
+root.columnconfigure(0, weight = 1)
+root.rowconfigure(1, weight = 1)
+
+#CREATION of Labels that go onto Frames/Buttons
+tlL = Label(timeline, text = "Timeline:", font = ('Terminal', 10))
+lifeL = Label(lifeForms, text = "Lifeforms: 0", font = ("Terminal", 10))
+eraL = Label(visuals, text = "Era: ", font = ("Terminal", 10))
+lifeL.place(x = 0, y = 0)
+tlL.place(x = 0, y = 0)
+eraL.place(x = 0, y = 0)
+
+#CREATION of Buttons
+energyB = tk.Button(createLabel, text ="Energy", command = create_energy, font=('Terminal', 10))#, image = img)
+timeB = tk.Button(time, text = "Advance Time", font=('Terminal', 10), state = DISABLED)
+
+#PLACEMENT of Buttons in Frames
+energyB.place(in_ = createLabel, y = 10, x = 20)
+timeB.place(in_ = time, x = 25, y = 5)
+
+# add the new frame to the canvas
+canvas.create_window((0, 0), window = mainframe, anchor = 'nw')
+
+# update the canvas scroll region
+# def update_scrollregion(event):
+#     canvas.configure(scrollregion=canvas.bbox("all"))
+#     canvas.itemconfig(canvas.find_withtag("mainframe"), width=event.width)
+
+def update_scrollregion(event=None):
+    canvas.configure(scrollregion=canvas.bbox("all"))
+    canvas.itemconfig(canvas.find_withtag("mainframe"), width=event.width if event else 0)
+    canvas.pack(side=tk.LEFT, fill=tk.BOTH, expand=True)
+
+mainframe.bind("<Configure>", update_scrollregion)
+mainframe.update_idletasks()
+canvas.config(scrollregion=canvas.bbox("all"))
+
+def scroll(event):
+    canvas.yview_scroll(int(-1*(event.delta/120)), "units")
+
+canvas.bind_all("<MouseWheel>", scroll)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -257,9 +342,6 @@ a7_NF_Button = None # Nuclear Fusion
 
 
 #FUNCTIONS connected to Game class for in-game Buttons
-def create_energy():
-    game.create_energy()
-
 def buy_Productivity():
     global productivityBut
     global expansionBut
@@ -868,58 +950,58 @@ def toggle_a6_HeF():
 
 
 
-#CREATING Frames to go on root
-timeline = Frame(main_Frame, relief = RAISED, bd = 5, bg = "white", height = 90, width = 2000, background='black')
+# #CREATING Frames to go on root
+# timeline = Frame(mainframe, relief = RAISED, bd = 5, bg = "white", height = 90, width = 2000, background='black')
 
-lifeForms = Frame(main_Frame, relief= RAISED, bd = 5, bg = "purple", height = 40, width = 2000)
+# lifeForms = Frame(mainframe, relief= RAISED, bd = 5, bg = "purple", height = 40, width = 2000)
 
-visuals = Frame(main_Frame, relief = RAISED, bd = 5, bg = "yellow", height = 450, width = 450)
+# visuals = Frame(mainframe, relief = RAISED, bd = 5, bg = "yellow", height = 450, width = 450)
 
-createLabel = Frame(main_Frame, bg = "orange", height = 40, width = 100)
+# createLabel = Frame(mainframe, bg = "orange", height = 40, width = 100)
 
-time = Frame(main_Frame, relief = RAISED, bd = 5, bg = "pink", height = 40, width = 175)
-
-
+# time = Frame(mainframe, relief = RAISED, bd = 5, bg = "pink", height = 40, width = 175)
 
 
 
-#PLACEMENT of Frames on root
-timeline.place(x = 20, y = 0)
 
-lifeForms.place(x = 20, y = 90)
 
-visuals.place(x = 900, y = TOP_Y)
+# #PLACEMENT of Frames on root
+# timeline.place(x = 20, y = 0)
 
-createLabel.place(x = 20, y = 135)
+# lifeForms.place(x = 20, y = 90)
 
-time.place(x = 500, y = 135)
+# visuals.place(x = 900, y = TOP_Y)
 
-#Makes all Frames in GUI weighted the same
-root.rowconfigure(0, weight = 1)
-root.columnconfigure(0, weight = 1)
-root.rowconfigure(1, weight = 1)
+# createLabel.place(x = 20, y = 135)
 
-#CREATION of Labels that go onto Frames/Buttons
-tlL = Label(timeline, text = "Timeline:", font = ('Terminal', 10))
-lifeL = Label(lifeForms, text = "Lifeforms: 0", font = ("Terminal", 10))
-eraL = Label(visuals, text = "Era: ", font = ("Terminal", 10))
-lifeL.place(x = 0, y = 0)
-tlL.place(x = 0, y = 0)
-eraL.place(x = 0, y = 0)
+# time.place(x = 500, y = 135)
 
-#CREATION of Buttons
-energyB = tk.Button(createLabel, text ="Energy", command = create_energy, font=('Terminal', 10))#, image = img)
-protonB = tk.Button()
-neutronB = tk.Button()
-timeB = tk.Button(time, text = "Advance Time", font=('Terminal', 10), state = DISABLED)
+# #Makes all Frames in GUI weighted the same
+# root.rowconfigure(0, weight = 1)
+# root.columnconfigure(0, weight = 1)
+# root.rowconfigure(1, weight = 1)
 
-#PLACEMENT of Buttons in Frames
-energyB.place(in_ = createLabel, y = 10, x = 20)
-timeB.place(in_ = time, x = 25, y = 5)
+# #CREATION of Labels that go onto Frames/Buttons
+# tlL = Label(timeline, text = "Timeline:", font = ('Terminal', 10))
+# lifeL = Label(lifeForms, text = "Lifeforms: 0", font = ("Terminal", 10))
+# eraL = Label(visuals, text = "Era: ", font = ("Terminal", 10))
+# lifeL.place(x = 0, y = 0)
+# tlL.place(x = 0, y = 0)
+# eraL.place(x = 0, y = 0)
 
-canvas.create_window((0, 0), window = main_Frame, anchor = 'nw')
-main_Frame.update_idletasks()
-canvas.config(scrollregion=canvas.bbox("all"))
+# #CREATION of Buttons
+# energyB = tk.Button(createLabel, text ="Energy", command = create_energy, font=('Terminal', 10))#, image = img)
+# protonB = tk.Button()
+# neutronB = tk.Button()
+# timeB = tk.Button(time, text = "Advance Time", font=('Terminal', 10), state = DISABLED)
+
+# #PLACEMENT of Buttons in Frames
+# energyB.place(in_ = createLabel, y = 10, x = 20)
+# timeB.place(in_ = time, x = 25, y = 5)
+
+# canvas.create_window((0, 0), window = mainframe, anchor = 'nw')
+# mainframe.update_idletasks()
+# canvas.config(scrollregion=canvas.bbox("all"))
 
 
 
@@ -953,7 +1035,7 @@ def check_milestones():
         global energyLab
         global microbeLab
         # Creating and placing RESOURCE frame
-        resourcesF = Frame(main_Frame, relief = RAISED, bd = 5, bg = "red", height = RESOURCE_FRAME_HEIGHT, width = LEFT_COLUMN_WIDTH)
+        resourcesF = Frame(mainframe, relief = RAISED, bd = 5, bg = "red", height = RESOURCE_FRAME_HEIGHT, width = LEFT_COLUMN_WIDTH)
         resourcesF.place(x = LEFT_COLUMN_X, y = TOP_Y)
         # Creating and placing frame title
         resourcesTitleLabel = Label(resourcesF, text = "Resources", font = ("Terminal", 10))
@@ -970,7 +1052,7 @@ def check_milestones():
         global u1_GC_Button
         global UPGRADE_BUTTON_NEXTY
         # Creating and placing UPGRADES frame
-        upgradesF = Frame (main_Frame, relief = RAISED, bd = 5, bg = "teal", height = UPGRADE_FRAME_HEIGHT, width = MIDDLE_COLUMN_WIDTH)
+        upgradesF = Frame (mainframe, relief = RAISED, bd = 5, bg = "teal", height = UPGRADE_FRAME_HEIGHT, width = MIDDLE_COLUMN_WIDTH)
         upgradesF.place(x = MIDDLE_COLUMN_X, y = TOP_Y)
         # Creating and placing frame title
         upgradesL = Label(upgradesF, text = "Upgrades", font = ("Terminal", 10))
@@ -990,7 +1072,7 @@ def check_milestones():
         global a1_GC_Cost
         global a1_GC_Button
         # Creating and placing PRODUCTION frame
-        productionF = Frame(main_Frame, relief = RAISED, bd = 5, bg = "green", height = PRODUCTION_FRAME_HEIGHT, width = LEFT_COLUMN_WIDTH)
+        productionF = Frame(mainframe, relief = RAISED, bd = 5, bg = "green", height = PRODUCTION_FRAME_HEIGHT, width = LEFT_COLUMN_WIDTH)
         productionF.place(x = LEFT_COLUMN_X, y = TOP_Y + RESOURCE_FRAME_HEIGHT + 5)
         # Creating and placing frame title
         productionTitleLabel = Label(productionF, text = "Production", font = ("Terminal", 10))
@@ -1030,7 +1112,7 @@ def check_milestones():
         global u4_IN_Button
         global TEMPORAL_FRAME_HEIGHT
         global respecBut
-        temporalF = Frame(main_Frame, relief = RAISED, bd = 5, bg = "cyan", height = TEMPORAL_FRAME_HEIGHT, width = MIDDLE_COLUMN_WIDTH)
+        temporalF = Frame(mainframe, relief = RAISED, bd = 5, bg = "cyan", height = TEMPORAL_FRAME_HEIGHT, width = MIDDLE_COLUMN_WIDTH)
         temporalF.place(x = MIDDLE_COLUMN_X, y = TOP_Y)
 
         temporalTitleLabel = Label(temporalF, text = "Temporal Momentum", font = ("Terminal", 10))
@@ -1150,6 +1232,15 @@ def createResourceLabel(label, resource, name):
     resourcesF.config(height=RESOURCE_FRAME_HEIGHT)
     if (productionF != None):
         productionF.place(y = PRODUCTION_FRAME_TOP)
+
+    global ROOT_HEIGHT
+    ROOT_HEIGHT += (label_height + PADDING) * 0.9
+    mainframe.config(height = ROOT_HEIGHT)
+    mainframe.update_idletasks()
+    update_scrollregion()
+    # mainframe.bind("<Configure>", update_scrollregion)
+    
+
     return label
 
 # Function for destroying a button within upgrades frame
@@ -1165,6 +1256,13 @@ def destroyResourceLabel(label):
     resourcesF.config(height=RESOURCE_FRAME_HEIGHT)
     if (productionF != None):
         productionF.place(y = PRODUCTION_FRAME_TOP)
+
+    global ROOT_HEIGHT
+    ROOT_HEIGHT -= (label_height + PADDING) * 0.9
+    mainframe.config(height = ROOT_HEIGHT)
+    # mainframe.bind("<Configure>", update_scrollregion)
+    mainframe.update_idletasks()
+    update_scrollregion()
 
 
 # Function for adding a new button to upgrades frame
@@ -1199,6 +1297,14 @@ def createUpgradeButton(button, upgrade, cmd):
     upgradesF.config(height=UPGRADE_FRAME_HEIGHT)
     # Setting active status of upgrade
     upgrade.active = 1
+
+    global ROOT_HEIGHT
+    ROOT_HEIGHT += (button_height + PADDING) * 0.9
+    mainframe.config(height = ROOT_HEIGHT)
+    # mainframe.bind("<Configure>", update_scrollregion)
+    mainframe.update_idletasks()
+    update_scrollregion()
+
     return button
 
 # Function for destroying a button within upgrades frame
@@ -1226,6 +1332,13 @@ def destroyUpgradeButton(button, upgrade):
     upgradesF.config(height=UPGRADE_FRAME_HEIGHT)
     # Updating upgrade status
     upgrade.active = 2
+
+    global ROOT_HEIGHT
+    ROOT_HEIGHT -= (button_height + PADDING) * 0.9
+    mainframe.config(height = ROOT_HEIGHT)
+    # mainframe.bind("<Configure>", update_scrollregion)
+    mainframe.update_idletasks()
+    update_scrollregion()
 
 # Function for adding a new producer to productions
 def createProducer(namelabel, name, button, cmd, costlabel, desclabel, toggleflag, togglebut, togglecommand, automator):
@@ -1266,6 +1379,13 @@ def createProducer(namelabel, name, button, cmd, costlabel, desclabel, togglefla
     # Adds automator to the list of active autos
     active_autos.append(automator)
 
+    global ROOT_HEIGHT
+    ROOT_HEIGHT += (totalheight + PADDING * 2) * 0.9
+    mainframe.config(height = ROOT_HEIGHT)
+    # mainframe.bind("<Configure>", update_scrollregion)
+    mainframe.update_idletasks()
+    update_scrollregion()
+
     return namelabel, button, costlabel, desclabel, togglebut
 
 # Function for destroying a producer within productions frame
@@ -1296,6 +1416,13 @@ def destroyProducer(namelabel, costlabel, desclabel, button, togglebutton, autom
     productionF.config(height=PRODUCTION_FRAME_HEIGHT)
 
     active_autos.remove(automator)
+
+    global ROOT_HEIGHT
+    ROOT_HEIGHT -= (totalheight + PADDING * 2) * 0.9
+    mainframe.config(height = ROOT_HEIGHT)
+    # mainframe.bind("<Configure>", update_scrollregion)
+    mainframe.update_idletasks()
+    update_scrollregion()
 
 
 

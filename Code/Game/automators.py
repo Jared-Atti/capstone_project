@@ -118,7 +118,7 @@ class Nuclear_Fusion(Automator):
         self.toggle = 0
     
     def desc(self):
-         return "Improves all other automators by 25% every purchase."
+         return "Improves all other automators by 10% every purchase."
     
     def showCost(self):
         return "Cost: " + "{:,.0f}".format(self.upcost[0][1]) + " " + self.upcost[0][0] + " and " + "{:,.0f}".format(self.upcost[1][1]) + " " + self.upcost[1][0]
@@ -130,5 +130,5 @@ class Nuclear_Fusion(Automator):
     def increase(self, game):
         if self.afford(game):
             game.hydrogen -= self.upcost[0][1]
-            self.upcost = [(self.upcost[0][0], round(self.upcost[0][1] * 1.25)), (self.upcost[1][0], round(self.upcost[1][1] * 1.25))]
+            self.upcost = [(self.upcost[0][0], round(self.upcost[0][1] * 1.9)), (self.upcost[1][0], round(self.upcost[1][1] * 1.9))]
             self.count += 1
