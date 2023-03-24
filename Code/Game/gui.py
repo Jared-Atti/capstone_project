@@ -232,7 +232,7 @@ visuals = Frame(mainframe, relief = RAISED, bd = 5, bg = "yellow", height = 450,
 createLabel = Frame(mainframe, bg = "orange", height = 40, width = 100)
 time = Frame(mainframe, relief = RAISED, bd = 5, bg = "pink", height = 40, width = 175)
 
-mainframe.config(height = ROOT_HEIGHT, width = 1440)
+mainframe.config(height = ROOT_HEIGHT, width = 1440, background= "black")
 mainframe.update_idletasks()
 
 #PLACEMENT of Frames on root
@@ -242,7 +242,12 @@ visuals.place(x = 900, y = TOP_Y)
 createLabel.place(x = 20, y = 135)
 time.place(x = 500, y = 135)
 
+def printMessage(message):
+    label = Label(timeline, text = message + "\n", font = ("Terminal", 10), fg = "white", bg = "black")
+    label.place(x = 90)
+
 # mainframe.config(height = ROOT_HEIGHT, width = 1440)
+printMessage("Welcome to Eco-Evolution!")
 mainframe.update_idletasks()
 
 #Makes all Frames in GUI weighted the same
@@ -708,17 +713,22 @@ def buy_CE():
     u23_CE.active = 2
     root.after(100)
     destroyUpgradeButton(u23_CE_Button, u23_CE)
+    destroyResourceLabel(energyLab)
+    destroyResourceLabel(quarkLab)
+    destroyResourceLabel(protonLab)
+    destroyResourceLabel(neutronLab)
+    destroyResourceLabel(heliumLab)
+    destroyResourceLabel(hydrogenLab)
+    destroyProducer(a1_GC_Name, a1_GC_Cost, a1_GC_Desc, a1_GC_Button, None, a1_GC)
+    destroyProducer(a2_QS_Name, a2_QS_Cost, a2_QS_Desc, a2_QS_Button, a2_QS_Toggle, a2_QS)
+    destroyProducer(a3_PS_Name, a3_PS_Cost, a3_PS_Desc, a3_PS_Button, a3_PS_Toggle, a3_PS)
+    destroyProducer(a4_NS_Name, a4_NS_Cost, a4_NS_Desc, a4_NS_Button, a4_NS_Toggle, a4_NS)
+    destroyProducer(a5_HyF_Name, a5_HyF_Cost, a5_HyF_Desc, a5_HyF_Button, a5_HyF_Toggle, a5_HyF)
+    destroyProducer(a6_HeF_Name, a6_HeF_Cost, a6_HeF_Desc, a6_HeF_Button, a6_HeF_Toggle, a6_HeF)
+    destroyProducer(a7_NF_Name, a7_NF_Cost, a7_NF_Desc, a7_NF_Button, None, a7_NF)
+    printMessage("Welcome to the Pre-Cambrian Era!")
+    mainframe.configure(background='darkblue')
 
-    global u24_TE_Button
-    u24_TE_Button = createUpgradeButton(u24_TE_Button, u24_TE, buy_TE)
-    root.configure(background='darkblue')
-
-def buy_TE():
-    game.buy_upgrade(u24_TE)
-    global u24_TE_Button
-    u24_TE.active = 2
-    root.after(100)
-    destroyUpgradeButton(u24_TE_Button, u24_TE)
 
 
 
@@ -1513,15 +1523,7 @@ def afford_upgrades():
         else:
             u23_CE_Button.config(u23_CE_Button, state = DISABLED)
     
-    if u24_TE.active == 1:
-        if u24_TE.afford(game):
-            u24_TE_Button.config(u24_TE_Button, state = ACTIVE)
-        else:
-            u24_TE_Button.config(u24_TE_Button, state = DISABLED)
-
-    
     root.after(100, afford_upgrades)
-
 
 #Function that constantly updates game Labels
 def update_labels():

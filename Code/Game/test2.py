@@ -68,11 +68,7 @@ a7_NF = automators.Nuclear_Fusion()
 
 
 
-#Main Frame of Game
-root = tk.Tk()
-root.title = ("Eco-Evolution")
-root.geometry("1440x1100")
-root.configure(background='black')
+
 
 #Variables for Sizes
 SPADDING = 5
@@ -104,8 +100,8 @@ RIGHT_COLUMN_X = 0
 PRODUCTION_FRAME_TOP = RESOURCE_FRAME_HEIGHT + TOP_Y + PADDING
 
 
-sb = Scrollbar(root)
-sb.pack(side = LEFT, fill = Y)
+#sb = Scrollbar(root)
+#sb.pack(side = LEFT, fill = Y)
 # root.configure(yscrollcommand=sb.set)
 
 # GLOBAL LISTS
@@ -233,15 +229,90 @@ a7_NF_Button = None # Nuclear Fusion
 
 
 
-
-
-
-
-
-
-#FUNCTIONS connected to Game class for in-game Buttons
 def create_energy():
     game.create_energy()
+
+#Main Frame of Game
+root = tk.Tk()
+root.title = ("Eco-Evolution")
+root.geometry("1440x1100")
+root.configure(background='black')
+
+root.update_idletasks()
+ROOT_HEIGHT = root.winfo_height()
+ROOT_WIDTH = root.winfo_width()
+
+# Create a canvas widget
+canvas = tk.Canvas(root, height = ROOT_HEIGHT)
+canvas.pack(side=tk.LEFT, fill=tk.BOTH, expand=True)
+
+# add a scrollbar to the canvas
+scrollbar = tk.Scrollbar(root, orient=tk.VERTICAL, command=canvas.yview)
+scrollbar.pack(side=tk.LEFT, fill=tk.Y)
+canvas.configure(yscrollcommand=scrollbar.set)
+
+# Creating the Main Frame
+mainframe = tk.Frame(canvas, height = ROOT_HEIGHT)
+
+#CREATING Frames to go on root
+timeline = Frame(mainframe, relief = RAISED, bd = 5, bg = "white", height = 90, width = 2000, background='black')
+lifeForms = Frame(mainframe, relief= RAISED, bd = 5, bg = "purple", height = 40, width = 2000)
+visuals = Frame(mainframe, relief = RAISED, bd = 5, bg = "yellow", height = 450, width = 450)
+createLabel = Frame(mainframe, bg = "orange", height = 40, width = 100)
+time = Frame(mainframe, relief = RAISED, bd = 5, bg = "pink", height = 40, width = 175)
+
+mainframe.config(height = ROOT_HEIGHT, width = 1440)
+mainframe.update_idletasks()
+
+#PLACEMENT of Frames on root
+timeline.place(x = 20, y = 0)
+lifeForms.place(x = 20, y = 90)
+visuals.place(x = 900, y = TOP_Y)
+createLabel.place(x = 20, y = 135)
+time.place(x = 500, y = 135)
+
+# mainframe.config(height = ROOT_HEIGHT, width = 1440)
+mainframe.update_idletasks()
+
+#Makes all Frames in GUI weighted the same
+root.rowconfigure(0, weight = 1)
+root.columnconfigure(0, weight = 1)
+root.rowconfigure(1, weight = 1)
+
+#CREATION of Labels that go onto Frames/Buttons
+tlL = Label(timeline, text = "Timeline:", font = ('Terminal', 10))
+lifeL = Label(lifeForms, text = "Lifeforms: 0", font = ("Terminal", 10))
+eraL = Label(visuals, text = "Era: ", font = ("Terminal", 10))
+lifeL.place(x = 0, y = 0)
+tlL.place(x = 0, y = 0)
+eraL.place(x = 0, y = 0)
+
+#CREATION of Buttons
+energyB = tk.Button(createLabel, text ="Energy", command = create_energy, font=('Terminal', 10))#, image = img)
+timeB = tk.Button(time, text = "Advance Time", font=('Terminal', 10), state = DISABLED)
+
+#PLACEMENT of Buttons in Frames
+energyB.place(in_ = createLabel, y = 10, x = 20)
+timeB.place(in_ = time, x = 25, y = 5)
+
+# add the new frame to the canvas
+canvas.create_window((0, 0), window = mainframe, anchor = 'nw')
+
+def update_scrollregion(event=None):
+    canvas.configure(scrollregion=canvas.bbox("all"))
+    canvas.itemconfig(canvas.find_withtag("mainframe"), width=event.width if event else 0)
+    canvas.pack(side=tk.LEFT, fill=tk.BOTH, expand=True)
+
+mainframe.bind("<Configure>", update_scrollregion)
+mainframe.update_idletasks()
+canvas.config(scrollregion=canvas.bbox("all"))
+
+def scroll(event):
+    canvas.yview_scroll(int(-1*(event.delta/120)), "units")
+
+canvas.bind_all("<MouseWheel>", scroll)
+
+#FUNCTIONS connected to Game class for in-game Buttons
 
 def buy_Productivity():
     global productivityBut
@@ -857,69 +928,6 @@ def toggle_a6_HeF():
 
 
 
-#CREATING Frames to go on root
-timeline = Frame(root, relief = RAISED, bd = 5, bg = "white", height = 90, width = 2000, background='black')
-
-lifeForms = Frame(root, relief= RAISED, bd = 5, bg = "purple", height = 40, width = 2000)
-
-visuals = Frame(root, relief = RAISED, bd = 5, bg = "yellow", height = 450, width = 450)
-
-createLabel = Frame(root, bg = "orange", height = 40, width = 100)
-
-time = Frame (root, relief = RAISED, bd = 5, bg = "pink", height = 40, width = 175)
-
-#PLACEMENT of Frames on root
-timeline.place(x = 20, y = 0)
-
-lifeForms.place(x = 20, y = 90)
-
-visuals.place(x = 900, y = TOP_Y)
-
-createLabel.place(x = 20, y = 135)
-
-time.place(x = 500, y = 135)
-
-#Makes all Frames in GUI weighted the same
-root.rowconfigure(0, weight = 1)
-root.columnconfigure(0, weight = 1)
-root.rowconfigure(1, weight = 1)
-
-#CREATION of Labels that go onto Frames/Buttons
-tlL = Label(timeline, text = "Timeline:", font = ('Terminal', 10))
-lifeL = Label(lifeForms, text = "Lifeforms: 0", font = ("Terminal", 10))
-eraL = Label(visuals, text = "Era: ", font = ("Terminal", 10))
-lifeL.place(x = 0, y = 0)
-tlL.place(x = 0, y = 0)
-eraL.place(x = 0, y = 0)
-
-#CREATION of Buttons
-energyB = tk.Button(createLabel, text ="Energy", command = create_energy, font=('Terminal', 10))#, image = img)
-protonB = tk.Button()
-neutronB = tk.Button()
-timeB = tk.Button(time, text = "Advance Time", font=('Terminal', 10), state = DISABLED)
-
-#PLACEMENT of Buttons in Frames
-energyB.place(in_ = createLabel, y = 10, x = 20)
-timeB.place(in_ = time, x = 25, y = 5)
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 # Checks milestone conditions, activating new game mechanics when achieved
 def check_milestones():
@@ -1278,6 +1286,12 @@ def destroyProducer(namelabel, costlabel, desclabel, button, togglebut, automato
 
     active_autos.remove(automator)
 
+    global ROOT_HEIGHT
+    ROOT_HEIGHT -= (totalheight + PADDING * 2) * 0.9
+    mainframe.config(height = ROOT_HEIGHT)
+    mainframe.update_idletasks()
+    update_scrollregion()
+
 
 
 
@@ -1454,14 +1468,7 @@ def afford_upgrades():
             u23_CE_Button.config(u23_CE_Button, state = ACTIVE)
         else:
             u23_CE_Button.config(u23_CE_Button, state = DISABLED)
-    
-    if u24_TE.active == 1:
-        if u24_TE.afford(game):
-            u24_TE_Button.config(u24_TE_Button, state = ACTIVE)
-        else:
-            u24_TE_Button.config(u24_TE_Button, state = DISABLED)
 
-    
     root.after(100, afford_upgrades)
 
 
