@@ -33,7 +33,6 @@ u20_HE = upgrades.Helium_Extractor()
 u21_CS = upgrades.Create_Sun()
 u22_NF = upgrades.Nuclear_Fusion()
 u23_CE = upgrades.Create_Earth()
-u24_TE = upgrades.Travel_Earth()
 u25_NFI = upgrades.Nuclear_Fusion_Increase()
 
 

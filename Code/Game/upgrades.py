@@ -239,7 +239,7 @@ class Nova_Catalyst(Upgrade):
 
 class Gravitational_Flucuations(Upgrade):
     def __init__(self):
-        super().__init__("Gravitational Flucuations ", [("Energy", 5000), ("Innovation", 100)], "TBD")
+        super().__init__("Gravitational Flucuations ", [("Energy", 5000), ("Innovation", 100)], "Amplify the gravitational force to increase energy production efficiency.")
 
     def afford(self, game):
         if game.innovation >= 100 and game.energy >= 5000:
@@ -256,7 +256,7 @@ class Gravitational_Flucuations(Upgrade):
 
 class Quark_Acceleration(Upgrade):
     def __init__(self):
-        super().__init__("Quark Acceleration ", [("Energy", 20000), ("Innovation", 200)], "TBD")
+        super().__init__("Quark Acceleration ", [("Energy", 20000), ("Innovation", 200)], "Accelerating the rate of production of quarks greatly while also cutting costs in half.")
 
     def afford(self, game):
         if game.innovation >= 200 and game.energy >= 20000:
@@ -277,7 +277,7 @@ class Quark_Acceleration(Upgrade):
 
 class Proton_Processor(Upgrade):
     def __init__(self):
-        super().__init__("Proton Processor ", [("Quarks", 50000), ("Energy", 10000)], "TBD")
+        super().__init__("Proton Processor ", [("Quarks", 50000), ("Energy", 10000)], "Learn how to automate the production of Protons.")
 
     def afford(self, game):
         if game.quarks >= 50000 and game.energy >= 10000:
@@ -294,7 +294,7 @@ class Proton_Processor(Upgrade):
 
 class Neutron_Processor(Upgrade):
     def __init__(self):
-        super().__init__("Nuetron Processor ", [("Quarks", 75000), ("Energy", 15000)], "TBD")
+        super().__init__("Nuetron Processor ", [("Quarks", 75000), ("Energy", 15000)], "Expand your knowledge to automate the production of Neutrons.")
 
     def afford(self, game):
         if game.quarks >= 75000 and game.energy >= 15000:
@@ -311,7 +311,7 @@ class Neutron_Processor(Upgrade):
 
 class Hydrogenic_Catalyst(Upgrade):
     def __init__(self):
-        super().__init__("Hydrogenic Catalyst ", [("Protons", 20000), ("Neutrons", 20000)], "TBD")
+        super().__init__("Hydrogenic Catalyst ", [("Protons", 20000), ("Neutrons", 20000)], "With the automation of protons and neutrons, you can now automate Hydrogen.")
 
     def afford(self, game):
         if game.neutrons >= 20000 and game.protons >= 20000:
@@ -328,7 +328,7 @@ class Hydrogenic_Catalyst(Upgrade):
 
 class Helium_Extractor(Upgrade):
     def __init__(self):
-        super().__init__("Helium Extractor ", [("Protons", 30000), ("Neutrons", 30000)], "TBD")
+        super().__init__("Helium Extractor ", [("Protons", 30000), ("Neutrons", 30000)], "Finally mastering the power to automate the production of Helium")
 
     def afford(self, game):
         if game.neutrons >= 30000 and game.protons >= 30000:
@@ -345,7 +345,7 @@ class Helium_Extractor(Upgrade):
 
 class Create_Sun(Upgrade):
     def __init__(self):
-        super().__init__("Create the Sun ", [("Time", 10000), ("Hydrogen", 12400000000), ("Helium", 5310000000)], "TBD")
+        super().__init__("Create the Sun ", [("Time", 10000), ("Hydrogen", 12400000000), ("Helium", 5310000000)], "With all the resources created and utomated, you can now harness the power of the Sun.")
 
     def afford(self, game):
         if game.time >= 10000 and game.hydrogen >= 12400000000 and game.helium >= 5310000000:
@@ -376,7 +376,7 @@ class Nuclear_Fusion(Upgrade):
 
 class Create_Earth(Upgrade):
     def __init__(self):
-        super().__init__("Create the Earth ", [("Time", 5000), ("Innovation", 100)], "TBD")
+        super().__init__("Create the Earth ", [("Time", 5000), ("Innovation", 100)], "Finally with everything you've gathered, you create a life sustaining planet you call Earth and travel to it..")
 
     def afford(self, game):
         if game.time >= 5000 and game.innovation >= 100:
@@ -386,20 +386,6 @@ class Create_Earth(Upgrade):
         if self.afford(game):
             game.time -= 5000
             game.innovation -= 100
-            game.purchasedupgrades += self.name
-            self.active = 2
-
-class Travel_Earth(Upgrade):
-    def __init__(self):
-        super().__init__("Travel to Earth ", [("Time", 10000)], "TBD")
-
-    def afford(self, game):
-        if game.time >= 10000:
-            return True
-    
-    def purchase(self, game):
-        if self.afford(game):
-            game.time -= 10000
             game.purchasedupgrades += self.name
             self.active = 2
 

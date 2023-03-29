@@ -55,8 +55,8 @@ class Game:
         # Testing
         self.energy += 200000
         self.time += 1000
-        self.potential += 1
-        self.maxpotential += 1
+        #self.potential += 1
+        #self.maxpotential += 1
         self.innovation += 10000
         self.quarks += 10000
         self.hydrogen += 10000000000
@@ -84,10 +84,10 @@ class Game:
             if (self.time + self.productivity > self.expansion * 1000):
                 self.time = self.expansion * 1000
             elif (self.time < self.expansion * 1000):
-                self.time += (self.productivity * 0.99)
+                self.time += (self.productivity * 3)
             
             if (self.innovationFlag and self.time >= self.expansion * 1000):
-                self.innovation += self.productivity * 0.1
+                self.innovation += self.productivity * 2.1
 
 
         for a in autos:
