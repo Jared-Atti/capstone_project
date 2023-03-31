@@ -225,11 +225,11 @@ canvas.configure(yscrollcommand=scrollbar.set)
 mainframe = tk.Frame(canvas, height = ROOT_HEIGHT)
 
 #CREATING Frames to go on root
-timeline = Frame(mainframe, relief = RAISED, bd = 5, bg = "white", height = 90, width = 2000, background='black')
-lifeForms = Frame(mainframe, relief= RAISED, bd = 5, bg = "purple", height = 40, width = 2000)
-visuals = Frame(mainframe, relief = RAISED, bd = 5, bg = "yellow", height = 450, width = 450)
-createLabel = Frame(mainframe, bg = "orange", height = 40, width = 100)
-time = Frame(mainframe, relief = RAISED, bd = 5, bg = "pink", height = 40, width = 175)
+timeline = Frame(mainframe, relief = RAISED, bd = 5, bg = "black", height = 90, width = 2000)
+lifeForms = Frame(mainframe, relief= RAISED, bd = 5, bg = "white", height = 40, width = 2000)
+visuals = Frame(mainframe, relief = RAISED, bd = 5, bg = "white", height = 450, width = 450)
+createLabel = Frame(mainframe, bg = "white", height = 40, width = 100)
+time = Frame(mainframe, relief = RAISED, bd = 5, bg = "white", height = 40, width = 175)
 
 mainframe.config(height = ROOT_HEIGHT, width = 1440, background= "black")
 mainframe.update_idletasks()
@@ -255,15 +255,15 @@ root.columnconfigure(0, weight = 1)
 root.rowconfigure(1, weight = 1)
 
 #CREATION of Labels that go onto Frames/Buttons
-tlL = Label(timeline, text = "Timeline:", font = ('Terminal', 10))
-lifeL = Label(lifeForms, text = "Lifeforms: 0", font = ("Terminal", 10))
-eraL = Label(visuals, text = "Era: ", font = ("Terminal", 10))
+tlL = Label(timeline, text = "Timeline:", font = ('Terminal', 10), bg = "black", fg = "white")
+lifeL = Label(lifeForms, text = "Lifeforms: " + "???", font = ("Terminal", 10), bg = "white")
+eraL = Label(visuals, text = "Era: Cosmic", font = ("Terminal", 10), bg = "white")
 lifeL.place(x = 0, y = 0)
 tlL.place(x = 0, y = 0)
 eraL.place(x = 0, y = 0)
 
 #CREATION of Buttons
-energyB = tk.Button(createLabel, text ="Energy", command = create_energy, font=('Terminal', 10))#, image = img)
+energyB = tk.Button(createLabel, text ="Energy", command = create_energy, font=('Terminal', 10))
 timeB = tk.Button(time, text = "Advance Time", font=('Terminal', 10), state = DISABLED)
 
 #PLACEMENT of Buttons in Frames
@@ -971,10 +971,10 @@ def check_milestones():
         global energyLab
         global microbeLab
         # Creating and placing RESOURCE frame
-        resourcesF = Frame(mainframe, relief = RAISED, bd = 5, bg = "red", height = RESOURCE_FRAME_HEIGHT, width = LEFT_COLUMN_WIDTH)
+        resourcesF = Frame(mainframe, relief = RAISED, bd = 5, bg = "white", height = RESOURCE_FRAME_HEIGHT, width = LEFT_COLUMN_WIDTH)
         resourcesF.place(x = LEFT_COLUMN_X, y = TOP_Y)
         # Creating and placing frame title
-        resourcesTitleLabel = Label(resourcesF, text = "Resources", font = ("Terminal", 10))
+        resourcesTitleLabel = Label(resourcesF, text = "Resources", font = ("Terminal", 10), bg = "white")
         resourcesTitleLabel.place(relx = 0.5, y = 10, anchor="center")
 
         energyLab = createResourceLabel(energyLab, game.energy, "Energy")
@@ -988,10 +988,10 @@ def check_milestones():
         global u1_GC_Button
         global UPGRADE_BUTTON_NEXTY
         # Creating and placing UPGRADES frame
-        upgradesF = Frame (mainframe, relief = RAISED, bd = 5, bg = "teal", height = UPGRADE_FRAME_HEIGHT, width = MIDDLE_COLUMN_WIDTH)
+        upgradesF = Frame (mainframe, relief = RAISED, bd = 5, bg = "white", height = UPGRADE_FRAME_HEIGHT, width = MIDDLE_COLUMN_WIDTH)
         upgradesF.place(x = MIDDLE_COLUMN_X, y = TOP_Y)
         # Creating and placing frame title
-        upgradesL = Label(upgradesF, text = "Upgrades", font = ("Terminal", 10))
+        upgradesL = Label(upgradesF, text = "Upgrades", font = ("Terminal", 10), bg = "white")
         upgradesL.place(relx = 0.5, y = 10, anchor="center")
         upgradesF.update_idletasks()
         UPGRADE_BUTTON_NEXTY = upgradesL.winfo_height() + upgradesL.winfo_y()
@@ -1008,10 +1008,10 @@ def check_milestones():
         global a1_GC_Cost
         global a1_GC_Button
         # Creating and placing PRODUCTION frame
-        productionF = Frame(mainframe, relief = RAISED, bd = 5, bg = "green", height = PRODUCTION_FRAME_HEIGHT, width = LEFT_COLUMN_WIDTH)
+        productionF = Frame(mainframe, relief = RAISED, bd = 5, bg = "white", height = PRODUCTION_FRAME_HEIGHT, width = LEFT_COLUMN_WIDTH)
         productionF.place(x = LEFT_COLUMN_X, y = TOP_Y + RESOURCE_FRAME_HEIGHT + 5)
         # Creating and placing frame title
-        productionTitleLabel = Label(productionF, text = "Production", font = ("Terminal", 10))
+        productionTitleLabel = Label(productionF, text = "Production", font = ("Terminal", 10), bg = "white")
         productionTitleLabel.place(relx = 0.5, y = 10, anchor="center")
         # Updating 'game' to recognize production frame is active
         game.productionFrame = True
@@ -1048,20 +1048,20 @@ def check_milestones():
         global u4_IN_Button
         global TEMPORAL_FRAME_HEIGHT
         global respecBut
-        temporalF = Frame(mainframe, relief = RAISED, bd = 5, bg = "cyan", height = TEMPORAL_FRAME_HEIGHT, width = MIDDLE_COLUMN_WIDTH)
+        temporalF = Frame(mainframe, relief = RAISED, bd = 5, bg = "white", height = TEMPORAL_FRAME_HEIGHT, width = MIDDLE_COLUMN_WIDTH)
         temporalF.place(x = MIDDLE_COLUMN_X, y = TOP_Y)
 
-        temporalTitleLabel = Label(temporalF, text = "Temporal Momentum", font = ("Terminal", 10))
+        temporalTitleLabel = Label(temporalF, text = "Temporal Momentum", font = ("Terminal", 10), bg = "white")
         temporalTitleLabel.place(relx = 0.5, y = 10, anchor="center")
         temporalF.update_idletasks()
         label_height = temporalTitleLabel.winfo_height()
 
-        potentialLab = Label(temporalF, text = "Potential: " + "{:,.0f}".format(game.maxpotential), font = ("Terminal", 10))
+        potentialLab = Label(temporalF, text = "Potential: " + "{:,.0f}".format(game.maxpotential), font = ("Terminal", 10), bg = "white")
         potentialLab.place(x = PADDING, y = label_height + PADDING)
         temporalF.update_idletasks()
         label_height = label_height + potentialLab.winfo_height()
 
-        potentialDescLab = Label(temporalF, text = "+1 Potential at " + "{:,.0f}".format(game.potential_lifeforms_req) + " lifeforms", font = ("Terminal", 8))
+        potentialDescLab = Label(temporalF, text = "+1 Potential at " + "{:,.0f}".format(game.potential_lifeforms_req) + " lifeforms", font = ("Terminal", 8), bg = "white")
         potentialDescLab.place(x = PADDING, y = label_height + PADDING)
         temporalF.update_idletasks()
         label_height = label_height + potentialDescLab.winfo_height() + LPADDING
@@ -1070,7 +1070,7 @@ def check_milestones():
         productivityBut.place(x = PADDING, y = label_height + LPADDING)
         temporalF.update_idletasks()
         
-        productivityLab = Label(temporalF, text = "{:,.0f}".format(game.productivity), font = ("Terminal", 9))
+        productivityLab = Label(temporalF, text = "{:,.0f}".format(game.productivity), font = ("Terminal", 9), bg = "white")
         productivityLab.place(x = productivityBut.winfo_width() + LPADDING, y = label_height + LPADDING)
         label_height = label_height + productivityBut.winfo_height() + SPADDING
 
@@ -1079,7 +1079,7 @@ def check_milestones():
         expansionBut.place(x = PADDING, y = label_height + LPADDING)
         temporalF.update_idletasks()
         
-        expansionLab = Label(temporalF, text = "{:,.0f}".format(game.expansion), font = ("Terminal", 9))
+        expansionLab = Label(temporalF, text = "{:,.0f}".format(game.expansion), font = ("Terminal", 9), bg = "white")
         expansionLab.place(x = expansionBut.winfo_width() + LPADDING, y = label_height + LPADDING)
         label_height = label_height + expansionBut.winfo_height() + LPADDING
 
@@ -1087,12 +1087,12 @@ def check_milestones():
         respecBut.place(x = PADDING, y = label_height + SPADDING)
         label_height = label_height + respecBut.winfo_height() + LPADDING
 
-        timeLab = Label(temporalF, text = "Time: " + "{:,.0f}".format(game.time) + " / " + "{:,.0f}".format(game.expansion * 1000), font = ("Terminal", 10))
+        timeLab = Label(temporalF, text = "Time: " + "{:,.0f}".format(game.time) + " / " + "{:,.0f}".format(game.expansion * 1000), font = ("Terminal", 10), bg = "white")
         timeLab.place(x = PADDING, y = label_height + LPADDING)
         temporalF.update_idletasks()
         label_height = label_height + timeLab.winfo_height() + SPADDING
 
-        innovationLab = Label(temporalF, text = "Innovation: " + "{:,.0f}".format(game.innovation), font = ("Terminal", 10))
+        innovationLab = Label(temporalF, text = "Innovation: " + "{:,.0f}".format(game.innovation), font = ("Terminal", 10), bg = "white")
         innovationLab.place(x = PADDING, y = label_height + PADDING)
         temporalF.update_idletasks()
         label_height = label_height + innovationLab.winfo_height()
@@ -1158,7 +1158,7 @@ def createResourceLabel(label, resource, name):
     global RESOURCE_FRAME_HEIGHT
     global RESOURCE_LABEL_NEXTY
     global PRODUCTION_FRAME_TOP
-    label = Label(resourcesF, text = name + ": " + "{:,.0f}".format(resource), font = ('Terminal', 10))
+    label = Label(resourcesF, text = name + ": " + "{:,.0f}".format(resource), font = ('Terminal', 10), bg = "white")
     label.place(x = PADDING, y = RESOURCE_LABEL_NEXTY)
     resourcesF.update_idletasks()
     label_height = label.winfo_height()
@@ -1269,7 +1269,7 @@ def createProducer(namelabel, name, button, cmd, costlabel, desclabel, togglefla
     global PRODUCTION_FRAME_HEIGHT
     global productionF
 
-    namelabel = Label(productionF, text = name + ": " + "{:,.0f}".format(automator.count), font = ('Terminal', 10))
+    namelabel = Label(productionF, text = name + ": " + "{:,.0f}".format(automator.count), font = ('Terminal', 10), bg = "white")
     namelabel.place(x = PADDING, y = PRODUCTION_LABEL_NEXTY)
     productionF.update_idletasks()
     button = tk.Button(productionF, text = "+", font = ("Terminal", 10), command = cmd)
@@ -1284,11 +1284,11 @@ def createProducer(namelabel, name, button, cmd, costlabel, desclabel, togglefla
         productionF.update_idletasks()
 
     productionF.update_idletasks()
-    costlabel = Label(productionF, text = automator.showCost(), font = ('Terminal', 9), wraplength=LEFT_COLUMN_WIDTH - (PADDING * 2))
+    costlabel = Label(productionF, text = automator.showCost(), font = ('Terminal', 9), wraplength=LEFT_COLUMN_WIDTH - (PADDING * 2), bg = "white")
     costlabel.place(x = PADDING, y = PRODUCTION_LABEL_NEXTY + PADDING / 2 + namelabel.winfo_height())
 
     productionF.update_idletasks()
-    desclabel = Label(productionF, text = automator.desc(), font = ('Terminal', 8), wraplength=LEFT_COLUMN_WIDTH - (PADDING * 2))
+    desclabel = Label(productionF, text = automator.desc(), font = ('Terminal', 8), wraplength=LEFT_COLUMN_WIDTH - (PADDING * 2), bg = "white")
     desclabel.place(x = PADDING, y = PRODUCTION_LABEL_NEXTY + 2 * PADDING / 2 + namelabel.winfo_height() + costlabel.winfo_height())
     
     productionF.update_idletasks()
