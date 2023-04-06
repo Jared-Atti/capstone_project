@@ -402,8 +402,73 @@ class Nuclear_Fusion_Increase(Upgrade):
         autos[5].revenue = (autos[5].revenue[0], autos[5].revenue[1] * 1.10)
         return autos
 
+class Cool_Down(Upgrade):
+    def __init__(self):
+        super().__init__("Cool Down ", ("Time", 100), "The Earth is still forming and a very hot molten ball of rock. It needs some time be cool. In the meantime, it can be bombarded with asteroids and collect some interesting materials, maybe even a moon.")
+
+    def afford(self, game):
+        if game.time >= 100:
+            return True
+    
+    def purchase(self, game):
+        if self.afford(game):
+            game.time -= 100
+            game.purchasedupgrades += self.name
+            self.active = 2
 
 # Precambrian Upgrades
+class DNA_Points(Upgrade):
+    def __init__(self):
+        super().__init__("DNA Points ", ("Time", 10), "Sacrifice everything you have gathered throughout the Cosmic era to discover a new material called DNA.")
+
+    def afford(self, game):
+        if game.time >= 10:
+            return True
+    
+    def purchase(self, game):
+        if self.afford(game):
+            game.time -= 10
+            game.purchasedupgrades += self.name
+            self.active = 2
+
 class GeneticMutation(Upgrade):
     def __init__(self):
-        super().__init__("Genetic Mutation ", [("DNA", 10)], "Generates passive DNA points for every living microbe.")
+        super().__init__("Genetic Mutation ", [("DNA", 25)], "Generates passive DNA points for every living microbe.")
+    
+    def afford(self, game):
+        if game.dna >= 25:
+            return True
+    
+    def purchase(self, game):
+        if self.afford(game):
+            game.dna -= 25
+            game.purchasedupgrades += self.name
+            self.active = 2
+
+class Metabolic_Adaptation(Upgrade):
+    def __init__(self):
+        super().__init__("Metabolic Adaptation ", [("DNA", 50)], "Unlocks the ability to metabolize water and nutrients as resources, allowing for greater growth and expansion of your life forms.")
+    
+    def afford(self, game):
+        if game.dna >= 50:
+            return True
+    
+    def purchase(self, game):
+        if self.afford(game):
+            game.dna -= 50
+            game.purchasedupgrades += self.name
+            self.active = 2
+
+class Asexual_Reproduction(Upgrade):
+    def __init__(self):
+        super().__init__("Asexual Reproduction ", [("DNA", 50)], "Microbes begin evolving, learning the ability to reproduce asexually.  Reproducers begin increasing the amount of microbes.")
+    
+    def afford(self, game):
+        if game.dna >= 50:
+            return True
+    
+    def purchase(self, game):
+        if self.afford(game):
+            game.dna -= 50
+            game.purchasedupgrades += self.name
+            self.active = 2
