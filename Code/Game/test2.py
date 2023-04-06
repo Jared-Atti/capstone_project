@@ -33,8 +33,12 @@ u20_HE = upgrades.Helium_Extractor()
 u21_CS = upgrades.Create_Sun()
 u22_NF = upgrades.Nuclear_Fusion()
 u23_CE = upgrades.Create_Earth()
-u24_TE = upgrades.Travel_Earth()
+u24_CD = upgrades.Cool_Down()
 u25_NFI = upgrades.Nuclear_Fusion_Increase()
+u26_DNA = upgrades.DNA_Points()
+u27_GM = upgrades.GeneticMutation()
+u28_MA = upgrades.Metabolic_Adaptation()
+u29_AR = upgrades.Asexual_Reproduction()
 
 
 # Initializing Automators
@@ -189,7 +193,11 @@ u20_HE_Button = None
 u21_CS_Button = None
 u22_NF_Button = None
 u23_CE_Button = None
-u24_TE_Button = None
+u24_CD_Button = None
+u26_DNA_Button = None
+u27_GM_Button = None
+u28_MA_Button = None
+u29_AR_Button = None
 
 # Automators
 a1_GC_Button = None # Compressor
@@ -700,6 +708,20 @@ def buy_CE():
     global u23_CE_Button
     u23_CE.active = 2
     root.after(100)
+    root.configure(background='darkblue')
+
+def buy_CD():
+    game.buy_upgrade(u24_CD)
+    global u24_CD_Button
+    u24_CD.active = 2
+    root.after(100)
+    destroyUpgradeButton(u24_CD_Button,u24_CD)
+
+def buy_DNA():
+    game.buy_upgrade(u26_DNA)
+    global u26_DNA_Button
+    u26_DNA.active = 2
+    root.after(100)
     destroyUpgradeButton(u23_CE_Button, u23_CE)
     destroyResourceLabel(energyLab)
     destroyResourceLabel(quarkLab)
@@ -715,7 +737,33 @@ def buy_CE():
     destroyProducer(a6_HeF_Name, a6_HeF_Cost, a6_HeF_Desc, a6_HeF_Button, a6_HeF_Toggle, a6_HeF)
     destroyProducer(a7_NF_Name, a7_NF_Cost, a7_NF_Desc, a7_NF_Button, None, a7_NF)
     printMessage("Welcome to the Pre-Cambrian Era!")
-    root.configure(background='darkblue')
+    destroyUpgradeButton(u26_DNA_Button, u26_DNA)
+
+def buy_GM():
+    game.buy_upgrade(u27_GM)
+    global u27_GM_Button
+    u27_GM.active = 2
+    root.after(100)
+    destroyUpgradeButton(u27_GM)
+
+def buy_MA():
+    game.buy_upgrade(u28_MA)
+    global u28_MA_Button
+    u28_MA.active = 2
+    root.after(100)
+    destroyUpgradeButton(u28_MA)
+
+def buy_AR():
+    game.buy_upgrade(u29_AR)
+    global u29_AR_Button
+    u29_AR.active = 2
+    root.after(100)
+    destroyUpgradeButton(u29_AR)
+
+
+
+
+
 
 
 
