@@ -852,7 +852,8 @@ def buy_AR():
 
 # Increasing Automators
 def increase_a1_GC():
-    while a1_GC.afford(game):
+    temp = 0
+    while a1_GC.afford(game) and temp < 5:
         a1_GC.increase(game)
         global a1_GC_Name
         global compressor_costs
@@ -860,9 +861,11 @@ def increase_a1_GC():
         a1_GC_Cost.config(a1_GC_Cost, text = a1_GC.showCost())
         productionF.update_idletasks()
         a1_GC_Button.place(x = (a1_GC_Name.winfo_width() + LPADDING))
+        temp += 1
 
 def increase_a2_QS():
-    while a2_QS.afford(game):
+    temp = 0
+    while a2_QS.afford(game) and temp < 5:
         a2_QS.increase(game)
         global a2_QS_Name
         global a2_QS_Cost
@@ -873,9 +876,11 @@ def increase_a2_QS():
         productionF.update_idletasks()
         a2_QS_Button.place(x = (a2_QS_Name.winfo_width() + LPADDING))
         a2_QS_Toggle.place(x = (a2_QS_Name.winfo_width() + a2_QS_Button.winfo_width() + LPADDING + SPADDING))
-
+        temp += 1
+        
 def increase_a3_PS():
-    while a3_PS.afford(game):
+    temp = 0
+    while a3_PS.afford(game) and temp < 5:
         a3_PS.increase(game)
         global a3_PS_Name
         global a3_PS_Cost
@@ -886,9 +891,11 @@ def increase_a3_PS():
         productionF.update_idletasks()
         a3_PS_Button.place(x = (a3_PS_Name.winfo_width() + LPADDING))
         a3_PS_Toggle.place(x = (a3_PS_Name.winfo_width() + a3_PS_Button.winfo_width() + LPADDING + SPADDING))
+        temp += 1
 
 def increase_a4_NS():
-    while a4_NS.afford(game):
+    temp = 0
+    while a4_NS.afford(game) and temp < 5:
         a4_NS.increase(game)
         global a4_NS_Name
         global a4_NS_Cost
@@ -899,9 +906,11 @@ def increase_a4_NS():
         productionF.update_idletasks()
         a4_NS_Button.place(x = (a4_NS_Name.winfo_width() + LPADDING))
         a4_NS_Toggle.place(x = (a4_NS_Name.winfo_width() + a4_NS_Button.winfo_width() + LPADDING + SPADDING))
+        temp += 1
 
 def increase_a5_HyF():
-    while a5_HyF.afford(game):
+    temp = 0
+    while a5_HyF.afford(game) and temp < 5:
         a5_HyF.increase(game)
         global a5_HyF_Name
         global a5_HyF_Cost
@@ -912,9 +921,11 @@ def increase_a5_HyF():
         productionF.update_idletasks()
         a5_HyF_Button.place(x = (a5_HyF_Name.winfo_width() + LPADDING))
         a5_HyF_Toggle.place(x = (a5_HyF_Name.winfo_width() + a5_HyF_Button.winfo_width() + LPADDING + SPADDING))
+        temp += 1
 
 def increase_a6_HeF():
-    while a6_HeF.afford(game):
+    temp = 0
+    while a6_HeF.afford(game) and temp < 5:
         a6_HeF.increase(game)
         global a6_HeF_Name
         global a6_HeF_Cost
@@ -925,9 +936,11 @@ def increase_a6_HeF():
         productionF.update_idletasks()
         a6_HeF_Button.place(x = (a6_HeF_Name.winfo_width() + LPADDING))
         a6_HeF_Toggle.place(x = (a6_HeF_Name.winfo_width() + a6_HeF_Button.winfo_width() + LPADDING + SPADDING))
+        temp += 1
 
 def increase_a7_NF():
-    while game.hydrogen >= a7_NF.upcost[0][1] and game.helium >= a7_NF.upcost[1][1]:
+    temp = 0
+    while game.hydrogen >= a7_NF.upcost[0][1] and game.helium >= a7_NF.upcost[1][1] and temp < 5:
         a7_NF.increase(game)
         global a7_NF_Name
         global a7_NF_Cost
@@ -963,7 +976,7 @@ def increase_a7_NF():
         a5_HyF_Desc.config(a5_HyF_Desc, text = a5_HyF.desc())
         global a6_HeF_Desc
         a6_HeF_Desc.config(a6_HeF_Desc, text = a6_HeF.desc())
-
+        temp += 1
 
 
 
