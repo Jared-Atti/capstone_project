@@ -60,15 +60,15 @@ class Temporal(Upgrade):
 
 class Innovation(Upgrade):
     def __init__(self):
-        super().__init__("Innovation ", [("Time", 1000)], "Take your progress to the next level with Innovation. Use your full time to generate innovation and advance even faster!")
+        super().__init__("Innovation ", [("Time", 500)], "Take your progress to the next level with Innovation. Use your full time to generate innovation and advance even faster!")
 
     def afford(self, game):
-        if game.time >= 1000:
+        if game.time >= 500:
             return True
     
     def purchase(self, game):
         if self.afford(game):
-            game.time -= 1000
+            game.time -= 500
             game.innovationFlag = True
             game.purchasedupgrades += self.name
             self.active = 2
@@ -107,16 +107,16 @@ class Gravitational_Amplification(Upgrade):
 
 class Quark_Fusion(Upgrade):
     def __init__(self):
-        super().__init__("Quark Fusion ", [("Innovation", 30), ("Energy", 1500)], "Master the art of quark fusion to improve your efficiency and cut your quark costs in half!")
+        super().__init__("Quark Fusion ", [("Time", 1000), ("Energy", 1500)], "Master the art of quark fusion to improve your efficiency and cut your quark costs in half!")
 
     def afford(self, game):
-        if game.innovation >= 30 and game.energy >= 1500:
+        if game.time >= 1000 and game.energy >= 1500:
             return True
     
     def purchase(self, game, autos):
         if self.afford(game):
             game.energy -= 1500
-            game.innovation -= 30
+            game.time -= 1000
             game.purchasedupgrades += self.name
             self.active = 2
             newcost = [(autos[0].tickcost[0][0], autos[0].tickcost[0][1] / 2)]
@@ -127,33 +127,32 @@ class Quark_Fusion(Upgrade):
 
 class Atomic_Fabrication(Upgrade):
     def __init__(self):
-        super().__init__("Atomic Fabrication ", [("Innovation", 100), ("Quarks", 200), ("Energy", 1000)], "Unleash the Power of Atomic Fabrication to Produce Hydrogen!")
+        super().__init__("Atomic Fabrication ", [("Quarks", 750), ("Energy", 2000)], "Unleash the Power of Atomic Fabrication to Produce Hydrogen!")
 
     def afford(self, game):
-        if game.innovation >= 100 and game.quarks >= 200 and game.energy >= 1000:
+        if  game.quarks >= 750 and game.energy >= 2000:
             return True
     
     def purchase(self, game):
         if self.afford(game):
-            game.energy -= 1000
-            game.innovation -= 100
-            game.quarks -= 200
+            game.energy -= 2000
+            game.quarks -= 750
             game.purchasedupgrades += self.name
             self.active = 2
 
 class Discover_Helium(Upgrade):
     def __init__(self):
-        super().__init__("Discover Helium ", [("Innovation", 150), ("Quarks", 300), ("Energy", 1000)], "Take your atomic knowledge to new heights with helium!")
+        super().__init__("Discover Helium ", [("Time", 2000), ("Quarks", 3000), ("Energy", 5000)], "Take your atomic knowledge to new heights with helium!")
 
     def afford(self, game):
-        if game.innovation >= 150 and game.quarks >= 300 and game.energy >= 1000:
+        if game.time >= 2000 and game.quarks >= 3000 and game.energy >= 5000:
             return True
     
     def purchase(self, game):
         if self.afford(game):
-            game.energy -= 1000
-            game.innovation -= 150
-            game.quarks -= 300
+            game.energy -= 5000
+            game.time -= 2000
+            game.quarks -= 3000
             game.purchasedupgrades += self.name
             self.active = 2
 
@@ -256,15 +255,15 @@ class Gravitational_Flucuations(Upgrade):
 
 class Quark_Acceleration(Upgrade):
     def __init__(self):
-        super().__init__("Quark Acceleration ", [("Energy", 20000), ("Innovation", 200)], "Accelerating the rate of production of quarks greatly while also cutting costs in half.")
+        super().__init__("Quark Acceleration ", [("Energy", 20000), ("Quarks", 5000)], "Accelerating the rate of production of quarks greatly while also cutting costs in half.")
 
     def afford(self, game):
-        if game.innovation >= 200 and game.energy >= 20000:
+        if game.quarks >= 5000 and game.energy >= 20000:
             return True
     
     def purchase(self, game, autos):
         if self.afford(game):
-            game.innovation -= 200
+            game.quarks -= 5000
             game.energy -= 20000
             game.purchasedupgrades += self.name
             self.active = 2
@@ -345,15 +344,15 @@ class Helium_Extractor(Upgrade):
 
 class Create_Sun(Upgrade):
     def __init__(self):
-        super().__init__("Create the Sun ", [("Time", 10000), ("Hydrogen", 12400000000), ("Helium", 5310000000)], "With all the resources created and utomated, you can now harness the power of the Sun.")
+        super().__init__("Create the Sun ", [("Time", 3000), ("Hydrogen", 12400000000), ("Helium", 5310000000)], "With all the resources created and utomated, you can now harness the power of the Sun.")
 
     def afford(self, game):
-        if game.time >= 10000 and game.hydrogen >= 12400000000 and game.helium >= 5310000000:
+        if game.time >= 3000 and game.hydrogen >= 12400000000 and game.helium >= 5310000000:
             return True
     
     def purchase(self, game):
         if self.afford(game):
-            game.time -= 10000
+            game.time -= 3000
             game.hydrogen -= 12400000000
             game.helium -= 5310000000
             game.purchasedupgrades += self.name
@@ -361,31 +360,35 @@ class Create_Sun(Upgrade):
 
 class Nuclear_Fusion(Upgrade):
     def __init__(self):
-        super().__init__("Nuclear Fusion ", [("Time", 3000), ("Innovation", 75)], "TBD")
+        super().__init__("Nuclear Fusion ", [("Time", 3000), ("Innovation", 100), ("Hydrogen", 2000), ("Helium", 2000)], "TBD")
 
     def afford(self, game):
-        if game.time >= 3000 and game.innovation >= 75:
+        if game.time >= 3000 and game.innovation >= 100 and game.hydrogen >= 2000 and game.helium >= 2000:
             return True
     
     def purchase(self, game):
         if self.afford(game):
             game.time -= 3000
-            game.innovation -= 75
+            game.innovation -= 100
+            game.hydrogen -= 2000
+            game.helium -= 2000
             game.purchasedupgrades += self.name
             self.active = 2
 
 class Create_Earth(Upgrade):
     def __init__(self):
-        super().__init__("Create the Earth ", [("Time", 5000), ("Innovation", 100)], "Finally with everything you've gathered, you create a life sustaining planet you call Earth and travel to it..")
+        super().__init__("Create the Earth ", [("Time", 4000), ("Hydrogen", 560000000), ("Helium", 23400000), ("Innovation", 100)], "Finally with everything you've gathered, you create a life sustaining planet you call Earth and travel to it..")
 
     def afford(self, game):
-        if game.time >= 5000 and game.innovation >= 100:
+        if game.time >= 4000 and game.innovation >= 100 and game.hydrogen >= 560000000 and game.helium >= 23400000:
             return True
     
     def purchase(self, game):
         if self.afford(game):
-            game.time -= 5000
+            game.time -= 4000
             game.innovation -= 100
+            game.hydrogen -= 560000000
+            game.helium -= 23400000
             game.purchasedupgrades += self.name
             self.active = 2
 
@@ -394,12 +397,12 @@ class Nuclear_Fusion_Increase(Upgrade):
         super().__init__("Nuclear Fusion Increase ", None, None)
     
     def purchase(self, game, autos):
-        autos[0].revenue = (autos[0].revenue[0], autos[0].revenue[1] * 1.10)
-        autos[1].revenue = (autos[1].revenue[0], autos[1].revenue[1] * 1.10)
-        autos[2].revenue = (autos[2].revenue[0], autos[2].revenue[1] * 1.10)
-        autos[3].revenue = (autos[3].revenue[0], autos[3].revenue[1] * 1.10)
-        autos[4].revenue = (autos[4].revenue[0], autos[4].revenue[1] * 1.10)
-        autos[5].revenue = (autos[5].revenue[0], autos[5].revenue[1] * 1.10)
+        autos[0].revenue = (autos[0].revenue[0], autos[0].revenue[1] * 1.20)
+        autos[1].revenue = (autos[1].revenue[0], autos[1].revenue[1] * 1.20)
+        autos[2].revenue = (autos[2].revenue[0], autos[2].revenue[1] * 1.20)
+        autos[3].revenue = (autos[3].revenue[0], autos[3].revenue[1] * 1.20)
+        autos[4].revenue = (autos[4].revenue[0], autos[4].revenue[1] * 1.20)
+        autos[5].revenue = (autos[5].revenue[0], autos[5].revenue[1] * 1.20)
         return autos
 
 class Cool_Down(Upgrade):

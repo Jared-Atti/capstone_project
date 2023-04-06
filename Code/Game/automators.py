@@ -57,58 +57,58 @@ class Quark_Synthesizer(Automator):
 
 class Proton_Synthesizer(Automator):
     def __init__(self):
-        super().__init__("Proton Synthesiser", ("Energy", 100), ("Proton", 1), [("Quarks", 3)])
+        super().__init__("Proton Synthesiser", ("Quarks", 100), ("Protons", 1), [("Quarks", 3)])
     
     def afford(self, game):
-        if game.energy >= self.upcost[1]:
+        if game.quarks >= self.upcost[1]:
             return True
     
     def increase(self, game):
         if self.afford(game):
-            game.energy -= self.upcost[1]
+            game.quarks -= self.upcost[1]
             self.upcost = (self.upcost[0], round(self.upcost[1] * 1.05))
             self.count += 1
 
 class Neutron_Synthesizer(Automator):
     def __init__(self):
-        super().__init__("Neutron Synthesiser", ("Energy", 100), ("Neutron", 1), [("Quarks", 3)])
+        super().__init__("Neutron Synthesiser", ("Quarks", 100), ("Neutrons", 1), [("Quarks", 3)])
     
     def afford(self, game):
-        if game.energy >= self.upcost[1]:
+        if game.quarks >= self.upcost[1]:
             return True
     
     def increase(self, game):
         if self.afford(game):
-            game.energy -= self.upcost[1]
+            game.quarks -= self.upcost[1]
             self.upcost = (self.upcost[0], round(self.upcost[1] * 1.05))
             self.count += 1
 
 
 class Hydrogen_Fabricator(Automator):
     def __init__(self):
-        super().__init__("Hydogen Fabricator", ("Energy", 200), ("Hydrogen", 1), [("Proton", 1)])
+        super().__init__("Hydogen Fabricator", ("Protons", 200), ("Hydrogen", 1), [("Protons", 1)])
     
     def afford(self, game):
-        if game.energy >= self.upcost[1]:
+        if game.protons >= self.upcost[1]:
             return True
     
     def increase(self, game):
         if self.afford(game):
-            game.energy -= self.upcost[1]
+            game.protons -= self.upcost[1]
             self.upcost = (self.upcost[0], round(self.upcost[1] * 1.05))
             self.count += 1
 
 class Helium_Fabricator(Automator):
     def __init__(self):
-        super().__init__("Helium Fabricator", ("Energy", 200), ("Helium", 1), [("Proton", 2),("Neutron", 2)])
+        super().__init__("Helium Fabricator", ("Neutrons", 200), ("Helium", 1), [("Protons", 2),("Neutrons", 2)])
     
     def afford(self, game):
-        if game.energy >= self.upcost[1]:
+        if game.neutrons >= self.upcost[1]:
             return True
     
     def increase(self, game):
         if self.afford(game):
-            game.energy -= self.upcost[1]
+            game.neutrons -= self.upcost[1]
             self.upcost = (self.upcost[0], round(self.upcost[1] * 1.05))
             self.count += 1
 
@@ -118,7 +118,7 @@ class Nuclear_Fusion(Automator):
         self.toggle = 0
     
     def desc(self):
-         return "Improves all other automators by 10% every purchase."
+         return "Improves all other automators by 20% every purchase."
     
     def showCost(self):
         return "Cost: " + "{:,.0f}".format(self.upcost[0][1]) + " " + self.upcost[0][0] + " and " + "{:,.0f}".format(self.upcost[1][1]) + " " + self.upcost[1][0]
@@ -130,5 +130,5 @@ class Nuclear_Fusion(Automator):
     def increase(self, game):
         if self.afford(game):
             game.hydrogen -= self.upcost[0][1]
-            self.upcost = [(self.upcost[0][0], round(self.upcost[0][1] * 1.9)), (self.upcost[1][0], round(self.upcost[1][1] * 1.9))]
+            self.upcost = [(self.upcost[0][0], round(self.upcost[0][1] * 1.4)), (self.upcost[1][0], round(self.upcost[1][1] * 1.4))]
             self.count += 1

@@ -3,6 +3,7 @@ import tkinter as tk
 from game import Game
 import upgrades
 import automators
+import pickle
 
 
 #Getting Instance of Game class & Initializing game
@@ -10,6 +11,7 @@ game = Game()
 game.init()
 
 # Initializing Upgrades
+active_upgrades = []
 u1_GC = upgrades.GravitationalCompression()
 u2_SS = upgrades.SubatomicSynthesis()
 u3_TM = upgrades.Temporal()
@@ -202,6 +204,26 @@ a7_NF_Button = None # Nuclear Fusion
 def create_energy():
     game.create_energy()
 
+def save_state():
+    state = vars(game.get())
+    # my_globals = globals()
+    # for g in my_globals:
+    #     if isinstance(my_globals[g], object):
+    #         print('b')
+    #     else:
+    #         state[g] = my_globals[g]
+    with open('savefile.dat', 'wb') as f:
+        pickle.dump(state, f)
+
+def load_state():
+    with open('savefile.dat', 'rb') as f:
+        state = pickle.load(f)
+    
+    for key, value in state.items():
+        setattr(game, key, value)
+    
+    # globals().update(state)
+
 #Main Frame of Game
 root = tk.Tk()
 root.title = ("Eco-Evolution")
@@ -229,7 +251,8 @@ timeline = Frame(mainframe, relief = RAISED, bd = 5, bg = "black", height = 90, 
 lifeForms = Frame(mainframe, relief= RAISED, bd = 5, bg = "white", height = 40, width = 2000)
 visuals = Frame(mainframe, relief = RAISED, bd = 5, bg = "white", height = 450, width = 450)
 createLabel = Frame(mainframe, bg = "white", height = 40, width = 100)
-time = Frame(mainframe, relief = RAISED, bd = 5, bg = "white", height = 40, width = 175)
+# time = Frame(mainframe, relief = RAISED, bd = 5, bg = "white", height = 40, width = 175)
+saveframe = Frame(mainframe, relief = RAISED, bd = 5, bg = "white",  height = 40, width = 130)
 
 mainframe.config(height = ROOT_HEIGHT, width = 1440, background= "black")
 mainframe.update_idletasks()
@@ -239,7 +262,8 @@ timeline.place(x = 20, y = 0)
 lifeForms.place(x = 20, y = 90)
 visuals.place(x = 900, y = TOP_Y)
 createLabel.place(x = 20, y = 135)
-time.place(x = 500, y = 135)
+# time.place(x = 500, y = 135)
+saveframe.place(x = ROOT_WIDTH - 150, y = 135)
 
 def printMessage(message):
     label = Label(timeline, text = message + "\n", font = ("Terminal", 10), fg = "white", bg = "black")
@@ -264,11 +288,15 @@ eraL.place(x = 0, y = 0)
 
 #CREATION of Buttons
 energyB = tk.Button(createLabel, text ="Energy", command = create_energy, font=('Terminal', 10))
-timeB = tk.Button(time, text = "Advance Time", font=('Terminal', 10), state = DISABLED)
+# timeB = tk.Button(time, text = "Advance Time", font=('Terminal', 10), state = DISABLED)
+saveB = tk.Button(saveframe, text="Save", command = save_state, font=('Terminal', 10))
+loadB = tk.Button(saveframe, text="Load", command = load_state, font=('Terminal', 10))
 
 #PLACEMENT of Buttons in Frames
 energyB.place(in_ = createLabel, y = 10, x = 20)
-timeB.place(in_ = time, x = 25, y = 5)
+# timeB.place(in_ = time, x = 25, y = 5)
+saveB.place(in_ = saveframe, x = 10, y = 5 )
+loadB.place(in_ = saveframe, x = 62, y = 5 )
 
 # add the new frame to the canvas
 canvas.create_window((0, 0), window = mainframe, anchor = 'nw')
@@ -754,110 +782,117 @@ def buy_CE():
 
 # Increasing Automators
 def increase_a1_GC():
-    a1_GC.increase(game)
-    global a1_GC_Name
-    global compressor_costs
-    a1_GC_Name.config(a1_GC_Name, text = "Compressors: " + "{:,.0f}".format(a1_GC.count))
-    a1_GC_Cost.config(a1_GC_Cost, text = a1_GC.showCost())
-    productionF.update_idletasks()
-    a1_GC_Button.place(x = (a1_GC_Name.winfo_width() + LPADDING))
+    while a1_GC.afford(game):
+        a1_GC.increase(game)
+        global a1_GC_Name
+        global compressor_costs
+        a1_GC_Name.config(a1_GC_Name, text = "Compressors: " + "{:,.0f}".format(a1_GC.count))
+        a1_GC_Cost.config(a1_GC_Cost, text = a1_GC.showCost())
+        productionF.update_idletasks()
+        a1_GC_Button.place(x = (a1_GC_Name.winfo_width() + LPADDING))
 
 def increase_a2_QS():
-    a2_QS.increase(game)
-    global a2_QS_Name
-    global a2_QS_Cost
-    global a2_QS_Button
-    global a2_QS_Toggle
-    a2_QS_Name.config(a2_QS_Name, text = "Quark Synthesizers: " + "{:,.0f}".format(a2_QS.count))
-    a2_QS_Cost.config(a2_QS_Cost, text = a2_QS.showCost())
-    productionF.update_idletasks()
-    a2_QS_Button.place(x = (a2_QS_Name.winfo_width() + LPADDING))
-    a2_QS_Toggle.place(x = (a2_QS_Name.winfo_width() + a2_QS_Button.winfo_width() + LPADDING + SPADDING))
+    while a2_QS.afford(game):
+        a2_QS.increase(game)
+        global a2_QS_Name
+        global a2_QS_Cost
+        global a2_QS_Button
+        global a2_QS_Toggle
+        a2_QS_Name.config(a2_QS_Name, text = "Quark Synthesizers: " + "{:,.0f}".format(a2_QS.count))
+        a2_QS_Cost.config(a2_QS_Cost, text = a2_QS.showCost())
+        productionF.update_idletasks()
+        a2_QS_Button.place(x = (a2_QS_Name.winfo_width() + LPADDING))
+        a2_QS_Toggle.place(x = (a2_QS_Name.winfo_width() + a2_QS_Button.winfo_width() + LPADDING + SPADDING))
 
 def increase_a3_PS():
-    a3_PS.increase(game)
-    global a3_PS_Name
-    global a3_PS_Cost
-    global a3_PS_Button
-    global a3_PS_Toggle
-    a3_PS_Name.config(a3_PS_Name, text = "Proton Synthesizers: " + "{:,.0f}".format(a3_PS.count))
-    a3_PS_Cost.config(a3_PS_Cost, text = a3_PS.showCost())
-    productionF.update_idletasks()
-    a3_PS_Button.place(x = (a3_PS_Name.winfo_width() + LPADDING))
-    a3_PS_Toggle.place(x = (a3_PS_Name.winfo_width() + a3_PS_Button.winfo_width() + LPADDING + SPADDING))
+    while a3_PS.afford(game):
+        a3_PS.increase(game)
+        global a3_PS_Name
+        global a3_PS_Cost
+        global a3_PS_Button
+        global a3_PS_Toggle
+        a3_PS_Name.config(a3_PS_Name, text = "Proton Synthesizers: " + "{:,.0f}".format(a3_PS.count))
+        a3_PS_Cost.config(a3_PS_Cost, text = a3_PS.showCost())
+        productionF.update_idletasks()
+        a3_PS_Button.place(x = (a3_PS_Name.winfo_width() + LPADDING))
+        a3_PS_Toggle.place(x = (a3_PS_Name.winfo_width() + a3_PS_Button.winfo_width() + LPADDING + SPADDING))
 
 def increase_a4_NS():
-    a4_NS.increase(game)
-    global a4_NS_Name
-    global a4_NS_Cost
-    global a4_NS_Button
-    global a4_NS_Toggle
-    a4_NS_Name.config(a4_NS_Name, text = "Neutron Synthesizers: " + "{:,.0f}".format(a4_NS.count))
-    a4_NS_Cost.config(a4_NS_Cost, text = a4_NS.showCost())
-    productionF.update_idletasks()
-    a4_NS_Button.place(x = (a4_NS_Name.winfo_width() + LPADDING))
-    a4_NS_Toggle.place(x = (a4_NS_Name.winfo_width() + a4_NS_Button.winfo_width() + LPADDING + SPADDING))
+    while a4_NS.afford(game):
+        a4_NS.increase(game)
+        global a4_NS_Name
+        global a4_NS_Cost
+        global a4_NS_Button
+        global a4_NS_Toggle
+        a4_NS_Name.config(a4_NS_Name, text = "Neutron Synthesizers: " + "{:,.0f}".format(a4_NS.count))
+        a4_NS_Cost.config(a4_NS_Cost, text = a4_NS.showCost())
+        productionF.update_idletasks()
+        a4_NS_Button.place(x = (a4_NS_Name.winfo_width() + LPADDING))
+        a4_NS_Toggle.place(x = (a4_NS_Name.winfo_width() + a4_NS_Button.winfo_width() + LPADDING + SPADDING))
 
 def increase_a5_HyF():
-    a5_HyF.increase(game)
-    global a5_HyF_Name
-    global a5_HyF_Cost
-    global a5_HyF_Button
-    global a5_HyF_Toggle
-    a5_HyF_Name.config(a5_HyF_Name, text = "Hydrogen Fabricator: " + "{:,.0f}".format(a5_HyF.count))
-    a5_HyF_Cost.config(a5_HyF_Cost, text = a5_HyF.showCost())
-    productionF.update_idletasks()
-    a5_HyF_Button.place(x = (a5_HyF_Name.winfo_width() + LPADDING))
-    a5_HyF_Toggle.place(x = (a5_HyF_Name.winfo_width() + a5_HyF_Button.winfo_width() + LPADDING + SPADDING))
+    while a5_HyF.afford(game):
+        a5_HyF.increase(game)
+        global a5_HyF_Name
+        global a5_HyF_Cost
+        global a5_HyF_Button
+        global a5_HyF_Toggle
+        a5_HyF_Name.config(a5_HyF_Name, text = "Hydrogen Fabricator: " + "{:,.0f}".format(a5_HyF.count))
+        a5_HyF_Cost.config(a5_HyF_Cost, text = a5_HyF.showCost())
+        productionF.update_idletasks()
+        a5_HyF_Button.place(x = (a5_HyF_Name.winfo_width() + LPADDING))
+        a5_HyF_Toggle.place(x = (a5_HyF_Name.winfo_width() + a5_HyF_Button.winfo_width() + LPADDING + SPADDING))
 
 def increase_a6_HeF():
-    a6_HeF.increase(game)
-    global a6_HeF_Name
-    global a6_HeF_Cost
-    global a6_HeF_Button
-    global a6_HeF_Toggle
-    a6_HeF_Name.config(a6_HeF_Name, text = "Helium Fabricator: " + "{:,.0f}".format(a6_HeF.count))
-    a6_HeF_Cost.config(a6_HeF_Cost, text = a6_HeF.showCost())
-    productionF.update_idletasks()
-    a6_HeF_Button.place(x = (a6_HeF_Name.winfo_width() + LPADDING))
-    a6_HeF_Toggle.place(x = (a6_HeF_Name.winfo_width() + a6_HeF_Button.winfo_width() + LPADDING + SPADDING))
+    while a6_HeF.afford(game):
+        a6_HeF.increase(game)
+        global a6_HeF_Name
+        global a6_HeF_Cost
+        global a6_HeF_Button
+        global a6_HeF_Toggle
+        a6_HeF_Name.config(a6_HeF_Name, text = "Helium Fabricator: " + "{:,.0f}".format(a6_HeF.count))
+        a6_HeF_Cost.config(a6_HeF_Cost, text = a6_HeF.showCost())
+        productionF.update_idletasks()
+        a6_HeF_Button.place(x = (a6_HeF_Name.winfo_width() + LPADDING))
+        a6_HeF_Toggle.place(x = (a6_HeF_Name.winfo_width() + a6_HeF_Button.winfo_width() + LPADDING + SPADDING))
 
 def increase_a7_NF():
-    a7_NF.increase(game)
-    global a7_NF_Name
-    global a7_NF_Cost
-    global a7_NF_Button
-    a7_NF_Name.config(a7_NF_Name, text = "Nuclear Fusion: " + "{:,.0f}".format(a7_NF.count))
-    a7_NF_Cost.config(a7_NF_Cost, text = a7_NF.showCost())
-    productionF.update_idletasks()
-    a7_NF_Button.place(x = (a7_NF_Name.winfo_width() + LPADDING))
+    while game.hydrogen >= a7_NF.upcost[0][1] and game.helium >= a7_NF.upcost[1][1]:
+        a7_NF.increase(game)
+        global a7_NF_Name
+        global a7_NF_Cost
+        global a7_NF_Button
+        a7_NF_Name.config(a7_NF_Name, text = "Nuclear Fusion: " + "{:,.0f}".format(a7_NF.count))
+        a7_NF_Cost.config(a7_NF_Cost, text = a7_NF.showCost())
+        productionF.update_idletasks()
+        a7_NF_Button.place(x = (a7_NF_Name.winfo_width() + LPADDING))
 
-    global a1_GC
-    global a2_QS
-    global a3_PS
-    global a4_NS
-    global a5_HyF
-    global a6_HeF
-    autos = game.buy_autoupgrade(u25_NFI, a1_GC, a2_QS, a3_PS, a4_NS, a5_HyF, a6_HeF)
-    a1_GC = autos[0]
-    a2_QS = autos[1]
-    a3_PS = autos[2]
-    a4_NS = autos[3]
-    a5_HyF = autos[4]
-    a6_HeF = autos[5]
+        global a1_GC
+        global a2_QS
+        global a3_PS
+        global a4_NS
+        global a5_HyF
+        global a6_HeF
+        autos = game.buy_autoupgrade(u25_NFI, a1_GC, a2_QS, a3_PS, a4_NS, a5_HyF, a6_HeF, a7_NF)
+        a1_GC = autos[0]
+        a2_QS = autos[1]
+        a3_PS = autos[2]
+        a4_NS = autos[3]
+        a5_HyF = autos[4]
+        a6_HeF = autos[5]
 
-    global a1_GC_Desc
-    a1_GC_Desc.config(a1_GC_Desc, text = a1_GC.desc())
-    global a2_QS_Desc
-    a2_QS_Desc.config(a2_QS_Desc, text = a2_QS.desc())
-    global a3_PS_Desc
-    a3_PS_Desc.config(a3_PS_Desc, text = a3_PS.desc())
-    global a4_NS_Desc
-    a4_NS_Desc.config(a4_NS_Desc, text = a4_NS.desc())
-    global a5_HyF_Desc
-    a5_HyF_Desc.config(a5_HyF_Desc, text = a5_HyF.desc())
-    global a6_HeF_Desc
-    a6_HeF_Desc.config(a6_HeF_Desc, text = a6_HeF.desc())
+        global a1_GC_Desc
+        a1_GC_Desc.config(a1_GC_Desc, text = a1_GC.desc())
+        global a2_QS_Desc
+        a2_QS_Desc.config(a2_QS_Desc, text = a2_QS.desc())
+        global a3_PS_Desc
+        a3_PS_Desc.config(a3_PS_Desc, text = a3_PS.desc())
+        global a4_NS_Desc
+        a4_NS_Desc.config(a4_NS_Desc, text = a4_NS.desc())
+        global a5_HyF_Desc
+        a5_HyF_Desc.config(a5_HyF_Desc, text = a5_HyF.desc())
+        global a6_HeF_Desc
+        a6_HeF_Desc.config(a6_HeF_Desc, text = a6_HeF.desc())
 
 
 

@@ -1,10 +1,3 @@
-# import upgrades as upg
-import upgrades
-import automators
-
-# Initializing Automators
-auto_Comp = automators.Compressor()
-
 class Game:
     def new(cls):
         if cls._instance is None:
@@ -53,14 +46,14 @@ class Game:
     def create_energy(self):
         self.energy += 1
         # Testing
-        self.energy += 200000
-        self.time += 1000
+        # self.energy += 200000
+        # self.time += 1000
         #self.potential += 1
         #self.maxpotential += 1
-        self.innovation += 10000
-        self.quarks += 10000
-        self.hydrogen += 10000000000
-        self.helium += 10000000000
+        # self.innovation += 10000
+        # self.quarks += 10000
+        # self.hydrogen += 10000000000
+        # self.helium += 10000000000
 
     def create_life(self):
         self.microbes += 1
@@ -84,10 +77,12 @@ class Game:
             if (self.time + self.productivity > self.expansion * 1000):
                 self.time = self.expansion * 1000
             elif (self.time < self.expansion * 1000):
-                self.time += (self.productivity * 3)
+                self.time += self.productivity * 5
             
             if (self.innovationFlag and self.time >= self.expansion * 1000):
-                self.innovation += self.productivity * 2.1
+                self.innovation += self.productivity * 0.5
+            elif (self.innovationFlag):
+                self.innovation += self.productivity * 0.025
 
 
         for a in autos:
@@ -102,10 +97,10 @@ class Game:
                         elif a.tickcost[i][0] == "Quarks" and a.calc_cost(i) <= self.quarks:
                             self.quarks -= a.calc_cost(i)
                             afford = True
-                        elif a.tickcost[i][0] == "Proton" and a.calc_cost(i) <= self.protons:
+                        elif a.tickcost[i][0] == "Protons" and a.calc_cost(i) <= self.protons:
                             self.protons -= a.calc_cost(i)
                             afford = True
-                        elif a.tickcost[i][0] == "Neutron" and a.calc_cost(i) <= self.neutrons:
+                        elif a.tickcost[i][0] == "Neutrons" and a.calc_cost(i) <= self.neutrons:
                             self.neutrons -= a.calc_cost(i)
                             afford = True
                         elif a.tickcost[i][0] == "Hydrogen" and a.calc_cost(i) <= self.hydrogen:
@@ -123,9 +118,9 @@ class Game:
                         self.energy += a.calc_revenue()
                     elif a.revenue[0] == "Quarks":
                         self.quarks += a.calc_revenue()
-                    elif a.revenue[0] == "Proton":
+                    elif a.revenue[0] == "Protons":
                         self.protons += a.calc_revenue()
-                    elif a.revenue[0] == "Neutron":
+                    elif a.revenue[0] == "Neutrons":
                         self.neutrons += a.calc_revenue()
                     elif a.revenue[0] == "Hydrogen":
                         self.hydrogen += a.calc_revenue()
