@@ -1,10 +1,3 @@
-# import upgrades as upg
-import upgrades
-import automators
-
-# Initializing Automators
-auto_Comp = automators.Compressor()
-
 class Game:
     def new(cls):
         if cls._instance is None:

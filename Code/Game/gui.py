@@ -3,6 +3,7 @@ import tkinter as tk
 from game import Game
 import upgrades
 import automators
+import pickle
 
 
 #Getting Instance of Game class & Initializing game
@@ -10,6 +11,7 @@ game = Game()
 game.init()
 
 # Initializing Upgrades
+active_upgrades = []
 u1_GC = upgrades.GravitationalCompression()
 u2_SS = upgrades.SubatomicSynthesis()
 u3_TM = upgrades.Temporal()
@@ -202,6 +204,26 @@ a7_NF_Button = None # Nuclear Fusion
 def create_energy():
     game.create_energy()
 
+def save_state():
+    state = vars(game.get())
+    # my_globals = globals()
+    # for g in my_globals:
+    #     if isinstance(my_globals[g], object):
+    #         print('b')
+    #     else:
+    #         state[g] = my_globals[g]
+    with open('savefile.dat', 'wb') as f:
+        pickle.dump(state, f)
+
+def load_state():
+    with open('savefile.dat', 'rb') as f:
+        state = pickle.load(f)
+    
+    for key, value in state.items():
+        setattr(game, key, value)
+    
+    # globals().update(state)
+
 #Main Frame of Game
 root = tk.Tk()
 root.title = ("Eco-Evolution")
@@ -229,7 +251,8 @@ timeline = Frame(mainframe, relief = RAISED, bd = 5, bg = "black", height = 90, 
 lifeForms = Frame(mainframe, relief= RAISED, bd = 5, bg = "white", height = 40, width = 2000)
 visuals = Frame(mainframe, relief = RAISED, bd = 5, bg = "white", height = 450, width = 450)
 createLabel = Frame(mainframe, bg = "white", height = 40, width = 100)
-time = Frame(mainframe, relief = RAISED, bd = 5, bg = "white", height = 40, width = 175)
+# time = Frame(mainframe, relief = RAISED, bd = 5, bg = "white", height = 40, width = 175)
+saveframe = Frame(mainframe, relief = RAISED, bd = 5, bg = "white",  height = 40, width = 130)
 
 mainframe.config(height = ROOT_HEIGHT, width = 1440, background= "black")
 mainframe.update_idletasks()
@@ -239,7 +262,8 @@ timeline.place(x = 20, y = 0)
 lifeForms.place(x = 20, y = 90)
 visuals.place(x = 900, y = TOP_Y)
 createLabel.place(x = 20, y = 135)
-time.place(x = 500, y = 135)
+# time.place(x = 500, y = 135)
+saveframe.place(x = ROOT_WIDTH - 150, y = 135)
 
 def printMessage(message):
     label = Label(timeline, text = message + "\n", font = ("Terminal", 10), fg = "white", bg = "black")
@@ -264,11 +288,15 @@ eraL.place(x = 0, y = 0)
 
 #CREATION of Buttons
 energyB = tk.Button(createLabel, text ="Energy", command = create_energy, font=('Terminal', 10))
-timeB = tk.Button(time, text = "Advance Time", font=('Terminal', 10), state = DISABLED)
+# timeB = tk.Button(time, text = "Advance Time", font=('Terminal', 10), state = DISABLED)
+saveB = tk.Button(saveframe, text="Save", command = save_state, font=('Terminal', 10))
+loadB = tk.Button(saveframe, text="Load", command = load_state, font=('Terminal', 10))
 
 #PLACEMENT of Buttons in Frames
 energyB.place(in_ = createLabel, y = 10, x = 20)
-timeB.place(in_ = time, x = 25, y = 5)
+# timeB.place(in_ = time, x = 25, y = 5)
+saveB.place(in_ = saveframe, x = 10, y = 5 )
+loadB.place(in_ = saveframe, x = 62, y = 5 )
 
 # add the new frame to the canvas
 canvas.create_window((0, 0), window = mainframe, anchor = 'nw')
