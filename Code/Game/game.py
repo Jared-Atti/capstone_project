@@ -46,14 +46,14 @@ class Game:
     def create_energy(self):
         self.energy += 1
         # Testing
-        # self.energy += 200000
-        # self.time += 1000
-        #self.potential += 1
-        #self.maxpotential += 1
-        # self.innovation += 10000
-        # self.quarks += 10000
-        # self.hydrogen += 10000000000
-        # self.helium += 10000000000
+        self.energy += 200000
+        self.time += 1000
+        self.potential += 1
+        self.maxpotential += 1
+        self.innovation += 10000
+        self.quarks += 10000
+        self.hydrogen += 10000000000
+        self.helium += 10000000000
 
     def create_life(self):
         self.microbes += 1

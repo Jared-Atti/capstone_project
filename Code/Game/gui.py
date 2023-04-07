@@ -213,6 +213,9 @@ a7_NF_Button = None # Nuclear Fusion
 def create_energy():
     game.create_energy()
 
+def create_life():
+    game.create_life()
+
 def save_state():
     state = vars(game.get())
     # my_globals = globals()
@@ -774,8 +777,11 @@ def buy_CE():
     game.buy_upgrade(u23_CE)
     global u23_CE_Button
     u23_CE.active = 2
-    root.after(100)
     root.configure(background='darkblue')
+    root.after(100)
+    destroyUpgradeButton(u23_CE_Button,u23_CE)
+    global u24_CD_Button
+    u24_CD_Button = createUpgradeButton(u24_CD_Button, u24_CD, buy_CD)
 
 def buy_CD():
     game.buy_upgrade(u24_CD)
@@ -783,19 +789,22 @@ def buy_CD():
     u24_CD.active = 2
     root.after(100)
     destroyUpgradeButton(u24_CD_Button,u24_CD)
+    global u26_DNA_Button
+    u26_DNA_Button = createUpgradeButton(u26_DNA_Button, u26_DNA, buy_DNA)
+    
 
 def buy_DNA():
     game.buy_upgrade(u26_DNA)
     global u26_DNA_Button
     u26_DNA.active = 2
     root.after(100)
-    destroyUpgradeButton(u23_CE_Button, u23_CE)
     destroyResourceLabel(energyLab)
     destroyResourceLabel(quarkLab)
     destroyResourceLabel(protonLab)
     destroyResourceLabel(neutronLab)
     destroyResourceLabel(heliumLab)
     destroyResourceLabel(hydrogenLab)
+    energyB.destroy()
     destroyProducer(a1_GC_Name, a1_GC_Cost, a1_GC_Desc, a1_GC_Button, None, a1_GC)
     destroyProducer(a2_QS_Name, a2_QS_Cost, a2_QS_Desc, a2_QS_Button, a2_QS_Toggle, a2_QS)
     destroyProducer(a3_PS_Name, a3_PS_Cost, a3_PS_Desc, a3_PS_Button, a3_PS_Toggle, a3_PS)
@@ -805,6 +814,11 @@ def buy_DNA():
     destroyProducer(a7_NF_Name, a7_NF_Cost, a7_NF_Desc, a7_NF_Button, None, a7_NF)
     printMessage("Welcome to the Pre-Cambrian Era!")
     destroyUpgradeButton(u26_DNA_Button, u26_DNA)
+    global lifeB
+    lifeB = tk.Button(createLabel, text ="Create Life", command = create_life, font=('Terminal', 10))
+    lifeB.place(in_ = createLabel, y = 10, x = 20)
+    lifeL.config(text = "Lifeforms: " + game.microbes)
+    
 
 def buy_GM():
     game.buy_upgrade(u27_GM)
@@ -1639,6 +1653,36 @@ def afford_upgrades():
             u23_CE_Button.config(u23_CE_Button, state = ACTIVE)
         else:
             u23_CE_Button.config(u23_CE_Button, state = DISABLED)
+    
+    if u24_CD.active == 1:
+        if u24_CD.afford(game):
+            u24_CD_Button.config(u24_CD_Button, state = ACTIVE)
+        else:
+            u24_CD_Button.config(u24_CD_Button, state = DISABLED)
+
+    if u26_DNA.active == 1:
+        if u26_DNA.afford(game):
+            u26_DNA_Button.config(u26_DNA_Button, state = ACTIVE)
+        else:
+            u26_DNA_Button.config(u26_DNA_Button, state = DISABLED)
+
+    if u27_GM.active == 1:
+        if u27_GM.afford(game):
+            u27_GM_Button.config(u27_GM_Button, state = ACTIVE)
+        else:
+            u27_GM_Button.config(u27_GM_Button, state = DISABLED)
+
+    if u28_MA.active == 1:
+        if u28_MA.afford(game):
+            u28_MA_Button.config(u28_MA_Button, state = ACTIVE)
+        else:
+            u28_MA_Button.config(u28_MA_Button, state = DISABLED)
+
+    if u29_AR.active == 1:
+        if u29_AR.afford(game):
+            u29_AR_Button.config(u29_AR_Button, state = ACTIVE)
+        else:
+            u29_AR_Button.config(u29_AR_Button, state = DISABLED)
     
     root.after(100, afford_upgrades)
 
