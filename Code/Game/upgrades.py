@@ -407,7 +407,7 @@ class Nuclear_Fusion_Increase(Upgrade):
 
 class Cool_Down(Upgrade):
     def __init__(self):
-        super().__init__("Cool Down ", ("Time", 100), "The Earth is still forming and a very hot molten ball of rock. It needs some time be cool. In the meantime, it can be bombarded with asteroids and collect some interesting materials, maybe even a moon.")
+        super().__init__("Cool Down ", [("Time", 100)], "The Earth is still forming and a very hot molten ball of rock. It needs some time be cool. In the meantime, it can be bombarded with asteroids and collect some interesting materials, maybe even a moon.")
 
     def afford(self, game):
         if game.time >= 100:
@@ -422,7 +422,7 @@ class Cool_Down(Upgrade):
 # Precambrian Upgrades
 class DNA_Points(Upgrade):
     def __init__(self):
-        super().__init__("DNA Points ", ("Time", 10), "Sacrifice everything you have gathered throughout the Cosmic era to discover a new material called DNA.")
+        super().__init__("DNA Points ", [("Time", 10)], "Sacrifice everything you have gathered throughout the Cosmic era to discover a new material called DNA.")
 
     def afford(self, game):
         if game.time >= 10:

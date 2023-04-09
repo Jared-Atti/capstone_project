@@ -431,7 +431,7 @@ def buy_GC():
     global u1_GC_Button
     u1_GC.active = 2
     root.after(100)
-    printMessage("You bought GC")
+    printMessage("You purchased Gravitational Compression! Passive energy coming soon!")
     destroyUpgradeButton(u1_GC_Button, u1_GC)
 
 def buy_SS():
@@ -446,7 +446,7 @@ def buy_SS():
     game.buy_upgrade(u2_SS)
     u2_SS.active = 2
     root.after(100)
-    printMessage("You bought SS")
+    printMessage("You bought Subatomic Synthesis! A new resource has emerged!")
     destroyUpgradeButton(u2_SS_Button, u2_SS)
     results = createProducer(a2_QS_Name, "Quark Synthesizers", a2_QS_Button, increase_a2_QS, a2_QS_Cost, a2_QS_Desc, True, a2_QS_Toggle, toggle_a2_QS, a2_QS)
     a2_QS_Name = results[0]
@@ -466,7 +466,7 @@ def buy_TM():
     global u3_TM_Button
     u3_TM.active = 2
     root.after(100)
-    printMessage("You bought TM")
+    printMessage("You bought Temporal Momentum! Now we get to see your true potential...")
     destroyUpgradeButton(u3_TM_Button, u3_TM)
 
 def buy_IN():
@@ -474,7 +474,7 @@ def buy_IN():
     global u4_IN_Button
     u4_IN.active = 2
     root.after(100)
-    printMessage("You bought IN")
+    printMessage("You bought Innovation! Now you'll generate even more from Time being at a maximum!")
     destroyUpgradeButton(u4_IN_Button, u4_IN)
 
     global u10_P1_Button
@@ -497,7 +497,7 @@ def buy_NS():
     global neutronLab
     u5_NS.active = 2
     root.after(100)
-    printMessage("You bought NS")
+    printMessage("You bought Nucleosynthesis! More new resources! Yay!")
     destroyUpgradeButton(u5_NS_Button, u5_NS)
     results = createProducer(a3_PS_Name, "Proton Synthesizers", a3_PS_Button, increase_a3_PS, a3_PS_Cost, a3_PS_Desc, True, a3_PS_Toggle, toggle_a3_PS, a3_PS)
     a3_PS_Name = results[0]
@@ -529,7 +529,7 @@ def buy_GA():
     global u6_GA_Button
     u6_GA.active = 2
     root.after(100)
-    printMessage("You bought GA")
+    printMessage("You bought Gravitational Amplification! Your Energy is about to sky rocket!")
     destroyUpgradeButton(u6_GA_Button, u6_GA)
     global a1_GC_Desc
     a1_GC_Desc.config(a1_GC_Desc, text = a1_GC.desc())
@@ -543,7 +543,7 @@ def buy_QF():
     global u7_QF_Button
     u7_QF.active = 2
     root.after(100)
-    printMessage("You bought QF")
+    printMessage("You bought Quark Fusion! Give me all of the Quarks!!")
     destroyUpgradeButton(u7_QF_Button, u7_QF)
     global a2_QS_Desc
     a2_QS_Desc.config(a2_QS_Desc, text = a2_QS.desc())
@@ -556,7 +556,7 @@ def buy_AF():
     global u8_AF_Button
     u8_AF.active = 2
     root.after(100)
-    printMessage("You bought AF")
+    printMessage("You bought Atomic Fabrication! How many more resources are there?!?")
     destroyUpgradeButton(u8_AF_Button, u8_AF)
 
     global a5_HyF_Button
@@ -584,7 +584,7 @@ def buy_DH():
     global u9_DH_Button
     u9_DH.active = 2
     root.after(100)
-    printMessage("You bought DH")
+    printMessage("You bought Discover Helium! Guess what? Another Resource!!!")
     destroyUpgradeButton(u9_DH_Button, u9_DH)
 
     global a6_HeF_Button
@@ -614,7 +614,7 @@ def buy_P1():
     global u10_P1_Button
     u10_P1.active = 2
     root.after(100)
-    printMessage("You bought P1")
+    printMessage("You bought Cosmic Burst! Look! More Potential!")
     destroyUpgradeButton(u10_P1_Button, u10_P1)
     game.set_max_potential()
     productivityBut.config(productivityBut, state = ACTIVE)
@@ -628,7 +628,7 @@ def buy_P2():
     global u11_P2_Button
     u11_P2.active = 2
     root.after(100)
-    printMessage("You bought P2")
+    printMessage("You bought Starlight Path! Even more Potential!")
     destroyUpgradeButton(u11_P2_Button, u11_P2)
     game.set_max_potential()
     productivityBut.config(productivityBut, state = ACTIVE)
@@ -642,7 +642,7 @@ def buy_P3():
     global u12_P3_Button
     u12_P3.active = 2
     root.after(100)
-    printMessage("You bought P3")
+    printMessage("You bought Quantum Leap! Gimmie all the Potential!")
     destroyUpgradeButton(u12_P3_Button, u12_P3)
     game.set_max_potential()
     productivityBut.config(productivityBut, state = ACTIVE)
@@ -656,7 +656,7 @@ def buy_P4():
     global u13_P4_Button
     u13_P4.active = 2
     root.after(100)
-    printMessage("You bought P4")
+    printMessage("You bought Galactic Investment! This was definitely worth it.")
     destroyUpgradeButton(u13_P4_Button, u13_P4)
     game.set_max_potential()
     productivityBut.config(productivityBut, state = ACTIVE)
@@ -670,7 +670,7 @@ def buy_P5():
     global u14_P5_Button
     u14_P5.active = 2
     root.after(100)
-    printMessage("You bought P5")
+    printMessage("You bought Nova Catalyst! May not know how it works, but we'll always take more potential!")
     destroyUpgradeButton(u14_P5_Button, u14_P5)
     game.set_max_potential()
     productivityBut.config(productivityBut, state = ACTIVE)
@@ -682,7 +682,7 @@ def buy_GF():
     global u15_GF_Button
     u15_GF.active = 2
     root.after(100)
-    printMessage("You bought GF")
+    printMessage("You bought Gravitational Fluctuations! You won't even know what to do with all this energy!")
     destroyUpgradeButton(u15_GF_Button, u15_GF)
     global a1_GC_Desc
     a1_GC_Desc.config(a1_GC_Desc, text = a1_GC.desc())
@@ -694,7 +694,7 @@ def buy_QA():
     global u16_QA_Button
     u16_QA.active = 2
     root.after(100)
-    printMessage("You bought QA")
+    printMessage("You bought Quark Acceleration! You better not waste these!")
     destroyUpgradeButton(u16_QA_Button, u16_QA)
     global a2_QS_Desc
     a2_QS_Desc.config(a2_QS_Desc, text = a2_QS.desc())
@@ -705,7 +705,7 @@ def buy_PP():
     global u17_PP_Button
     u17_PP.active = 2
     root.after(100)
-    printMessage("You bought PP")
+    printMessage("You bought Proton Processor! Now we're cooking with gas!")
     destroyUpgradeButton(u17_PP_Button, u17_PP)
     global a3_PS_Desc
     a3_PS_Desc.config(a3_PS_Desc, text = a3_PS.desc())
@@ -716,7 +716,7 @@ def buy_NP():
     global u18_NP_Button
     u18_NP.active = 2
     root.after(100)
-    printMessage("You bought NP")
+    printMessage("You bought Neutron Processor! Did we just give those upgrades the same name basically? maybe...")
     destroyUpgradeButton(u18_NP_Button, u18_NP)
     global a4_NS_Desc
     a4_NS_Desc.config(a4_NS_Desc, text = a4_NS.desc())
@@ -727,7 +727,7 @@ def buy_HC():
     global u19_HC_Button
     u19_HC.active = 2
     root.after(100)
-    printMessage("You bought HC")
+    printMessage("You bought Hydrogenic Catalyst! Sounds expensive!")
     destroyUpgradeButton(u19_HC_Button, u19_HC)
     global a5_HyF_Desc
     a5_HyF_Desc.config(a5_HyF_Desc, text = a5_HyF.desc())
@@ -738,7 +738,7 @@ def buy_HE():
     global u20_HE_Button
     u20_HE.active = 2
     root.after(100)
-    printMessage("You bought HE")
+    printMessage("You bought Helium Extractor! Why is everyones voices getting so high?")
     destroyUpgradeButton(u20_HE_Button, u20_HE)
     global a6_HeF_Desc
     a6_HeF_Desc.config(a6_HeF_Desc, text = a6_HeF.desc())
@@ -748,7 +748,7 @@ def buy_CS():
     global u21_CS_Button
     u21_CS.active = 2
     root.after(100)
-    printMessage("You bought CS")
+    printMessage("You just created the Sun! That thing is really really bright!!")
     destroyUpgradeButton(u21_CS_Button, u21_CS)
 
     global u23_CE_Button
@@ -759,7 +759,7 @@ def buy_NF():
     global u22_NF_Button
     u22_NF.active = 2
     root.after(100)
-    printMessage("You bought NF")
+    printMessage("You bought Nuclear Fusion! Your automators are basically automated!")
     destroyUpgradeButton(u22_NF_Button, u22_NF)
 
     global a7_NF_Button
@@ -777,9 +777,10 @@ def buy_CE():
     game.buy_upgrade(u23_CE)
     global u23_CE_Button
     u23_CE.active = 2
-    root.configure(background='darkblue')
     root.after(100)
+    printMessage("Woah! What's that big red ball? Looks pretty hot, we should let it cool down for a bit...")
     destroyUpgradeButton(u23_CE_Button,u23_CE)
+    
     global u24_CD_Button
     u24_CD_Button = createUpgradeButton(u24_CD_Button, u24_CD, buy_CD)
 
@@ -788,6 +789,7 @@ def buy_CD():
     global u24_CD_Button
     u24_CD.active = 2
     root.after(100)
+    printMessage("That's better, looks like theres some cool things down there, we should go check it out!")
     destroyUpgradeButton(u24_CD_Button,u24_CD)
     global u26_DNA_Button
     u26_DNA_Button = createUpgradeButton(u26_DNA_Button, u26_DNA, buy_DNA)
@@ -813,11 +815,20 @@ def buy_DNA():
     destroyProducer(a6_HeF_Name, a6_HeF_Cost, a6_HeF_Desc, a6_HeF_Button, a6_HeF_Toggle, a6_HeF)
     destroyProducer(a7_NF_Name, a7_NF_Cost, a7_NF_Desc, a7_NF_Button, None, a7_NF)
     printMessage("Welcome to the Pre-Cambrian Era!")
+    printMessage("Don't freak out, you won't be needing any of that stuff anymore...")
+    printMessage("Check out your new button! I wonder what it makes now?")
+    root.config(background='darkblue')
     destroyUpgradeButton(u26_DNA_Button, u26_DNA)
     global lifeB
     lifeB = tk.Button(createLabel, text ="Create Life", command = create_life, font=('Terminal', 10))
+    createLabel.config(width = 140)
     lifeB.place(in_ = createLabel, y = 10, x = 20)
-    lifeL.config(text = "Lifeforms: " + game.microbes)
+    lifeL.destroy()
+    lifeL = Label(lifeForms, text = "Lifeforms: " + game.microbes, font = ("Terminal", 10), bg = "white")
+    global productionFy
+    productionFy = productionF.winfo_y()
+    productionF.config(y = productionFy + 25)
+    root.after(100)
     
 
 def buy_GM():
@@ -1244,6 +1255,10 @@ def check_milestones():
         global u6_GA_Button
         u6_GA_Button = createUpgradeButton(u6_GA_Button, u6_GA, buy_GA)
 
+    if (game.microbes > 0 and u26_DNA.active == 2): 
+            microbeLab = createResourceLabel(microbeLab, game.microbe, "Microbes: ")
+    
+
     root.after(100, check_milestones)
 
 
@@ -1455,7 +1470,7 @@ def destroyProducer(namelabel, costlabel, desclabel, button, togglebutton, autom
     for widget in upgradesF.winfo_children():
         current_y = widget.winfo_y()
         if current_y > yposition:
-            # Moving up 20 + 5 + button_heigh/2
+            # Moving up 20 + 5 + button_height/2
             widget.place(y=current_y - PADDING - 5 - yposition / 2)
 
     namelabel.destroy()
