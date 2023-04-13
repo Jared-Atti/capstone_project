@@ -4,6 +4,7 @@ from game import Game
 import upgrades
 import automators
 import pickle
+import time
 
 
 #Getting Instance of Game class & Initializing game
@@ -74,7 +75,8 @@ ROOT_WIDTH = 1
 
 LEFT_COLUMN_WIDTH = 300
 MIDDLE_COLUMN_WIDTH = 350
-RIGHT_COLUMN_WIDTH = 500
+RIGHT_COLUMN_WIDTH = 350
+VISUAL_COLUMN_WIDTH = 300
 
 RESOURCE_FRAME_HEIGHT = 30
 RESOURCE_LABEL_NEXTY = 25
@@ -92,8 +94,10 @@ TEMPORAL_FRAME_HEIGHT = 30
 #Variables for Position
 TOP_Y = 180
 LEFT_COLUMN_X = 20
-MIDDLE_COLUMN_X = LEFT_COLUMN_WIDTH + 25
-RIGHT_COLUMN_X = 0
+MIDDLE_COLUMN_X = LEFT_COLUMN_X + LEFT_COLUMN_WIDTH + PADDING
+RIGHT_COLUMN_X = MIDDLE_COLUMN_X + MIDDLE_COLUMN_WIDTH + PADDING
+VISUAL_COLUMN_X = RIGHT_COLUMN_X + RIGHT_COLUMN_WIDTH + PADDING
+
 PRODUCTION_FRAME_TOP = RESOURCE_FRAME_HEIGHT + TOP_Y + PADDING
 
 # GLOBAL LISTS
@@ -261,7 +265,7 @@ mainframe = tk.Frame(canvas, height = ROOT_HEIGHT)
 #CREATING Frames to go on root
 timeline = Frame(mainframe, relief = RAISED, bd = 5, bg = "black", height = 90, width = 2000)
 lifeForms = Frame(mainframe, relief= RAISED, bd = 5, bg = "white", height = 40, width = 2000)
-visuals = Frame(mainframe, relief = RAISED, bd = 5, bg = "white", height = 450, width = 450)
+visuals = Frame(mainframe, relief = RAISED, bd = 5, bg = "white", height = 300, width = 300)
 createLabel = Frame(mainframe, bg = "white", height = 40, width = 100)
 # time = Frame(mainframe, relief = RAISED, bd = 5, bg = "white", height = 40, width = 175)
 saveframe = Frame(mainframe, relief = RAISED, bd = 5, bg = "white",  height = 40, width = 130)
@@ -272,7 +276,7 @@ mainframe.update_idletasks()
 #PLACEMENT of Frames on root
 timeline.place(x = 20, y = 0)
 lifeForms.place(x = 20, y = 90)
-visuals.place(x = 900, y = TOP_Y)
+visuals.place(x = VISUAL_COLUMN_X, y = TOP_Y)
 createLabel.place(x = 20, y = 135)
 # time.place(x = 500, y = 135)
 saveframe.place(x = ROOT_WIDTH - 150, y = 135)
@@ -304,7 +308,7 @@ root.rowconfigure(1, weight = 1)
 
 #CREATION of Labels that go onto Frames/Buttons
 tlL = Label(timeline, text = "Timeline:", font = ('Terminal', 10), bg = "black", fg = "white")
-lifeL = Label(lifeForms, text = "Lifeforms: " + "???", font = ("Terminal", 10), bg = "white")
+lifeL = Label(lifeForms, text = "Lifeforms: ???", font = ("Terminal", 10), bg = "white")
 eraL = Label(visuals, text = "Era: Cosmic", font = ("Terminal", 10), bg = "white")
 lifeL.place(x = 0, y = 0)
 tlL.place(x = 0, y = 0)
@@ -800,12 +804,18 @@ def buy_DNA():
     global u26_DNA_Button
     u26_DNA.active = 2
     root.after(100)
-    destroyResourceLabel(energyLab)
-    destroyResourceLabel(quarkLab)
-    destroyResourceLabel(protonLab)
-    destroyResourceLabel(neutronLab)
-    destroyResourceLabel(heliumLab)
-    destroyResourceLabel(hydrogenLab)
+    global energyLab
+    global quarkLab
+    global protonLab
+    global neutronLab
+    global heliumLab
+    global hydrogenLab
+    energyLab = destroyResourceLabel(energyLab)
+    quarkLab = destroyResourceLabel(quarkLab)
+    protonLab = destroyResourceLabel(protonLab)
+    neutronLab = destroyResourceLabel(neutronLab)
+    heliumLab = destroyResourceLabel(heliumLab)
+    hydrogenLab = destroyResourceLabel(hydrogenLab)
     energyB.destroy()
     destroyProducer(a1_GC_Name, a1_GC_Cost, a1_GC_Desc, a1_GC_Button, None, a1_GC)
     destroyProducer(a2_QS_Name, a2_QS_Cost, a2_QS_Desc, a2_QS_Button, a2_QS_Toggle, a2_QS)
@@ -820,14 +830,11 @@ def buy_DNA():
     root.config(background='darkblue')
     destroyUpgradeButton(u26_DNA_Button, u26_DNA)
     global lifeB
+    global lifeL
     lifeB = tk.Button(createLabel, text ="Create Life", command = create_life, font=('Terminal', 10))
     createLabel.config(width = 140)
     lifeB.place(in_ = createLabel, y = 10, x = 20)
-    lifeL.destroy()
-    lifeL = Label(lifeForms, text = "Lifeforms: " + game.microbes, font = ("Terminal", 10), bg = "white")
-    global productionFy
-    productionFy = productionF.winfo_y()
-    productionF.config(y = productionFy + 25)
+    lifeL.config(text = "Lifeforms: " + str(game.lifeforms))
     root.after(100)
     
 
@@ -1255,8 +1262,8 @@ def check_milestones():
         global u6_GA_Button
         u6_GA_Button = createUpgradeButton(u6_GA_Button, u6_GA, buy_GA)
 
-    if (game.microbes > 0 and u26_DNA.active == 2): 
-            microbeLab = createResourceLabel(microbeLab, game.microbe, "Microbes: ")
+    if (game.microbes > 0 and u26_DNA.active == 2 and microbeLab == None): 
+            microbeLab = createResourceLabel(microbeLab, game.microbes, "Microbes")
     
 
     root.after(100, check_milestones)
@@ -1306,7 +1313,8 @@ def createResourceLabel(label, resource, name):
     global RESOURCE_LABEL_NEXTY
     global PRODUCTION_FRAME_TOP
     label = Label(resourcesF, text = name + ": " + "{:,.0f}".format(resource), font = ('Terminal', 10), bg = "white")
-    label.place(x = PADDING, y = RESOURCE_LABEL_NEXTY)
+    label.place(x = PADDING, y = RESOURCE_LABEL_NEXTY, anchor=('nw'))
+    # label.place_configure(anchor='n')
     resourcesF.update_idletasks()
     label_height = label.winfo_height()
     RESOURCE_FRAME_HEIGHT = RESOURCE_FRAME_HEIGHT + label_height + PADDING
@@ -1316,12 +1324,6 @@ def createResourceLabel(label, resource, name):
     if (productionF != None):
         productionF.place(y = PRODUCTION_FRAME_TOP)
 
-    # global ROOT_HEIGHT
-    # ROOT_HEIGHT += (label_height + PADDING) * 0.9
-    # mainframe.config(height = ROOT_HEIGHT)
-    # mainframe.update_idletasks()
-    # update_scrollregion()
-
     return label
 
 # Function for destroying a button within upgrades frame
@@ -1329,21 +1331,24 @@ def destroyResourceLabel(label):
     global RESOURCE_FRAME_HEIGHT
     global RESOURCE_LABEL_NEXTY
     global PRODUCTION_FRAME_TOP
+    label_y = label.winfo_y()
     label_height = label.winfo_height()
     label.destroy()
+
+    for widget in resourcesF.winfo_children():
+        current_y = widget.winfo_y()
+        if current_y >= label_y:
+            widget.place(y=current_y - label_height - LPADDING)
+    
     RESOURCE_FRAME_HEIGHT = RESOURCE_FRAME_HEIGHT - label_height - PADDING
     RESOURCE_LABEL_NEXTY = RESOURCE_LABEL_NEXTY - label_height - PADDING
-    PRODUCTION_FRAME_TOP = PRODUCTION_FRAME_TOP - 5 - label_height - PADDING
+    PRODUCTION_FRAME_TOP = PRODUCTION_FRAME_TOP - label_height - PADDING
     resourcesF.config(height=RESOURCE_FRAME_HEIGHT)
+
     if (productionF != None):
         productionF.place(y = PRODUCTION_FRAME_TOP)
-
-    # global ROOT_HEIGHT
-    # ROOT_HEIGHT -= (label_height + PADDING) * 0.9
-    # mainframe.config(height = ROOT_HEIGHT)
-    # mainframe.update_idletasks()
-    # update_scrollregion()
-
+    
+    return None
 
 # Function for adding a new button to upgrades frame
 def createUpgradeButton(button, upgrade, cmd):
@@ -1709,19 +1714,29 @@ def update_labels():
         global quarkLab
         global protonLab
         global neutronLab
-        if (energyLab):
-            energyLab.config(energyLab, text = "Energy: " + "{:,.0f}".format(game.energy))
-        if (quarkLab):
-            quarkLab.config(quarkLab, text = "Quarks: " + "{:,.0f}".format(game.quarks))
-        if (protonLab):
-            protonLab.config(protonLab, text = "Protons: " + "{:,.0f}".format(game.protons))
-        if (neutronLab):
-            neutronLab.config(neutronLab, text = "Neutrons: " + "{:,.0f}".format(game.neutrons))
-        if (hydrogenLab):
-            hydrogenLab.config(hydrogenLab, text = "Hydrogen: " + "{:,.0f}".format(game.hydrogen))
-        if (heliumLab):
-            heliumLab.config(heliumLab, text = "Helium: " + "{:,.0f}".format(game.helium))
-
+        global hydrogenLab
+        global heliumLab
+        global microbeLab
+        global lifeL
+        try:
+            if (energyLab):
+                energyLab.config(energyLab, text = "Energy: " + "{:,.0f}".format(game.energy))
+            if (quarkLab):
+                quarkLab.config(quarkLab, text = "Quarks: " + "{:,.0f}".format(game.quarks))
+            if (protonLab):
+                protonLab.config(protonLab, text = "Protons: " + "{:,.0f}".format(game.protons))
+            if (neutronLab):
+                neutronLab.config(neutronLab, text = "Neutrons: " + "{:,.0f}".format(game.neutrons))
+            if (hydrogenLab):
+                hydrogenLab.config(hydrogenLab, text = "Hydrogen: " + "{:,.0f}".format(game.hydrogen))
+            if (heliumLab):
+                heliumLab.config(heliumLab, text = "Helium: " + "{:,.0f}".format(game.helium))
+            if (microbeLab):
+                microbeLab.config(microbeLab, text = "Microbes: " + "{:,.0f}".format(game.microbes))
+            if (game.lifeforms > 0):
+                lifeL.config(lifeL, text = "Lifeforms: " + "{:,.0f}".format(game.lifeforms))
+        except:
+            None
     if game.temporalFrame == True:
         global timeLab
         global innovationLab
