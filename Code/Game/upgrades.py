@@ -420,9 +420,9 @@ class Cool_Down(Upgrade):
             self.active = 2
 
 # Precambrian Upgrades
-class DNA_Points(Upgrade):
+class Create_Life(Upgrade):
     def __init__(self):
-        super().__init__("DNA Points ", [("Time", 10)], "Sacrifice everything you have gathered throughout the Cosmic era to discover a new material called DNA.")
+        super().__init__("Create Life ", [("Time", 10)], "Sacrifice everything you have gathered throughout the Cosmic era to discover a new material called DNA.")
 
     def afford(self, game):
         if game.time >= 10:
@@ -465,6 +465,174 @@ class Metabolic_Adaptation(Upgrade):
 class Asexual_Reproduction(Upgrade):
     def __init__(self):
         super().__init__("Asexual Reproduction ", [("DNA", 50)], "Microbes begin evolving, learning the ability to reproduce asexually.  Reproducers begin increasing the amount of microbes.")
+    
+    def afford(self, game):
+        if game.dna >= 50:
+            return True
+    
+    def purchase(self, game):
+        if self.afford(game):
+            game.dna -= 50
+            game.purchasedupgrades += self.name
+            self.active = 2
+
+class Multicellularity(Upgrade):
+    def __init__(self):
+        super().__init__("Multicellularity ", [("", 0)], "Your organisms will form multicellular structures, allowing for greater specialization and complexity. Unlocks an automator for generating DNA.")
+    
+    def afford(self, game):
+        if game.dna >= 50:
+            return True
+    
+    def purchase(self, game):
+        if self.afford(game):
+            game.dna -= 50
+            game.purchasedupgrades += self.name
+            self.active = 2
+
+class Membrane_Proteins(Upgrade):
+    def __init__(self):
+        super().__init__("Membrane Proteins ", [("", 0)], "Organisms begin using nutrients from the earth to grow and produce offspring more efficiently.")
+    
+    def afford(self, game):
+        if game.dna >= 50:
+            return True
+    
+    def purchase(self, game):
+        if self.afford(game):
+            game.dna -= 50
+            game.purchasedupgrades += self.name
+            self.active = 2
+
+class Photosynthesis(Upgrade):
+    def __init__(self):
+        super().__init__("Photosynthesis ", [("", 0)], "Unlocks the ability for your microbes to use sunlight as a source of energy, providing a significant boost to their metabolism and growth rate.")
+    
+    def afford(self, game):
+        if game.dna >= 50:
+            return True
+    
+    def purchase(self, game):
+        if self.afford(game):
+            game.dna -= 50
+            game.purchasedupgrades += self.name
+            self.active = 2
+
+class Aquaporin_Membranes(Upgrade):
+    def __init__(self):
+        super().__init__("Aquaporin Membranes ", [("", 0)], "Microbes can produce specialized membranes that allow them to absorb water more efficiently, increasing their ability to survive and reproduce in aquatic environments. Unlocks hydro-synthesis.")
+    
+    def afford(self, game):
+        if game.dna >= 50:
+            return True
+    
+    def purchase(self, game):
+        if self.afford(game):
+            game.dna -= 50
+            game.purchasedupgrades += self.name
+            self.active = 2
+
+class DNA_Amplifier(Upgrade):
+    def __init__(self):
+        super().__init__("DNA Amplifier ", [("", 0)], "Your organisms can evolve eukaryotic cells, which provide increased genetic complexity and the ability to perform specialized functions.")
+    
+    def afford(self, game):
+        if game.dna >= 50:
+            return True
+    
+    def purchase(self, game):
+        if self.afford(game):
+            game.dna -= 50
+            game.purchasedupgrades += self.name
+            self.active = 2
+
+class Flagella(Upgrade):
+    def __init__(self):
+        super().__init__("Flagella ", [("", 0)], "Your organisms can produce flagella, providing increased mobility and the ability to explore new environments, allowing for greater reproduction rates.")
+    
+    def afford(self, game):
+        if game.dna >= 50:
+            return True
+    
+    def purchase(self, game):
+        if self.afford(game):
+            game.dna -= 50
+            game.purchasedupgrades += self.name
+            self.active = 2
+
+class Chloroplasts(Upgrade):
+    def __init__(self):
+        super().__init__("Chloroplasts ", [("", 0)], "Your organisms can produce Chloroplasts, providing more efficient usage of nutrients to make the resource last longer.")
+    
+    def afford(self, game):
+        if game.dna >= 50:
+            return True
+    
+    def purchase(self, game):
+        if self.afford(game):
+            game.dna -= 50
+            game.purchasedupgrades += self.name
+            self.active = 2
+
+class Mitochondria(Upgrade):
+    def __init__(self):
+        super().__init__("Mitochondria ", [("", 0)], "The powerhouse of the cell, your organisms will be able to preserve more water and use it more efficiently.")
+    
+    def afford(self, game):
+        if game.dna >= 50:
+            return True
+    
+    def purchase(self, game):
+        if self.afford(game):
+            game.dna -= 50
+            game.purchasedupgrades += self.name
+            self.active = 2
+
+class Biofilm_Production(Upgrade):
+    def __init__(self):
+        super().__init__("Biofilm Production ", [("", 0)], "Unlocks the ability for microbes to produce a sticky biofilm, which can protect them from environmental stressors and allow for cooperative behavior, improving microbial reproduction.")
+    
+    def afford(self, game):
+        if game.dna >= 50:
+            return True
+    
+    def purchase(self, game):
+        if self.afford(game):
+            game.dna -= 50
+            game.purchasedupgrades += self.name
+            self.active = 2
+
+class Chemosynthesis(Upgrade):
+    def __init__(self):
+        super().__init__("Chemosynthesis ", [("", 0)], "Unlocks the ability for microbes to use chemical energy to produce organic matter, which can support more complex ecosystems.")
+    
+    def afford(self, game):
+        if game.dna >= 50:
+            return True
+    
+    def purchase(self, game):
+        if self.afford(game):
+            game.dna -= 50
+            game.purchasedupgrades += self.name
+            self.active = 2
+
+class Oxygenation(Upgrade):
+    def __init__(self):
+        super().__init__("Oxygenation ", [("", 0)], "Increases the amount of oxygen in the environment, allowing for the evolution of more complex life forms.")
+    
+    def afford(self, game):
+        if game.dna >= 50:
+            return True
+    
+    def purchase(self, game):
+        if self.afford(game):
+            game.dna -= 50
+            game.purchasedupgrades += self.name
+            self.active = 2
+
+class Differentiation(Upgrade):
+    def __init__(self):
+        super().__init__("Differentiation ", [("", 0)], "With cells abot to specialize and perform different functions within a colony, unlocks Ediacaran organisms.")
     
     def afford(self, game):
         if game.dna >= 50:
