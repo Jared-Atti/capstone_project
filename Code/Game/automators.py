@@ -132,3 +132,33 @@ class Nuclear_Fusion(Automator):
             game.hydrogen -= self.upcost[0][1]
             self.upcost = [(self.upcost[0][0], round(self.upcost[0][1] * 1.4)), (self.upcost[1][0], round(self.upcost[1][1] * 1.4))]
             self.count += 1
+
+class Protein_Synthesis(Automator):
+    def __init__(self):
+        super().__init__("Protein Synthesis ", None, None, None)
+    
+    def afford(self, game):
+        return 0
+    
+    def increase(self, game):
+        return 0
+    
+class Hydro_Synthesis(Automator):
+    def __init__(self):
+        super().__init__("Hydro Synthesis ", None, None, None)
+    
+    def afford(self, game):
+        return 0
+    
+    def increase(self, game):
+        return 0
+    
+class DNA_Manufacturer(Automator):
+    def __init__(self):
+        super().__init__("DNA Manufacturer ", None, None, None)
+    
+    def afford(self, game):
+        return 0
+    
+    def increase(self, game):
+        return 0
