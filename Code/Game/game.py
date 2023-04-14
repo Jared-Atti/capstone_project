@@ -24,6 +24,7 @@ class Game:
         self.expansion = 1
         self.maxpotential = self.potential + self.productivity + self.expansion
         self.currentEra = 0 # 0 = Cosmic, 1 = Precambrian
+        self.lifeforms = 0
         
         ## Cosmic
         self.quarks = 0
@@ -46,14 +47,17 @@ class Game:
     def create_energy(self):
         self.energy += 1
         # Testing
-        self.energy += 200000
-        self.time += 1000
-        self.potential += 1
-        self.maxpotential += 1
+        self.energy += 100000000000
+        self.maxpotential += 100
+        self.time += 100000000000
+        self.expansion += 50
+        self.productivity += 50
         self.innovation += 10000
-        self.quarks += 10000
-        self.hydrogen += 10000000000
-        self.helium += 10000000000
+        self.protons += 100000000000
+        self.neutrons += 100000000000
+        self.quarks += 100000000000
+        self.hydrogen += 100000000000
+        self.helium += 100000000000
 
     def create_life(self):
         self.microbes += 1
@@ -72,6 +76,9 @@ class Game:
 
     def calculate_revenue(self, autos):
         # Every era
+        # Lifeforms
+        self.lifeforms = self.microbes
+
         # Time and innovation
         if (self.temporalFrame == True):
             if (self.time + self.productivity > self.expansion * 1000):
