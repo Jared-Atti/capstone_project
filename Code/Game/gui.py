@@ -4,12 +4,16 @@ from game import Game
 import upgrades
 import automators
 import pickle
-import time
+import os
+# from PIL import image, ImageTk
 
 
 #Getting Instance of Game class & Initializing game
 game = Game()
 game.init()
+
+root = os.path.abspath(os.path.join(os.path.dirname(__file__), "../../"))
+backgrounds = os.path.abspath(os.path.join(root, "Assets/BackGround"))
 
 # Initializing Upgrades
 active_upgrades = []
@@ -132,6 +136,8 @@ VISUAL_COLUMN_WIDTH = 300
 
 RESOURCE_FRAME_HEIGHT = 30
 RESOURCE_LABEL_NEXTY = 25
+SPECIES_FRAME_HEIGHT = 30
+SPECIES_LABEL_NEXTY = 25
 
 UPGRADE_FRAME_HEIGHT = 35
 UPGRADE_BUTTON_WIDTH = 300
@@ -158,12 +164,14 @@ resourcesF = None
 upgradesF = None
 productionF = None
 temporalF = None
+speciesF = None
 
 # Global Titles
 resourcesTitleLabel = None
 upgradeTitleLabel = None
 productionTitleLabel = None
 temporalTitleLabel = None
+speciesTitleLabel = None
 
 # Global Labels
 # Resources
@@ -174,6 +182,9 @@ protonLab = None
 neutronLab = None
 hydrogenLab = None
 heliumLab = None
+dnaLab = None
+nutrientLab = None
+waterLab = None
 # Production
 a1_GC_Name = None
 a1_GC_Desc = None
@@ -221,6 +232,18 @@ expansionBut = None
 timeLab = None
 innovationLab = None
 respecBut = None
+
+# Species
+microbesLab = None
+algaeLab = None
+fishLab = None
+insectLab = None
+amphibianLab = None
+reptileLab = None
+birdLab = None
+mammalLab = None
+dinosaurLab = None
+primateLab = None
 
 # Global Buttons
 # Upgrades
@@ -359,7 +382,10 @@ def load_state():
 #Main Frame of Game
 root = tk.Tk()
 root.title = ("Eco-Evolution")
-root.geometry("1440x1100")
+screen_width = root.winfo_screenwidth()
+screen_height = root.winfo_screenheight()
+root.geometry("%dx%d" % (screen_width, screen_height))
+# root.geometry("1440x1100")
 root.configure(background='black')
 
 root.update_idletasks()
@@ -950,32 +976,63 @@ def buy_DNA():
     lifeB = tk.Button(createLabel, text ="Create Life", command = create_life, font=('Terminal', 10))
     createLabel.config(width = 140)
     lifeB.place(in_ = createLabel, y = 10, x = 20)
+    game.lifeforms = 1
     lifeL.config(text = "Lifeforms: " + str(game.lifeforms))
+    global speciesF
+    global speciesTitleLabel
+    speciesF = Frame(mainframe, relief = RAISED, bd = 5, bg = "white", height = RESOURCE_FRAME_HEIGHT, width = RIGHT_COLUMN_WIDTH)
+    speciesF.place(x = RIGHT_COLUMN_X, y = TOP_Y)
+    root.after(100)
+    speciesTitleLabel = Label(speciesF, text = "Species", font = ("Terminal", 10), bg = "white")
+    speciesTitleLabel.place(relx = 0.5, y = 10, anchor="center")
     root.after(100)
     
 
-def buy_GM():
+        
+
+def buy_41_DF():
+    game.buy_upgrade(u41_DF)
+    global u41_DF_Button
+    u41_DF.active = 2
+    root.after(100)
+    destroyUpgradeButton(u41_DF)
+
+def buy_27_GM():
     game.buy_upgrade(u27_GM)
     global u27_GM_Button
     u27_GM.active = 2
     root.after(100)
-    destroyUpgradeButton(u27_GM)
+    destroyUpgradeButton(u27_GM_Button, u27_GM)
+    global dnaLab
+    dnaLab = createResourceLabel(dnaLab, game.dna, "DNA")
 
-def buy_MA():
+def buy_28_MA():
     game.buy_upgrade(u28_MA)
     global u28_MA_Button
     u28_MA.active = 2
     root.after(100)
-    destroyUpgradeButton(u28_MA)
+    destroyUpgradeButton(u28_MA_Button, u28_MA)
 
-def buy_AR():
+def buy_29_AR():
     game.buy_upgrade(u29_AR)
     global u29_AR_Button
     u29_AR.active = 2
     root.after(100)
-    destroyUpgradeButton(u29_AR)
+    destroyUpgradeButton(u29_AR_Button, u29_AR)
 
+def buy_30_MC():
+    game.buy_upgrade(u30_MC)
+    global u30_MC_Button
+    u30_MC.active = 2
+    root.after(100)
+    destroyUpgradeButton(u30_MC_Button, u30_MC)
 
+def buy_31_MP():
+    game.buy_upgrade(u31_MP)
+    global u31_MP_Button
+    u31_MP.active = 2
+    root.after(100)
+    destroyUpgradeButton(u31_MP_Button, u31_MP)
 
 
 
@@ -1235,7 +1292,6 @@ def check_milestones():
     if game.energy >= 1 and resourcesF == None:
         global resourcesTitleLabel
         global energyLab
-        global microbeLab
         # Creating and placing RESOURCE frame
         resourcesF = Frame(mainframe, relief = RAISED, bd = 5, bg = "white", height = RESOURCE_FRAME_HEIGHT, width = LEFT_COLUMN_WIDTH)
         resourcesF.place(x = LEFT_COLUMN_X, y = TOP_Y)
@@ -1378,11 +1434,59 @@ def check_milestones():
         global u6_GA_Button
         u6_GA_Button = createUpgradeButton(u6_GA_Button, u6_GA, buy_GA)
 
+    global microbeLab
     if (game.microbes > 0 and u26_DNA.active == 2 and microbeLab == None): 
-            microbeLab = createResourceLabel(microbeLab, game.microbes, "Microbes")
+        microbeLab = createSpeciesLabel(microbeLab, game.microbes, "Microbes")
     
+    # Potential upgrade from milestones
+    if (game.lifeforms >= game.potential_lifeforms_req):
+        game.potential_lifeforms_req *= 10
+        game.potential += 1
+        game.set_max_potential()
+        productivityBut.config(productivityBut, state = ACTIVE)
+        expansionBut.config(expansionBut, state = ACTIVE)
+    
+    # Unlocking upgrades after getting mcirobes
+    if (game.microbes >= 10 and u41_DF.active == 0):
+        global u41_DF_Button
+        global u27_GM_Button
+        global u28_MA_Button
+        global u29_AR_Button
+        global u30_MC_Button
+        global u31_MP_Button
+        u41_DF_Button = createUpgradeButton(u41_DF_Button, u41_DF, buy_41_DF)
+        u27_GM_Button = createUpgradeButton(u27_GM_Button, u27_GM, buy_27_GM)
+        u28_MA_Button = createUpgradeButton(u27_GM_Button, u28_MA, buy_28_MA)
+        u29_AR_Button = createUpgradeButton(u29_AR_Button, u29_AR, buy_29_AR)
+        u30_MC_Button = createUpgradeButton(u30_MC_Button, u30_MC, buy_30_MC)
+        u31_MP_Button = createUpgradeButton(u31_MP_Button, u31_MP, buy_31_MP)
 
     root.after(100, check_milestones)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -1614,6 +1718,39 @@ def destroyProducer(namelabel, costlabel, desclabel, button, togglebutton, autom
     update_scrollregion()
 
 
+# Function for adding a new resource to resources frame
+def createSpeciesLabel(label, lifeform, name):
+    global SPECIES_FRAME_HEIGHT
+    global SPECIES_LABEL_NEXTY
+    label = Label(speciesF, text = name + ": " + "{:,.0f}".format(lifeform), font = ('Terminal', 10), bg = "white")
+    label.place(x = PADDING, y = SPECIES_LABEL_NEXTY, anchor=('nw'))
+    # label.place_configure(anchor='n')
+    speciesF.update_idletasks()
+    label_height = label.winfo_height()
+    SPECIES_FRAME_HEIGHT = SPECIES_FRAME_HEIGHT + label_height + PADDING
+    SPECIES_LABEL_NEXTY = SPECIES_LABEL_NEXTY + label_height + PADDING
+    speciesF.config(height=SPECIES_FRAME_HEIGHT)
+
+    return label
+
+# Function for destroying a button within upgrades frame
+def destroySpeciesLabel(label):
+    global SPECIES_FRAME_HEIGHT
+    global SPECIES_LABEL_NEXTY
+    label_y = label.winfo_y()
+    label_height = label.winfo_height()
+    label.destroy()
+
+    for widget in speciesF.winfo_children():
+        current_y = widget.winfo_y()
+        if current_y >= label_y:
+            widget.place(y=current_y - label_height - LPADDING)
+    
+    SPECIES_FRAME_HEIGHT = SPECIES_FRAME_HEIGHT - label_height - PADDING
+    SPECIES_LABEL_NEXTY = SPECIES_LABEL_NEXTY - label_height - PADDING
+    speciesF.config(height=SPECIES_FRAME_HEIGHT)
+    
+    return None
 
 
 
@@ -2154,8 +2291,10 @@ def update_labels():
                 hydrogenLab.config(hydrogenLab, text = "Hydrogen: " + "{:,.0f}".format(game.hydrogen))
             if (heliumLab):
                 heliumLab.config(heliumLab, text = "Helium: " + "{:,.0f}".format(game.helium))
+            if (dnaLab):
+                dnaLab.config(dnaLab, text = "DNA: " + "{:,.0f}".format(game.dna))
             if (microbeLab):
-                microbeLab.config(microbeLab, text = "Microbes: " + "{:,.0f}".format(game.microbes))
+                microbeLab.config(microbeLab, text = "Microbes: " + "{:,.0f}".format(game.microbes) + " + " + "{:,.2f}".format(game.microbes * game.repro_microbes) + " per tick")
             if (game.lifeforms > 0):
                 lifeL.config(lifeL, text = "Lifeforms: " + "{:,.0f}".format(game.lifeforms))
         except:

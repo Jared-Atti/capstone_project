@@ -37,7 +37,11 @@ class Game:
         
         # Precambrian
         self.microbes = 0
+        self.repro_microbes = 0
         self.dna = 0
+        self.nutrients = 0
+        self.water = 0
+        self.mutationflag = 0
     
     def get(self):
         if self is None:
@@ -91,7 +95,15 @@ class Game:
             elif (self.innovationFlag):
                 self.innovation += self.productivity * 0.025
 
+        #DNA Mutation
+        if (self.mutationflag):
+            self.dna += (self.microbes * 0.001)
+        
+        #Reproductions
+        if (self.repro_microbes >= 0):
+            self.microbes += self.microbes * self.repro_microbes
 
+        # Automators
         for a in autos:
             if a.toggle == 1:
                 afford = False
