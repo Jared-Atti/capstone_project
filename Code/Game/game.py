@@ -38,6 +38,24 @@ class Game:
         # Precambrian
         self.microbes = 0
         self.repro_microbes = 0
+        self.algae = 0
+        self.repro_algae = 0
+        self.fish = 0
+        self.repro_fish = 0
+        self.insects = 0
+        self.repro_insects = 0
+        self.amphibians = 0
+        self.repro_amphibians = 0
+        self.reptiles = 0
+        self.repro_reptiles = 0
+        self.birds = 0
+        self.repro_birds = 0
+        self.mammals = 0
+        self.repro_mammals = 0
+        self.dinosaurs = 0
+        self.repro_dinosaurs = 0
+        self.primates = 0
+        self.repro_primates = 0
         self.dna = 0
         self.nutrients = 0
         self.water = 0
@@ -102,6 +120,24 @@ class Game:
         #Reproductions
         if (self.repro_microbes >= 0):
             self.microbes += self.microbes * self.repro_microbes
+        if (self.repro_algae >= 0):
+            self.algae += self.algae * self.repro_algae
+        if (self.repro_fish >= 0):
+            self.fish += self.fish * self.repro_fish
+        if (self.repro_insects >= 0):
+            self.insects += self.insects * self.repro_insects
+        if (self.repro_amphibians >= 0):
+            self.amphibians += self.amphibians * self.repro_amphibians
+        if (self.repro_reptiles >= 0):
+            self.reptiles += self.reptiles * self.repro_reptiles
+        if (self.repro_birds >= 0):
+            self.birds += self.birds * self.repro_birds
+        if (self.repro_mammals >= 0):
+            self.mammals += self.mammals * self.repro_mammals
+        if (self.repro_dinosaurs != 0):
+            self.dinosaurs += self.dinosaurs * self.repro_dinosaurs
+        if (self.repro_primates >= 0):
+            self.primates += self.primates * self.repro_primates
 
         # Automators
         for a in autos:

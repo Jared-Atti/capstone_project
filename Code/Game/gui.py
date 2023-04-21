@@ -376,6 +376,27 @@ i14 = Image.open(backgrounds + "\\cosmic14.png")
 i14 = i14.resize((260, 260), Image.LANCZOS)
 
 
+def format_number(number, decimal):
+    if number < 1000000000:
+        return f"{number:,.{decimal}f}"
+    if number < 1000000000000:
+        number /= pow(10, 9)
+        return f"{number:,.{3}f} Billion"
+    if number < 1000000000000000:
+        number /= pow(10, 12)
+        return f"{number:,.{3}f} Trillion"
+    if number < 1000000000000000000:
+        number /= pow(10, 15)
+        return f"{number:,.{3}f} Quadrillion"
+    if number < 1000000000000000000000:
+        number /= pow(10, 18)
+        return f"{number:,.{3}f} Quintillion"
+    if number < 1000000000000000000000000:
+        number /= pow(10, 21)
+        return f"{number:,.{3}f} Sextillion"
+    if number < 100000000000000000000000000:
+        number /= pow(10, 24)
+        return f"{number:,.{3}f} Septillion"
 
 
 
@@ -1143,7 +1164,7 @@ def increase_a1_GC():
         a1_GC.increase(game)
         global a1_GC_Name
         global compressor_costs
-        a1_GC_Name.config(a1_GC_Name, text = "Compressors: " + "{:,.0f}".format(a1_GC.count))
+        a1_GC_Name.config(a1_GC_Name, text = "Compressors: " + format_number(a1_GC.count, 0))
         a1_GC_Cost.config(a1_GC_Cost, text = a1_GC.showCost())
         productionF.update_idletasks()
         a1_GC_Button.place(x = (a1_GC_Name.winfo_width() + LPADDING))
@@ -1157,7 +1178,7 @@ def increase_a2_QS():
         global a2_QS_Cost
         global a2_QS_Button
         global a2_QS_Toggle
-        a2_QS_Name.config(a2_QS_Name, text = "Quark Synthesizers: " + "{:,.0f}".format(a2_QS.count))
+        a2_QS_Name.config(a2_QS_Name, text = "Quark Synthesizers: " + format_number(a2_QS.count, 0))
         a2_QS_Cost.config(a2_QS_Cost, text = a2_QS.showCost())
         productionF.update_idletasks()
         a2_QS_Button.place(x = (a2_QS_Name.winfo_width() + LPADDING))
@@ -1172,7 +1193,7 @@ def increase_a3_PS():
         global a3_PS_Cost
         global a3_PS_Button
         global a3_PS_Toggle
-        a3_PS_Name.config(a3_PS_Name, text = "Proton Synthesizers: " + "{:,.0f}".format(a3_PS.count))
+        a3_PS_Name.config(a3_PS_Name, text = "Proton Synthesizers: " + format_number(a3_PS.count, 0))
         a3_PS_Cost.config(a3_PS_Cost, text = a3_PS.showCost())
         productionF.update_idletasks()
         a3_PS_Button.place(x = (a3_PS_Name.winfo_width() + LPADDING))
@@ -1187,7 +1208,7 @@ def increase_a4_NS():
         global a4_NS_Cost
         global a4_NS_Button
         global a4_NS_Toggle
-        a4_NS_Name.config(a4_NS_Name, text = "Neutron Synthesizers: " + "{:,.0f}".format(a4_NS.count))
+        a4_NS_Name.config(a4_NS_Name, text = "Neutron Synthesizers: " + format_number(a4_NS.count, 0))
         a4_NS_Cost.config(a4_NS_Cost, text = a4_NS.showCost())
         productionF.update_idletasks()
         a4_NS_Button.place(x = (a4_NS_Name.winfo_width() + LPADDING))
@@ -1202,7 +1223,7 @@ def increase_a5_HyF():
         global a5_HyF_Cost
         global a5_HyF_Button
         global a5_HyF_Toggle
-        a5_HyF_Name.config(a5_HyF_Name, text = "Hydrogen Fabricator: " + "{:,.0f}".format(a5_HyF.count))
+        a5_HyF_Name.config(a5_HyF_Name, text = "Hydrogen Fabricator: " + format_number(a5_HyF.count, 0))
         a5_HyF_Cost.config(a5_HyF_Cost, text = a5_HyF.showCost())
         productionF.update_idletasks()
         a5_HyF_Button.place(x = (a5_HyF_Name.winfo_width() + LPADDING))
@@ -1217,7 +1238,7 @@ def increase_a6_HeF():
         global a6_HeF_Cost
         global a6_HeF_Button
         global a6_HeF_Toggle
-        a6_HeF_Name.config(a6_HeF_Name, text = "Helium Fabricator: " + "{:,.0f}".format(a6_HeF.count))
+        a6_HeF_Name.config(a6_HeF_Name, text = "Helium Fabricator: " + format_number(a6_HeF.count, 0))
         a6_HeF_Cost.config(a6_HeF_Cost, text = a6_HeF.showCost())
         productionF.update_idletasks()
         a6_HeF_Button.place(x = (a6_HeF_Name.winfo_width() + LPADDING))
@@ -1231,7 +1252,7 @@ def increase_a7_NF():
         global a7_NF_Name
         global a7_NF_Cost
         global a7_NF_Button
-        a7_NF_Name.config(a7_NF_Name, text = "Nuclear Fusion: " + "{:,.0f}".format(a7_NF.count))
+        a7_NF_Name.config(a7_NF_Name, text = "Nuclear Fusion: " + format_number(a7_NF.count, 0))
         a7_NF_Cost.config(a7_NF_Cost, text = a7_NF.showCost())
         productionF.update_idletasks()
         a7_NF_Button.place(x = (a7_NF_Name.winfo_width() + LPADDING))
@@ -1459,12 +1480,12 @@ def check_milestones():
         temporalF.update_idletasks()
         label_height = temporalTitleLabel.winfo_height()
 
-        potentialLab = Label(temporalF, text = "Potential: " + "{:,.0f}".format(game.maxpotential), font = ("Terminal", 10), bg = "white")
+        potentialLab = Label(temporalF, text = "Potential: " + format_number(game.maxpotential, 0), font = ("Terminal", 10), bg = "white")
         potentialLab.place(x = PADDING, y = label_height + PADDING)
         temporalF.update_idletasks()
         label_height = label_height + potentialLab.winfo_height()
 
-        potentialDescLab = Label(temporalF, text = "+1 Potential at " + "{:,.0f}".format(game.potential_lifeforms_req) + " lifeforms", font = ("Terminal", 8), bg = "white")
+        potentialDescLab = Label(temporalF, text = "+1 Potential at " + format_number(game.potential_lifeforms_req, 0) + " lifeforms", font = ("Terminal", 8), bg = "white")
         potentialDescLab.place(x = PADDING, y = label_height + PADDING)
         temporalF.update_idletasks()
         label_height = label_height + potentialDescLab.winfo_height() + LPADDING
@@ -1473,7 +1494,7 @@ def check_milestones():
         productivityBut.place(x = PADDING, y = label_height + LPADDING)
         temporalF.update_idletasks()
         
-        productivityLab = Label(temporalF, text = "{:,.0f}".format(game.productivity), font = ("Terminal", 9), bg = "white")
+        productivityLab = Label(temporalF, text = format_number(game.productivity, 0), font = ("Terminal", 9), bg = "white")
         productivityLab.place(x = productivityBut.winfo_width() + LPADDING, y = label_height + LPADDING)
         label_height = label_height + productivityBut.winfo_height() + SPADDING
 
@@ -1482,7 +1503,7 @@ def check_milestones():
         expansionBut.place(x = PADDING, y = label_height + LPADDING)
         temporalF.update_idletasks()
         
-        expansionLab = Label(temporalF, text = "{:,.0f}".format(game.expansion), font = ("Terminal", 9), bg = "white")
+        expansionLab = Label(temporalF, text = format_number(game.expansion, 0), font = ("Terminal", 9), bg = "white")
         expansionLab.place(x = expansionBut.winfo_width() + LPADDING, y = label_height + LPADDING)
         label_height = label_height + expansionBut.winfo_height() + LPADDING
 
@@ -1490,12 +1511,12 @@ def check_milestones():
         respecBut.place(x = PADDING, y = label_height + SPADDING)
         label_height = label_height + respecBut.winfo_height() + LPADDING
 
-        timeLab = Label(temporalF, text = "Time: " + "{:,.0f}".format(game.time) + " / " + "{:,.0f}".format(game.expansion * 1000), font = ("Terminal", 10), bg = "white")
+        timeLab = Label(temporalF, text = "Time: " + format_number(game.time, 0) + " / " + format_number(game.expansion * 1000, 0), font = ("Terminal", 10), bg = "white")
         timeLab.place(x = PADDING, y = label_height + LPADDING)
         temporalF.update_idletasks()
         label_height = label_height + timeLab.winfo_height() + SPADDING
 
-        innovationLab = Label(temporalF, text = "Innovation: " + "{:,.0f}".format(game.innovation), font = ("Terminal", 10), bg = "white")
+        innovationLab = Label(temporalF, text = "Innovation: " + format_number(game.innovation, 0), font = ("Terminal", 10), bg = "white")
         innovationLab.place(x = PADDING, y = label_height + PADDING)
         temporalF.update_idletasks()
         label_height = label_height + innovationLab.winfo_height()
@@ -1613,7 +1634,7 @@ def createResourceLabel(label, resource, name):
     global RESOURCE_FRAME_HEIGHT
     global RESOURCE_LABEL_NEXTY
     global PRODUCTION_FRAME_TOP
-    label = Label(resourcesF, text = name + ": " + "{:,.0f}".format(resource), font = ('Terminal', 10), bg = "white")
+    label = Label(resourcesF, text = name + ": " + format_number(resource, 0), font = ('Terminal', 10), bg = "white")
     label.place(x = PADDING, y = RESOURCE_LABEL_NEXTY, anchor=('nw'))
     # label.place_configure(anchor='n')
     resourcesF.update_idletasks()
@@ -1722,7 +1743,7 @@ def createProducer(namelabel, name, button, cmd, costlabel, desclabel, togglefla
     global PRODUCTION_FRAME_HEIGHT
     global productionF
 
-    namelabel = Label(productionF, text = name + ": " + "{:,.0f}".format(automator.count), font = ('Terminal', 10), bg = "white")
+    namelabel = Label(productionF, text = name + ": " + format_number(automator.count, 0), font = ('Terminal', 10), bg = "white")
     namelabel.place(x = PADDING, y = PRODUCTION_LABEL_NEXTY)
     productionF.update_idletasks()
     button = tk.Button(productionF, text = "+", font = ("Terminal", 10), command = cmd)
@@ -1803,7 +1824,7 @@ def destroyProducer(namelabel, costlabel, desclabel, button, togglebutton, autom
 def createSpeciesLabel(label, lifeform, name):
     global SPECIES_FRAME_HEIGHT
     global SPECIES_LABEL_NEXTY
-    label = Label(speciesF, text = name + ": " + "{:,.0f}".format(lifeform), font = ('Terminal', 10), bg = "white")
+    label = Label(speciesF, text = name + ": " + format_number(lifeform, 0), font = ('Terminal', 10), bg = "white")
     label.place(x = PADDING, y = SPECIES_LABEL_NEXTY, anchor=('nw'))
     # label.place_configure(anchor='n')
     speciesF.update_idletasks()
@@ -2361,32 +2382,35 @@ def update_labels():
         global lifeL
         try:
             if (energyLab):
-                energyLab.config(energyLab, text = "Energy: " + "{:,.0f}".format(game.energy))
+                energyLab.config(energyLab, text = "Energy: " + format_number(game.energy, 0))
+                # energyLab.config(energyLab, text = "Energy: " + format_number(game.energy))
             if (quarkLab):
-                quarkLab.config(quarkLab, text = "Quarks: " + "{:,.0f}".format(game.quarks))
+                quarkLab.config(quarkLab, text = "Quarks: " + format_number(game.quarks, 0))
             if (protonLab):
-                protonLab.config(protonLab, text = "Protons: " + "{:,.0f}".format(game.protons))
+                protonLab.config(protonLab, text = "Protons: " + format_number(game.protons, 0))
             if (neutronLab):
-                neutronLab.config(neutronLab, text = "Neutrons: " + "{:,.0f}".format(game.neutrons))
+                neutronLab.config(neutronLab, text = "Neutrons: " + format_number(game.neutrons, 0))
             if (hydrogenLab):
-                hydrogenLab.config(hydrogenLab, text = "Hydrogen: " + "{:,.0f}".format(game.hydrogen))
+                hydrogenLab.config(hydrogenLab, text = "Hydrogen: " + format_number(game.hydrogen, 0))
             if (heliumLab):
-                heliumLab.config(heliumLab, text = "Helium: " + "{:,.0f}".format(game.helium))
+                heliumLab.config(heliumLab, text = "Helium: " + format_number(game.helium, 0))
             if (dnaLab):
-                dnaLab.config(dnaLab, text = "DNA: " + "{:,.0f}".format(game.dna))
+                dnaLab.config(dnaLab, text = "DNA: " + format_number(game.dna, 0))
             if (microbeLab):
-                microbeLab.config(microbeLab, text = "Microbes: " + "{:,.0f}".format(game.microbes) + " + " + "{:,.2f}".format(game.microbes * game.repro_microbes) + " per tick")
+                microbeLab.config(microbeLab, text = "Microbes: " + format_number(game.microbes, 0) + " + " + "{:,.2f}".format(game.microbes * game.repro_microbes, 2) + " per tick")
+            if (algaeLab):
+                algaeLab.config(algaeLab, text = "Algae: " + format_number(game.algae, 0) + " + " + "{:,.2f}".format(game.algae * game.repro_algae, 2) + " per tick")
             if (game.lifeforms > 0):
-                lifeL.config(lifeL, text = "Lifeforms: " + "{:,.0f}".format(game.lifeforms))
+                lifeL.config(lifeL, text = "Lifeforms: " + format_number(game.lifeforms, 0))
         except:
             None
     if game.temporalFrame == True:
         global timeLab
         global innovationLab
-        potentialLab.config(potentialLab, text = "Potential: " + "{:,.0f}".format(game.maxpotential))
-        potentialDescLab.config(potentialDescLab, text = "+1 Potential at " + "{:,.0f}".format(game.potential_lifeforms_req) + " lifeforms")
-        timeLab.config(timeLab, text = "Time: " + "{:,.0f}".format(game.time) + " / " + "{:,.0f}".format(game.expansion * 1000))
-        innovationLab.config(innovationLab, text = "Innovation: " + "{:,.0f}".format(game.innovation))
+        potentialLab.config(potentialLab, text = "Potential: " + format_number(game.maxpotential, 0))
+        potentialDescLab.config(potentialDescLab, text = "+1 Potential at " + format_number(game.potential_lifeforms_req, 0) + " lifeforms")
+        timeLab.config(timeLab, text = "Time: " + format_number(game.time, 0) + " / " + format_number(game.expansion * 1000, 0))
+        innovationLab.config(innovationLab, text = "Innovation: " + format_number(game.innovation, 0))
 
     root.after(100, update_labels) # schedule the function to be called again after 1000ms
 

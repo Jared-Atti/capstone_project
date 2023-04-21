@@ -1,3 +1,25 @@
+def format_number(number, decimal):
+    if number < 1000000000:
+        return f"{number:,.{decimal}f}"
+    if number < 1000000000000:
+        number /= pow(10, 9)
+        return f"{number:,.{3}f} Billion"
+    if number < 1000000000000000:
+        number /= pow(10, 12)
+        return f"{number:,.{3}f} Trillion"
+    if number < 1000000000000000000:
+        number /= pow(10, 15)
+        return f"{number:,.{3}f} Quadrillion"
+    if number < 1000000000000000000000:
+        number /= pow(10, 18)
+        return f"{number:,.{3}f} Quintillion"
+    if number < 1000000000000000000000000:
+        number /= pow(10, 21)
+        return f"{number:,.{3}f} Sextillion"
+    if number < 100000000000000000000000000:
+        number /= pow(10, 24)
+        return f"{number:,.{3}f} Septillion"
+
 class Upgrade():
     def __init__(self, name, costs, description):
         self.name = name
@@ -9,9 +31,9 @@ class Upgrade():
         coststr = "("
         for i in range(len(self.costs)):
             if i < len(self.costs) - 1:
-                coststr += str("{:,.0f}".format(self.costs[i][1])) + " " + str(self.costs[i][0]) + ", "
+                coststr += str(format_number(self.costs[i][1], 0)) + " " + str(self.costs[i][0]) + ", "
             else:
-                coststr += str("{:,.0f}".format(self.costs[i][1])) + " " + str(self.costs[i][0])
+                coststr += str(format_number(self.costs[i][1], 0)) + " " + str(self.costs[i][0])
         return coststr + ")"
 
 # Cosmic Upgrades

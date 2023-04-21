@@ -1,3 +1,25 @@
+def format_number(number, decimal):
+    if number < 1000000000:
+        return f"{number:,.{decimal}f}"
+    if number < 1000000000000:
+        number /= pow(10, 9)
+        return f"{number:,.{3}f} Billion"
+    if number < 1000000000000000:
+        number /= pow(10, 12)
+        return f"{number:,.{3}f} Trillion"
+    if number < 1000000000000000000:
+        number /= pow(10, 15)
+        return f"{number:,.{3}f} Quadrillion"
+    if number < 1000000000000000000000:
+        number /= pow(10, 18)
+        return f"{number:,.{3}f} Quintillion"
+    if number < 1000000000000000000000000:
+        number /= pow(10, 21)
+        return f"{number:,.{3}f} Sextillion"
+    if number < 100000000000000000000000000:
+        number /= pow(10, 24)
+        return f"{number:,.{3}f} Septillion"
+    
 class Automator():
     def __init__(self, name, upcost, revenue, tickcost):
         self.name = name
@@ -9,7 +31,7 @@ class Automator():
         self.active = 0 # 0 = Not yet unlocked, 1 = Unlocked but not purchased, 2 = Purchased
     
     def showCost(self):
-        return "Cost: " + "{:,.0f}".format(self.upcost[1]) + " " + self.upcost[0]
+        return "Cost: " + format_number(self.upcost[1], 0) + " " + self.upcost[0]
 
     def calc_revenue(self):
         return (self.revenue[1] * self.count) / 10
@@ -19,13 +41,13 @@ class Automator():
     
     def desc(self):
         if (self.tickcost):
-            text = "Each " + self.name + " produces " + "{:,.0f}".format(self.revenue[1]) + " " + self.revenue[0] + " and costs "
+            text = "Each " + self.name + " produces " + format_number(self.revenue[1], 0) + " " + self.revenue[0] + " and costs "
             for i in range(len(self.tickcost)):
-                text += "({:,.0f}".format(self.tickcost[i][1]) + " " + self.tickcost[i][0] + ") "
+                text += format_number(self.tickcost[i][1], 0) + " " + self.tickcost[i][0] + ") "
 
             return text + "per tick"
         else:
-             return "Each " + self.name + " produces " + "{:,.0f}".format(self.revenue[1]) + " " + self.revenue[0] + " per tick"
+             return "Each " + self.name + " produces " + format_number(self.revenue[1], 0) + " " + self.revenue[0] + " per tick"
 
 class Compressor(Automator):
     def __init__(self):
@@ -121,7 +143,7 @@ class Nuclear_Fusion(Automator):
          return "Improves all other automators by 20% every purchase."
     
     def showCost(self):
-        return "Cost: " + "{:,.0f}".format(self.upcost[0][1]) + " " + self.upcost[0][0] + " and " + "{:,.0f}".format(self.upcost[1][1]) + " " + self.upcost[1][0]
+        return "Cost: " + format_number(self.upcost[0][1], 0) + " " + self.upcost[0][0] + " and " + format_number(self.upcost[1][1], 0) + " " + self.upcost[1][0]
 
     def afford(self, game):
         if game.hydrogen >= self.upcost[0][1] and game.helium >= self.upcost[1][1]:
