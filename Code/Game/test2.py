@@ -51,7 +51,57 @@ u26_DNA = upgrades.Create_Life()
 u27_GM = upgrades.GeneticMutation()
 u28_MA = upgrades.Metabolic_Adaptation()
 u29_AR = upgrades.Asexual_Reproduction()
-
+u30_MC = upgrades.Multicellularity()
+u31_MP = upgrades.Membrane_Proteins()
+u32_PS = upgrades.Photosynthesis()
+u33_AM = upgrades.Aquaporin_Membranes()
+u34_DA = upgrades.DNA_Amplifier()
+u35_FL = upgrades.Flagella()
+u36_CP = upgrades.Chloroplasts()
+u37_MC = upgrades.Mitochondria()
+u38_BP = upgrades.Biofilm_Production()
+u39_CS = upgrades.Chemosynthesis()
+u40_OX = upgrades.Oxygenation()
+u41_DF = upgrades.Differentiation()
+u42_SY = upgrades.Symbiosis()
+u43_DT = upgrades.Diatoms()
+u44_AB = upgrades.Algal_Blooms()
+u45_MT = upgrades.Mixotrophy()
+u46_OL = upgrades.Ozone_Layer()
+u47_ES = upgrades.Ecosystems()
+u48_NS = upgrades.Nervous_System()
+u49_ES = upgrades.Endoskeleton()
+u50_SB = upgrades.Swim_Bladder()
+u51_EX = upgrades.Exoskeleton()
+u52_MM = upgrades.Metamorphosis()
+u53_IW = upgrades.Insectoid_Wings()
+u54_OP = upgrades.Oviparity()
+u55_LL = upgrades.Lungs_and_Limbs()
+u56_IF = upgrades.Internal_Fertilization()
+u57_TP = upgrades.Tetrapods()
+u58_ET = upgrades.Ectothermy()
+u59_RS = upgrades.Reptilian_Scales()
+u60_EC = upgrades.Ecdysis()
+u61_DH = upgrades.Double_Helix_Master()
+u62_MG = upgrades.Mammary_Glands()
+u63_FUR = upgrades.Fur()
+u64_NC = upgrades.Neucortex()
+u65_FF = upgrades.Flight_Feathers()
+u66_BT = upgrades.Beaks_and_Talons()
+u67_VC = upgrades.Vocalization_and_Coloration()
+u68_AD = upgrades.Adaptability()
+u69_DI = upgrades.Dinosaurs()
+u70_IMM = upgrades.Increased_Muscle_Mass()
+u71_CD = upgrades.Competition_and_Cooperation()
+u72_CD = upgrades.Continental_Drift()
+u73_CS = upgrades.Climate_Stabilization()
+u74_SD = upgrades.Sacrifice_The_Dinosaurs()
+u75_ER = upgrades.Evolutionary_Radiation()
+u76_OT = upgrades.Opposable_Thumbs()
+u77_IBS = upgrades.Increased_Brain_Size()
+u78_SC = upgrades.Social_Complexity()
+u79_TU = upgrades.Tool_Use()
+u80_HS = upgrades.Homo_Sapiens()
 
 # Initializing Automators
 active_autos = []
@@ -62,6 +112,9 @@ a4_NS = automators.Neutron_Synthesizer()
 a5_HyF = automators.Hydrogen_Fabricator()
 a6_HeF = automators.Helium_Fabricator()
 a7_NF = automators.Nuclear_Fusion()
+a8_PS = automators.Protein_Synthesis()
+a9_HS = automators.Hydro_Synthesis()
+a10_DNA = automators.DNA_Manufacturer()
 
 
 
@@ -89,6 +142,8 @@ VISUAL_COLUMN_WIDTH = 300
 
 RESOURCE_FRAME_HEIGHT = 30
 RESOURCE_LABEL_NEXTY = 25
+SPECIES_FRAME_HEIGHT = 30
+SPECIES_LABEL_NEXTY = 25
 
 UPGRADE_FRAME_HEIGHT = 35
 UPGRADE_BUTTON_WIDTH = 300
@@ -115,12 +170,14 @@ resourcesF = None
 upgradesF = None
 productionF = None
 temporalF = None
+speciesF = None
 
 # Global Titles
 resourcesTitleLabel = None
 upgradeTitleLabel = None
 productionTitleLabel = None
 temporalTitleLabel = None
+speciesTitleLabel = None
 
 # Global Labels
 # Resources
@@ -131,6 +188,9 @@ protonLab = None
 neutronLab = None
 hydrogenLab = None
 heliumLab = None
+dnaLab = None
+nutrientLab = None
+waterLab = None
 VisualLab = None
 
 # Production
@@ -160,6 +220,16 @@ a6_HeF_Toggle = None
 a7_NF_Name = None
 a7_NF_Desc = None
 a7_NF_Cost = None
+a8_PS_Name = None
+a8_PS_Desc = None
+a8_PS_Cost = None
+a9_HS_Name = None
+a9_HS_Desc = None
+a9_HS_Cost = None
+a10_DNA_Name = None
+a10_DNA_Desc = None
+a10_DNA_Cost = None
+
 # Temporal
 potentialLab = None
 potentailDescLab = None
@@ -170,6 +240,18 @@ expansionBut = None
 timeLab = None
 innovationLab = None
 respecBut = None
+
+# Species
+microbesLab = None
+algaeLab = None
+fishLab = None
+insectLab = None
+amphibianLab = None
+reptileLab = None
+birdLab = None
+mammalLab = None
+dinosaurLab = None
+primateLab = None
 
 # Global Buttons
 # Upgrades
@@ -201,6 +283,57 @@ u26_DNA_Button = None
 u27_GM_Button = None
 u28_MA_Button = None
 u29_AR_Button = None
+u30_MC_Button = None
+u31_MP_Button = None
+u32_PS_Button = None
+u33_AM_Button = None
+u34_DA_Button = None
+u35_FL_Button = None
+u36_CP_Button = None
+u37_MC_Button = None
+u38_BP_Button = None
+u39_CS_Button = None
+u40_OX_Button = None
+u41_DF_Button = None
+u42_SY_Button = None
+u43_DT_Button = None
+u44_AB_Button = None
+u45_MT_Button = None
+u46_OL_Button = None
+u47_ES_Button = None
+u48_NS_Button = None
+u49_ES_Button = None
+u50_SB_Button = None
+u51_EX_Button = None
+u52_MM_Button = None
+u53_IW_Button = None
+u54_OP_Button = None
+u55_LL_Button = None
+u56_IF_Button = None
+u57_TP_Button = None
+u58_ET_Button = None
+u59_RS_Button = None
+u60_EC_Button = None
+u61_DH_Button = None
+u62_MG_Button = None
+u63_FUR_Button = None
+u64_NC_Button = None
+u65_FF_Button = None
+u66_BT_Button = None
+u67_VC_Button = None
+u68_AD_Button = None
+u69_DI_Button = None
+u70_IMM_Button = None
+u71_CD_Button = None
+u72_CD_Button = None
+u73_CS_Button = None
+u74_SD_Button = None
+u75_ER_Button = None
+u76_OT_Button = None
+u77_IBS_Button = None
+u78_SC_Button = None
+u79_TU_Button = None
+u80_HS_Button = None
 
 # Automators
 a1_GC_Button = None # Compressor
@@ -210,6 +343,9 @@ a4_NS_Button = None # Neutron Synthesizer
 a5_HyF_Button = None # Hydrogen Fabricator
 a6_HeF_Button = None # Helium Fabricator
 a7_NF_Button = None # Nuclear Fusion
+a8_PS_Button = None
+a9_HS_Button = None
+a10_DNA_Button = None
 
 #Images
 i1 = Image.open(backgrounds + "\\cosmic1.png")
@@ -756,6 +892,7 @@ def buy_GF():
     cosmic8 = ImageTk.PhotoImage(i8)
     VisualLab.config(image = cosmic8)
     VisualLab.image = cosmic8
+
     global a1_GC_Desc
     a1_GC_Desc.config(a1_GC_Desc, text = a1_GC.desc())
 
@@ -793,6 +930,7 @@ def buy_NP():
     cosmic9 = ImageTk.PhotoImage(i9)
     VisualLab.config(image = cosmic9)
     VisualLab.image = cosmic9
+
     global a4_NS_Desc
     a4_NS_Desc.config(a4_NS_Desc, text = a4_NS.desc())
 
@@ -921,26 +1059,49 @@ def buy_DNA():
     root.after(100)
     
 
-def buy_GM():
+def buy_41_DF():
+    game.buy_upgrade(u41_DF)
+    global u41_DF_Button
+    u41_DF.active = 2
+    root.after(100)
+    destroyUpgradeButton(u41_DF)
+
+def buy_27_GM():
     game.buy_upgrade(u27_GM)
     global u27_GM_Button
     u27_GM.active = 2
     root.after(100)
-    destroyUpgradeButton(u27_GM)
+    destroyUpgradeButton(u27_GM_Button, u27_GM)
+    global dnaLab
+    dnaLab = createResourceLabel(dnaLab, game.dna, "DNA")
 
-def buy_MA():
+def buy_28_MA():
     game.buy_upgrade(u28_MA)
     global u28_MA_Button
     u28_MA.active = 2
     root.after(100)
-    destroyUpgradeButton(u28_MA)
+    destroyUpgradeButton(u28_MA_Button, u28_MA)
 
-def buy_AR():
+def buy_29_AR():
     game.buy_upgrade(u29_AR)
     global u29_AR_Button
     u29_AR.active = 2
     root.after(100)
-    destroyUpgradeButton(u29_AR)
+    destroyUpgradeButton(u29_AR_Button, u29_AR)
+
+def buy_30_MC():
+    game.buy_upgrade(u30_MC)
+    global u30_MC_Button
+    u30_MC.active = 2
+    root.after(100)
+    destroyUpgradeButton(u30_MC_Button, u30_MC)
+
+def buy_31_MP():
+    game.buy_upgrade(u31_MP)
+    global u31_MP_Button
+    u31_MP.active = 2
+    root.after(100)
+    destroyUpgradeButton(u31_MP_Button, u31_MP)
 
 
 
@@ -1202,7 +1363,6 @@ def check_milestones():
     if game.energy >= 1 and resourcesF == None:
         global resourcesTitleLabel
         global energyLab
-        global microbeLab
         # Creating and placing RESOURCE frame
         resourcesF = Frame(mainframe, relief = RAISED, bd = 5, bg = "white", height = RESOURCE_FRAME_HEIGHT, width = LEFT_COLUMN_WIDTH)
         resourcesF.place(x = LEFT_COLUMN_X, y = TOP_Y)
@@ -1345,11 +1505,59 @@ def check_milestones():
         global u6_GA_Button
         u6_GA_Button = createUpgradeButton(u6_GA_Button, u6_GA, buy_GA)
 
+    global microbeLab
     if (game.microbes > 0 and u26_DNA.active == 2 and microbeLab == None): 
-            microbeLab = createResourceLabel(microbeLab, game.microbes, "Microbes")
+        microbeLab = createSpeciesLabel(microbeLab, game.microbes, "Microbes")
     
+    # Potential upgrade from milestones
+    if (game.lifeforms >= game.potential_lifeforms_req):
+        game.potential_lifeforms_req *= 10
+        game.potential += 1
+        game.set_max_potential()
+        productivityBut.config(productivityBut, state = ACTIVE)
+        expansionBut.config(expansionBut, state = ACTIVE)
+    
+    # Unlocking upgrades after getting mcirobes
+    if (game.microbes >= 10 and u41_DF.active == 0):
+        global u41_DF_Button
+        global u27_GM_Button
+        global u28_MA_Button
+        global u29_AR_Button
+        global u30_MC_Button
+        global u31_MP_Button
+        u41_DF_Button = createUpgradeButton(u41_DF_Button, u41_DF, buy_41_DF)
+        u27_GM_Button = createUpgradeButton(u27_GM_Button, u27_GM, buy_27_GM)
+        u28_MA_Button = createUpgradeButton(u27_GM_Button, u28_MA, buy_28_MA)
+        u29_AR_Button = createUpgradeButton(u29_AR_Button, u29_AR, buy_29_AR)
+        u30_MC_Button = createUpgradeButton(u30_MC_Button, u30_MC, buy_30_MC)
+        u31_MP_Button = createUpgradeButton(u31_MP_Button, u31_MP, buy_31_MP)
 
     root.after(100, check_milestones)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -1581,6 +1789,39 @@ def destroyProducer(namelabel, costlabel, desclabel, button, togglebutton, autom
     update_scrollregion()
 
 
+# Function for adding a new resource to resources frame
+def createSpeciesLabel(label, lifeform, name):
+    global SPECIES_FRAME_HEIGHT
+    global SPECIES_LABEL_NEXTY
+    label = Label(speciesF, text = name + ": " + "{:,.0f}".format(lifeform), font = ('Terminal', 10), bg = "white")
+    label.place(x = PADDING, y = SPECIES_LABEL_NEXTY, anchor=('nw'))
+    # label.place_configure(anchor='n')
+    speciesF.update_idletasks()
+    label_height = label.winfo_height()
+    SPECIES_FRAME_HEIGHT = SPECIES_FRAME_HEIGHT + label_height + PADDING
+    SPECIES_LABEL_NEXTY = SPECIES_LABEL_NEXTY + label_height + PADDING
+    speciesF.config(height=SPECIES_FRAME_HEIGHT)
+
+    return label
+
+# Function for destroying a button within upgrades frame
+def destroySpeciesLabel(label):
+    global SPECIES_FRAME_HEIGHT
+    global SPECIES_LABEL_NEXTY
+    label_y = label.winfo_y()
+    label_height = label.winfo_height()
+    label.destroy()
+
+    for widget in speciesF.winfo_children():
+        current_y = widget.winfo_y()
+        if current_y >= label_y:
+            widget.place(y=current_y - label_height - LPADDING)
+    
+    SPECIES_FRAME_HEIGHT = SPECIES_FRAME_HEIGHT - label_height - PADDING
+    SPECIES_LABEL_NEXTY = SPECIES_LABEL_NEXTY - label_height - PADDING
+    speciesF.config(height=SPECIES_FRAME_HEIGHT)
+    
+    return None
 
 
 
@@ -1786,7 +2027,314 @@ def afford_upgrades():
             u29_AR_Button.config(u29_AR_Button, state = ACTIVE)
         else:
             u29_AR_Button.config(u29_AR_Button, state = DISABLED)
+
+    if u30_MC.active == 1:
+        if u30_MC.afford(game):
+            u30_MC_Button.config(u30_MC_Button, state = ACTIVE)
+        else:
+            u30_MC_Button.config(u30_MC_Button, state = DISABLED)
+
+    if u31_MP.active == 1:
+        if u31_MP.afford(game):
+            u31_MP_Button.config(u31_MP_Button, state = ACTIVE)
+        else:
+            u31_MP_Button.config(u31_MP_Button, state = DISABLED)
+
+    if u32_PS.active == 1:
+        if u32_PS.afford(game):
+            u32_PS_Button.config(u32_PS_Button, state = ACTIVE)
+        else:
+            u32_PS_Button.config(u32_PS_Button, state = DISABLED)
+
+    if u33_AM.active == 1:
+        if u33_AM.afford(game):
+            u33_AM_Button.config(u33_AM_Button, state = ACTIVE)
+        else:
+            u33_AM_Button.config(u33_AM_Button, state = DISABLED)
+
+    if u34_DA.active == 1:
+        if u34_DA.afford(game):
+            u34_DA_Button.config(u34_DA_Button, state = ACTIVE)
+        else:
+            u34_DA_Button.config(u34_DA_Button, state = DISABLED)
+
+    if u35_FL.active == 1:
+        if u35_FL.afford(game):
+            u35_FL_Button.config(u35_FL_Button, state = ACTIVE)
+        else:
+            u35_FL_Button.config(u35_FL_Button, state = DISABLED)
+
+    if u36_CP.active == 1:
+        if u36_CP.afford(game):
+            u36_CP_Button.config(u36_CP_Button, state = ACTIVE)
+        else:
+            u36_CP_Button.config(u36_CP_Button, state = DISABLED)
+
+    if u37_MC.active == 1:
+        if u37_MC.afford(game):
+            u37_MC_Button.config(u37_MC_Button, state = ACTIVE)
+        else:
+            u37_MC_Button.config(u37_MC_Button, state = DISABLED)
+
+    if u38_BP.active == 1:
+        if u38_BP.afford(game):
+            u38_BP_Button.config(u38_BP_Button, state = ACTIVE)
+        else:
+            u38_BP_Button.config(u38_BP_Button, state = DISABLED)
+
+    if u39_CS.active == 1:
+        if u39_CS.afford(game):
+            u39_CS_Button.config(u39_CS_Button, state = ACTIVE)
+        else:
+            u39_CS_Button.config(u39_CS_Button, state = DISABLED)
+
+    if u40_OX.active == 1:
+        if u40_OX.afford(game):
+            u40_OX_Button.config(u40_OX_Button, state = ACTIVE)
+        else:
+            u40_OX_Button.config(u40_OX_Button, state = DISABLED)
+
+    if u41_DF.active == 1:
+        if u41_DF.afford(game):
+            u41_DF_Button.config(u41_DF_Button, state = ACTIVE)
+        else:
+            u41_DF_Button.config(u41_DF_Button, state = DISABLED)
+
+    if u42_SY.active == 1:
+        if u42_SY.afford(game):
+            u42_SY_Button.config(u42_SY_Button, state = ACTIVE)
+        else:
+            u42_SY_Button.config(u42_SY_Button, state = DISABLED)
+
+    if u43_DT.active == 1:
+        if u43_DT.afford(game):
+            u43_DT_Button.config(u43_DT_Button, state = ACTIVE)
+        else:
+            u43_DT_Button.config(u43_DT_Button, state = DISABLED)
+
+    if u44_AB.active == 1:
+        if u44_AB.afford(game):
+            u44_AB_Button.config(u44_AB_Button, state = ACTIVE)
+        else:
+            u44_AB_Button.config(u44_AB_Button, state = DISABLED)
+
+    if u45_MT.active == 1:
+        if u45_MT.afford(game):
+            u45_MT_Button.config(u45_MT_Button, state = ACTIVE)
+        else:
+            u45_MT_Button.config(u45_MT_Button, state = DISABLED)
+
+    if u46_OL.active == 1:
+        if u46_OL.afford(game):
+            u46_OL_Button.config(u46_OL_Button, state = ACTIVE)
+        else:
+            u46_OL_Button.config(u46_OL_Button, state = DISABLED)
+
+    if u47_ES.active == 1:
+        if u47_ES.afford(game):
+            u47_ES_Button.config(u47_ES_Button, state = ACTIVE)
+        else:
+            u47_ES_Button.config(u47_ES_Button, state = DISABLED)
+
+    if u48_NS.active == 1:
+        if u48_NS.afford(game):
+            u48_NS_Button.config(u48_NS_Button, state = ACTIVE)
+        else:
+            u48_NS_Button.config(u48_NS_Button, state = DISABLED)
+
+    if u49_ES.active == 1:
+        if u49_ES.afford(game):
+            u49_ES_Button.config(u49_ES_Button, state = ACTIVE)
+        else:
+            u49_ES_Button.config(u49_ES_Button, state = DISABLED)
+
+    if u50_SB.active == 1:
+        if u50_SB.afford(game):
+            u50_SB_Button.config(u50_SB_Button, state = ACTIVE)
+        else:
+            u50_SB_Button.config(u50_SB_Button, state = DISABLED)
+
+    if u51_EX.active == 1:
+        if u51_EX.afford(game):
+            u51_EX_Button.config(u51_EX_Button, state = ACTIVE)
+        else:
+            u51_EX_Button.config(u51_EX_Button, state = DISABLED)
+
+    if u52_MM.active == 1:
+        if u52_MM.afford(game):
+            u52_MM_Button.config(u52_MM_Button, state = ACTIVE)
+        else:
+            u52_MM_Button.config(u52_MM_Button, state = DISABLED)
+
+    if u53_IW.active == 1:
+        if u53_IW.afford(game):
+            u53_IW_Button.config(u53_IW_Button, state = ACTIVE)
+        else:
+            u53_IW_Button.config(u53_IW_Button, state = DISABLED)
+
+    if u54_OP.active == 1:
+        if u54_OP.afford(game):
+            u54_OP_Button.config(u54_OP_Button, state = ACTIVE)
+        else:
+            u54_OP_Button.config(u54_OP_Button, state = DISABLED)
+
+    if u55_LL.active == 1:
+        if u55_LL.afford(game):
+            u55_LL_Button.config(u55_LL_Button, state = ACTIVE)
+        else:
+            u55_LL_Button.config(u55_LL_Button, state = DISABLED)
+
+    if u56_IF.active == 1:
+        if u56_IF.afford(game):
+            u56_IF_Button.config(u56_IF_Button, state = ACTIVE)
+        else:
+            u56_IF_Button.config(u56_IF_Button, state = DISABLED)
+
+    if u57_TP.active == 1:
+        if u57_TP.afford(game):
+            u57_TP_Button.config(u57_TP_Button, state = ACTIVE)
+        else:
+            u57_TP_Button.config(u57_TP_Button, state = DISABLED)
+
+    if u58_ET.active == 1:
+        if u58_ET.afford(game):
+            u58_ET_Button.config(u58_ET_Button, state = ACTIVE)
+        else:
+            u58_ET_Button.config(u58_ET_Button, state = DISABLED)
+
+    if u59_RS.active == 1:
+        if u59_RS.afford(game):
+            u59_RS_Button.config(u59_RS_Button, state = ACTIVE)
+        else:
+            u59_RS_Button.config(u59_RS_Button, state = DISABLED)
+
+    if u60_EC.active == 1:
+        if u60_EC.afford(game):
+            u60_EC_Button.config(u60_EC_Button, state = ACTIVE)
+        else:
+            u60_EC_Button.config(u60_EC_Button, state = DISABLED)
+
+    if u61_DH.active == 1:
+        if u61_DH.afford(game):
+            u61_DH_Button.config(u61_DH_Button, state = ACTIVE)
+        else:
+            u61_DH_Button.config(u61_DH_Button, state = DISABLED)
+
+    if u62_MG.active == 1:
+        if u62_MG.afford(game):
+            u62_MG_Button.config(u62_MG_Button, state = ACTIVE)
+        else:
+            u62_MG_Button.config(u62_MG_Button, state = DISABLED)
+
+    if u63_FUR.active == 1:
+        if u63_FUR.afford(game):
+            u63_FUR_Button.config(u63_FUR_Button, state = ACTIVE)
+        else:
+            u63_FUR_Button.config(u63_FUR_Button, state = DISABLED)
     
+    if u64_NC.active == 1:
+        if u64_NC.afford(game):
+            u64_NC_Button.config(u64_NC_Button, state = ACTIVE)
+        else:
+            u64_NC_Button.config(u64_NC_Button, state = DISABLED)
+
+    if u65_FF.active == 1:
+        if u65_FF.afford(game):
+            u65_FF_Button.config(u65_FF_Button, state = ACTIVE)
+        else:
+            u65_FF_Button.config(u65_FF_Button, state = DISABLED)
+
+    if u66_BT.active == 1:
+        if u66_BT.afford(game):
+            u66_BT_Button.config(u66_BT_Button, state = ACTIVE)
+        else:
+            u66_BT_Button.config(u66_BT_Button, state = DISABLED)
+
+    if u67_VC.active == 1:
+        if u67_VC.afford(game):
+            u67_VC_Button.config(u67_VC_Button, state = ACTIVE)
+        else:
+            u67_VC_Button.config(u67_VC_Button, state = DISABLED)
+
+    if u68_AD.active == 1:
+        if u68_AD.afford(game):
+            u68_AD_Button.config(u68_AD_Button, state = ACTIVE)
+        else:
+            u68_AD_Button.config(u68_AD_Button, state = DISABLED)
+
+    if u69_DI.active == 1:
+        if u69_DI.afford(game):
+            u69_DI_Button.config(u69_DI_Button, state = ACTIVE)
+        else:
+            u69_DI_Button.config(u69_DI_Button, state = DISABLED)
+
+    if u70_IMM.active == 1:
+        if u70_IMM.afford(game):
+            u70_IMM_Button.config(u70_IMM_Button, state = ACTIVE)
+        else:
+            u70_IMM_Button.config(u70_IMM_Button, state = DISABLED)
+
+    if u71_CD.active == 1:
+        if u71_CD.afford(game):
+            u71_CD_Button.config(u71_CD_Button, state = ACTIVE)
+        else:
+            u71_CD_Button.config(u71_CD_Button, state = DISABLED)
+
+    if u72_CD.active == 1:
+        if u72_CD.afford(game):
+            u72_CD_Button.config(u72_CD_Button, state = ACTIVE)
+        else:
+            u72_CD_Button.config(u72_CD_Button, state = DISABLED)
+
+    if u73_CS.active == 1:
+        if u73_CS.afford(game):
+            u73_CS_Button.config(u73_CS_Button, state = ACTIVE)
+        else:
+            u73_CS_Button.config(u73_CS_Button, state = DISABLED)
+
+    if u74_SD.active == 1:
+        if u74_SD.afford(game):
+            u74_SD_Button.config(u74_SD_Button, state = ACTIVE)
+        else:
+            u74_SD_Button.config(u74_SD_Button, state = DISABLED)
+
+    if u75_ER.active == 1:
+        if u75_ER.afford(game):
+            u75_ER_Button.config(u75_ER_Button, state = ACTIVE)
+        else:
+            u75_ER_Button.config(u75_ER_Button, state = DISABLED)
+
+    if u76_OT.active == 1:
+        if u76_OT.afford(game):
+            u76_OT_Button.config(u76_OT_Button, state = ACTIVE)
+        else:
+            u76_OT_Button.config(u76_OT_Button, state = DISABLED)
+
+    if u77_IBS.active == 1:
+        if u77_IBS.afford(game):
+            u77_IBS_Button.config(u77_IBS_Button, state = ACTIVE)
+        else:
+            u77_IBS_Button.config(u77_IBS_Button, state = DISABLED)
+
+    if u78_SC.active == 1:
+        if u78_SC.afford(game):
+            u78_SC_Button.config(u78_SC_Button, state = ACTIVE)
+        else:
+            u78_SC_Button.config(u78_SC_Button, state = DISABLED)
+
+    if u79_TU.active == 1:
+        if u79_TU.afford(game):
+            u79_TU_Button.config(u79_TU_Button, state = ACTIVE)
+        else:
+            u79_TU_Button.config(u79_TU_Button, state = DISABLED)
+
+    if u80_HS.active == 1:
+        if u80_HS.afford(game):
+            u80_HS_Button.config(u80_HS_Button, state = ACTIVE)
+        else:
+            u80_HS_Button.config(u80_HS_Button, state = DISABLED)
+
+
     root.after(100, afford_upgrades)
 
 #Function that constantly updates game Labels
@@ -1814,8 +2362,10 @@ def update_labels():
                 hydrogenLab.config(hydrogenLab, text = "Hydrogen: " + "{:,.0f}".format(game.hydrogen))
             if (heliumLab):
                 heliumLab.config(heliumLab, text = "Helium: " + "{:,.0f}".format(game.helium))
+            if (dnaLab):
+                dnaLab.config(dnaLab, text = "DNA: " + "{:,.0f}".format(game.dna))
             if (microbeLab):
-                microbeLab.config(microbeLab, text = "Microbes: " + "{:,.0f}".format(game.microbes))
+                microbeLab.config(microbeLab, text = "Microbes: " + "{:,.0f}".format(game.microbes) + " + " + "{:,.2f}".format(game.microbes * game.repro_microbes) + " per tick")
             if (game.lifeforms > 0):
                 lifeL.config(lifeL, text = "Lifeforms: " + "{:,.0f}".format(game.lifeforms))
         except:

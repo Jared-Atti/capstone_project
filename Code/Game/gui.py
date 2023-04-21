@@ -5,7 +5,8 @@ import upgrades
 import automators
 import pickle
 import os
-# from PIL import image, ImageTk
+from PIL import Image, ImageTk
+import time
 
 
 #Getting Instance of Game class & Initializing game
@@ -185,6 +186,9 @@ heliumLab = None
 dnaLab = None
 nutrientLab = None
 waterLab = None
+VisualLab = None
+spaceBG = None
+
 # Production
 a1_GC_Name = None
 a1_GC_Desc = None
@@ -339,7 +343,37 @@ a8_PS_Button = None
 a9_HS_Button = None
 a10_DNA_Button = None
 
-
+#Images
+space = Image.open(backgrounds + "\\background.png")
+space = space.resize((260, 260), Image.LANCZOS)
+i1 = Image.open(backgrounds + "\\cosmic1.png")
+i1 = i1.resize((260, 260), Image.LANCZOS)
+i2 = Image.open(backgrounds + "\\cosmic2.png")
+i2 = i2.resize((260, 260), Image.LANCZOS)
+i3 = Image.open(backgrounds + "\\cosmic3.png")
+i3 = i3.resize((260, 260), Image.LANCZOS)
+i4 = Image.open(backgrounds + "\\cosmic4.png")
+i4 = i4.resize((260, 260), Image.LANCZOS)
+i5 = Image.open(backgrounds + "\\cosmic5.png")
+i5 = i5.resize((260, 260), Image.LANCZOS)
+i6 = Image.open(backgrounds + "\\cosmic6.png")
+i6 = i6.resize((260, 260), Image.LANCZOS)
+i7 = Image.open(backgrounds + "\\cosmic7.png")
+i7 = i7.resize((260, 260), Image.LANCZOS)
+i8 = Image.open(backgrounds + "\\cosmic8.png")
+i8 = i2.resize((260, 260), Image.LANCZOS)
+i9 = Image.open(backgrounds + "\\cosmic9.png")
+i9 = i9.resize((260, 260), Image.LANCZOS)
+i10 = Image.open(backgrounds + "\\cosmic10.png")
+i10 = i10.resize((260, 260), Image.LANCZOS)
+i11 = Image.open(backgrounds + "\\cosmic11.png")
+i11 = i11.resize((260, 260), Image.LANCZOS)
+i12 = Image.open(backgrounds + "\\cosmic12.png")
+i12 = i12.resize((260, 260), Image.LANCZOS)
+i13 = Image.open(backgrounds + "\\cosmic13.png")
+i13 = i13.resize((260, 260), Image.LANCZOS)
+i14 = Image.open(backgrounds + "\\cosmic14.png")
+i14 = i14.resize((260, 260), Image.LANCZOS)
 
 
 
@@ -411,6 +445,10 @@ visuals = Frame(mainframe, relief = RAISED, bd = 5, bg = "white", height = 300, 
 createLabel = Frame(mainframe, bg = "white", height = 40, width = 100)
 # time = Frame(mainframe, relief = RAISED, bd = 5, bg = "white", height = 40, width = 175)
 saveframe = Frame(mainframe, relief = RAISED, bd = 5, bg = "white",  height = 40, width = 130)
+
+spaceBG = ImageTk.PhotoImage(space)
+BGLab = Label(mainframe, image = spaceBG)
+BGLab.image = spaceBG
 
 mainframe.config(height = ROOT_HEIGHT, width = 1440, background= "black")
 mainframe.update_idletasks()
@@ -575,9 +613,14 @@ def respec_temporal():
 def buy_GC():
     game.buy_upgrade(u1_GC)
     global u1_GC_Button
+    global VisualLab
     u1_GC.active = 2
     root.after(100)
     printMessage("You purchased Gravitational Compression! Passive energy coming soon!")
+    cosmic1 = ImageTk.PhotoImage(i1)
+    VisualLab = Label(visuals, image = cosmic1)
+    VisualLab.image = cosmic1
+    VisualLab.place(relx=0.5, rely=0.52, anchor="center")
     destroyUpgradeButton(u1_GC_Button, u1_GC)
 
 def buy_SS():
@@ -602,6 +645,9 @@ def buy_SS():
     a2_QS_Toggle = results[4]
     active_autos.append(a2_QS)
     quarkLab = createResourceLabel(quarkLab, game.quarks, "Quarks")
+    cosmic2 = ImageTk.PhotoImage(i2)
+    VisualLab.config(image = cosmic2)
+    VisualLab.image = cosmic2
     global u5_NS_Button
     global u7_QF_Button
     u5_NS_Button = createUpgradeButton(u5_NS_Button, u5_NS, buy_NS)
@@ -613,6 +659,9 @@ def buy_TM():
     u3_TM.active = 2
     root.after(100)
     printMessage("You bought Temporal Momentum! Now we get to see your true potential...")
+    cosmic3 = ImageTk.PhotoImage(i3)
+    VisualLab.config(image = cosmic3)
+    VisualLab.image = cosmic3
     destroyUpgradeButton(u3_TM_Button, u3_TM)
 
 def buy_IN():
@@ -661,6 +710,9 @@ def buy_NS():
     active_autos.append(a4_NS)
     protonLab = createResourceLabel(protonLab, game.protons, "Protons")
     neutronLab = createResourceLabel(neutronLab, game.neutrons, "Neutron")
+    cosmic4 = ImageTk.PhotoImage(i4)
+    VisualLab.config(image = cosmic4)
+    VisualLab.image = cosmic4
 
     global u8_AF_Button
     u8_AF_Button = createUpgradeButton(u8_AF_Button, u8_AF, buy_AF)
@@ -679,6 +731,9 @@ def buy_GA():
     destroyUpgradeButton(u6_GA_Button, u6_GA)
     global a1_GC_Desc
     a1_GC_Desc.config(a1_GC_Desc, text = a1_GC.desc())
+    cosmic5 = ImageTk.PhotoImage(i5)
+    VisualLab.config(image = cosmic5)
+    VisualLab.image = cosmic5
 
     global u15_GF_Button
     u15_GF_Button = createUpgradeButton(u15_GF_Button, u15_GF, buy_GF)
@@ -693,6 +748,9 @@ def buy_QF():
     destroyUpgradeButton(u7_QF_Button, u7_QF)
     global a2_QS_Desc
     a2_QS_Desc.config(a2_QS_Desc, text = a2_QS.desc())
+    cosmic6 = ImageTk.PhotoImage(i6)
+    VisualLab.config(image = cosmic6)
+    VisualLab.image = cosmic6
 
     global u16_QA_Button
     u16_QA_Button = createUpgradeButton(u16_QA_Button, u16_QA, buy_QA)
@@ -747,6 +805,9 @@ def buy_DH():
     active_autos.append(a6_HeF)
     global heliumLab
     heliumLab = createResourceLabel(hydrogenLab, game.helium, "Helium")
+    cosmic7 = ImageTk.PhotoImage(i7)
+    VisualLab.config(image = cosmic7)
+    VisualLab.image = cosmic7
 
     global u21_CS_Button
     u21_CS_Button = createUpgradeButton(u21_CS_Button, u21_CS, buy_CS)
@@ -830,6 +891,10 @@ def buy_GF():
     root.after(100)
     printMessage("You bought Gravitational Fluctuations! You won't even know what to do with all this energy!")
     destroyUpgradeButton(u15_GF_Button, u15_GF)
+    cosmic8 = ImageTk.PhotoImage(i8)
+    VisualLab.config(image = cosmic8)
+    VisualLab.image = cosmic8
+
     global a1_GC_Desc
     a1_GC_Desc.config(a1_GC_Desc, text = a1_GC.desc())
 
@@ -864,6 +929,10 @@ def buy_NP():
     root.after(100)
     printMessage("You bought Neutron Processor! Did we just give those upgrades the same name basically? maybe...")
     destroyUpgradeButton(u18_NP_Button, u18_NP)
+    cosmic9 = ImageTk.PhotoImage(i9)
+    VisualLab.config(image = cosmic9)
+    VisualLab.image = cosmic9
+
     global a4_NS_Desc
     a4_NS_Desc.config(a4_NS_Desc, text = a4_NS.desc())
 
@@ -895,6 +964,9 @@ def buy_CS():
     u21_CS.active = 2
     root.after(100)
     printMessage("You just created the Sun! That thing is really really bright!!")
+    cosmic10 = ImageTk.PhotoImage(i10)
+    VisualLab.config(image = cosmic10)
+    VisualLab.image = cosmic10
     destroyUpgradeButton(u21_CS_Button, u21_CS)
 
     global u23_CE_Button
@@ -925,6 +997,9 @@ def buy_CE():
     u23_CE.active = 2
     root.after(100)
     printMessage("Woah! What's that big red ball? Looks pretty hot, we should let it cool down for a bit...")
+    cosmic11 = ImageTk.PhotoImage(i11)
+    VisualLab.config(image = cosmic11)
+    VisualLab.image = cosmic11
     destroyUpgradeButton(u23_CE_Button,u23_CE)
     
     global u24_CD_Button
@@ -937,6 +1012,9 @@ def buy_CD():
     root.after(100)
     printMessage("That's better, looks like theres some cool things down there, we should go check it out!")
     destroyUpgradeButton(u24_CD_Button,u24_CD)
+    cosmic12 = ImageTk.PhotoImage(i12)
+    VisualLab.config(image = cosmic12)
+    VisualLab.image = cosmic12
     global u26_DNA_Button
     u26_DNA_Button = createUpgradeButton(u26_DNA_Button, u26_DNA, buy_DNA)
     
@@ -969,6 +1047,9 @@ def buy_DNA():
     printMessage("Welcome to the Pre-Cambrian Era!")
     printMessage("Don't freak out, you won't be needing any of that stuff anymore...")
     printMessage("Check out your new button! I wonder what it makes now?")
+    cosmic13 = ImageTk.PhotoImage(i13)
+    VisualLab.config(image = cosmic13)
+    VisualLab.image = cosmic13
     root.config(background='darkblue')
     destroyUpgradeButton(u26_DNA_Button, u26_DNA)
     global lifeB
