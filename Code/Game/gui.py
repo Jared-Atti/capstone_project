@@ -379,24 +379,73 @@ i14 = i14.resize((260, 260), Image.LANCZOS)
 def format_number(number, decimal):
     if number < 1000000000:
         return f"{number:,.{decimal}f}"
+    if decimal == 0:
+        decimal = 3
+    else:
+        decimal = 1
     if number < 1000000000000:
         number /= pow(10, 9)
-        return f"{number:,.{3}f} Billion"
+        return f"{number:,.{decimal}f} Billion"
     if number < 1000000000000000:
         number /= pow(10, 12)
-        return f"{number:,.{3}f} Trillion"
+        return f"{number:,.{decimal}f} Trillion"
     if number < 1000000000000000000:
         number /= pow(10, 15)
-        return f"{number:,.{3}f} Quadrillion"
+        return f"{number:,.{decimal}f} Quadrillion"
     if number < 1000000000000000000000:
         number /= pow(10, 18)
-        return f"{number:,.{3}f} Quintillion"
+        return f"{number:,.{decimal}f} Quintillion"
     if number < 1000000000000000000000000:
         number /= pow(10, 21)
-        return f"{number:,.{3}f} Sextillion"
-    if number < 100000000000000000000000000:
+        return f"{number:,.{decimal}f} Sextillion"
+    if number < 1000000000000000000000000000:
         number /= pow(10, 24)
-        return f"{number:,.{3}f} Septillion"
+        return f"{number:,.{decimal}f} Septillion"
+    if number < 1000000000000000000000000000000:
+        number /= pow(10, 27)
+        return f"{number:,.{decimal}f} Octillion"
+    if number < 1000000000000000000000000000000000:
+        number /= pow(10, 30)
+        return f"{number:,.{decimal}f} Nonillion"
+    if number < 1000000000000000000000000000000000000:
+        number /= pow(10, 33)
+        return f"{number:,.{decimal}f} Decillion"
+    if number < 1000000000000000000000000000000000000000:
+        number /= pow(10, 36)
+        return f"{number:,.{decimal}f} Undecillion"
+    if number < 1000000000000000000000000000000000000000000:
+        number /= pow(10, 39)
+        return f"{number:,.{decimal}f} Duodecillion"
+    if number < 1000000000000000000000000000000000000000000000:
+        number /= pow(10, 42)
+        return f"{number:,.{decimal}f} Tredecillion"
+    if number < 1000000000000000000000000000000000000000000000000:
+        number /= pow(10, 45)
+        return f"{number:,.{decimal}f} Quattuordecillion"
+    if number < 1000000000000000000000000000000000000000000000000000:
+        number /= pow(10, 48)
+        return f"{number:,.{decimal}f} Quindecillion"
+    if number < 1000000000000000000000000000000000000000000000000000000:
+        number /= pow(10, 51)
+        return f"{number:,.{decimal}f} Sexdecillion"
+    if number < 1000000000000000000000000000000000000000000000000000000000:
+        number /= pow(10, 54)
+        return f"{number:,.{decimal}f} Septendecillion"
+    if number < 1000000000000000000000000000000000000000000000000000000000000:
+        number /= pow(10, 57)
+        return f"{number:,.{decimal}f} Octodecillion"
+    if number < 1000000000000000000000000000000000000000000000000000000000000000:
+        number /= pow(10, 60)
+        return f"{number:,.{decimal}f} Novemdecillion"
+    if number < 1000000000000000000000000000000000000000000000000000000000000000000:
+        number /= pow(10, 63)
+        return f"{number:,.{decimal}f} Vigintillion"
+    power = 66
+    number /= pow(10, 66)
+    while number > 1000:
+        number /= 1000
+        power += 3
+    return f"{number:,.{decimal}f} * 10^" + str(power)
 
 
 
@@ -1824,7 +1873,7 @@ def destroyProducer(namelabel, costlabel, desclabel, button, togglebutton, autom
 def createSpeciesLabel(label, lifeform, name):
     global SPECIES_FRAME_HEIGHT
     global SPECIES_LABEL_NEXTY
-    label = Label(speciesF, text = name + ": " + format_number(lifeform, 0), font = ('Terminal', 10), bg = "white")
+    label = Label(speciesF, text = name + ": " + format_number(lifeform, 0) + "\n + " + format_number(lifeform, 2), font = ('Terminal', 10), bg = "white")
     label.place(x = PADDING, y = SPECIES_LABEL_NEXTY, anchor=('nw'))
     # label.place_configure(anchor='n')
     speciesF.update_idletasks()
@@ -2397,11 +2446,11 @@ def update_labels():
             if (dnaLab):
                 dnaLab.config(dnaLab, text = "DNA: " + format_number(game.dna, 0))
             if (microbeLab):
-                microbeLab.config(microbeLab, text = "Microbes: " + format_number(game.microbes, 0) + " + " + "{:,.2f}".format(game.microbes * game.repro_microbes, 2) + " per tick")
+                microbeLab.config(microbeLab, text = "Microbes: " + format_number(game.microbes, 0) + "\n+ " + format_number(game.microbes * game.repro_microbes, 2) + " per tick")
             if (algaeLab):
-                algaeLab.config(algaeLab, text = "Algae: " + format_number(game.algae, 0) + " + " + "{:,.2f}".format(game.algae * game.repro_algae, 2) + " per tick")
+                algaeLab.config(algaeLab, text = "Algae: " + format_number(game.algae, 0) + " + " + format_number(game.algae * game.repro_algae, 2) + "/tick")
             if (game.lifeforms > 0):
-                lifeL.config(lifeL, text = "Lifeforms: " + format_number(game.lifeforms, 0))
+                lifeL.config(lifeL, text = "Lifeforms: " + "{:,.0f}".format(game.lifeforms))
         except:
             None
     if game.temporalFrame == True:
