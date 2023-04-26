@@ -166,6 +166,8 @@ upgradesF = None
 productionF = None
 temporalF = None
 speciesF = None
+symbiosisF = None
+environmentF = None
 
 # Global Titles
 resourcesTitleLabel = None
@@ -173,6 +175,8 @@ upgradeTitleLabel = None
 productionTitleLabel = None
 temporalTitleLabel = None
 speciesTitleLabel = None
+symbiosisTitleLabel = None
+enivornmentTitleLabel = None
 
 # Global Labels
 # Resources
@@ -241,7 +245,7 @@ respecBut = None
 
 # Species
 microbesLab = None
-algaeLab = None
+plantLab = None
 fishLab = None
 insectLab = None
 amphibianLab = None
@@ -490,7 +494,7 @@ root = tk.Tk()
 root.title = ("Eco-Evolution")
 screen_width = root.winfo_screenwidth()
 screen_height = root.winfo_screenheight()
-root.geometry("%dx%d" % (screen_width, screen_height))
+root.geometry("%dx%d" % (1370, 1000))
 # root.geometry("1440x1100")
 root.configure(background='black')
 
@@ -501,6 +505,7 @@ ROOT_WIDTH = root.winfo_width()
 # Create a canvas widget
 canvas = tk.Canvas(root, height = ROOT_HEIGHT)
 canvas.pack(side=tk.LEFT, fill=tk.BOTH, expand=True)
+canvas.configure(background='black')
 
 # add a scrollbar to the canvas
 scrollbar = tk.Scrollbar(root, orient=tk.VERTICAL, command=canvas.yview)
@@ -1227,6 +1232,8 @@ def buy_32_PS():
     a8_NS_Desc = results[3]
     a8_NS_Toggle = results[4]
     # active_autos.append(a8_NS)
+    global u36_CP_Button
+    u36_CP_Button = createUpgradeButton(u36_CP_Button, u36_CP, buy_36_CP)
 
 def buy_33_AM():
     game.buy_upgrade(u33_AM)
@@ -1246,6 +1253,8 @@ def buy_33_AM():
     a9_HS_Desc = results[3]
     a9_HS_Toggle = results[4]
     # active_autos.append(a9_HS)
+    global u37_MC_Button
+    u37_MC_Button = createUpgradeButton(u37_MC_Button, u37_MC, buy_37_MC)
 
 def buy_34_DA():
     global a10_DNA
@@ -1257,6 +1266,9 @@ def buy_34_DA():
     destroyUpgradeButton(u34_DA_Button, u34_DA)
     global a10_DNA_Desc
     a10_DNA_Desc.config(a10_DNA_Desc, text = a10_DNA.desc())
+    global u61_DH_Button
+    u61_DH_Button = createUpgradeButton(u61_DH_Button, u61_DH, buy_61_DH)
+
 
 def buy_35_FL():
     game.buy_upgrade(u35_FL)
@@ -1296,12 +1308,33 @@ def buy_37_MC():
 
 def buy_38_BP():
     game.buy_upgrade(u38_BP)
+    global u38_BP_Button
+    u38_BP.active = 2
+    root.after(100)
+    printMessage("u38_BP")
+    destroyUpgradeButton(u38_BP_Button, u38_BP)
 
 def buy_39_CS():
-    game.buy_upgrade(u39_CS)
+    global a8_NS
+    a8_NS = game.buy_autoupgrade(u39_CS, a8_NS)
+    global u39_CS_Button
+    u39_CS.active = 2
+    root.after(100)
+    printMessage("u39_CS")
+    destroyUpgradeButton(u39_CS_Button, u39_CS)
+    global a8_NS_Desc
+    a8_NS_Desc.config(a8_NS_Desc, text = a8_NS.desc())
 
 def buy_40_OX():
-    game.buy_upgrade(u40_OX)
+    global a9_HS
+    a9_HS = game.buy_autoupgrade(u40_OX, a9_HS)
+    global u40_OX_Button
+    u40_OX.active = 2
+    root.after(100)
+    printMessage("u40_OX")
+    destroyUpgradeButton(u40_OX_Button, u40_OX)
+    global a9_HS_Desc
+    a9_HS_Desc.config(a9_HS_Desc, text = a9_HS.desc())
 
 def buy_41_DF():
     game.buy_upgrade(u41_DF)
@@ -1309,124 +1342,368 @@ def buy_41_DF():
     u41_DF.active = 2
     root.after(100)
     destroyUpgradeButton(u41_DF_Button, u41_DF)
+    global u42_SY_Button
+    global u43_DT_Button
+    global u46_OL_Button
+    global u48_NS_Button
+    global u51_EX_Button
+    global u54_OP_Button
+    u42_SY_Button = createUpgradeButton(u42_SY_Button, u42_SY, buy_42_SY)
     u43_DT_Button = createUpgradeButton(u43_DT_Button, u43_DT, buy_43_DT)
+    u46_OL_Button = createUpgradeButton(u46_OL_Button, u46_OL, buy_46_OL)
+    u48_NS_Button = createUpgradeButton(u48_NS_Button, u48_NS, buy_48_NS)
+    u51_EX_Button = createUpgradeButton(u51_EX_Button, u51_EX, buy_51_EX)
+    u54_OP_Button = createUpgradeButton(u54_OP_Button, u54_OP, buy_54_OP)
+    
 
 def buy_42_SY():
     game.buy_upgrade(u42_SY)
+    global u42_SY_Button
+    u42_SY.active = 2
+    root.after(100)
+    destroyUpgradeButton(u42_SY_Button, u42_SY)
+    symbiosisF = Frame(mainframe, relief = RAISED, bd = 5, bg = "white", height = 30, width = 300)
+    symbiosisF.place(x = VISUAL_COLUMN_X, y = TOP_Y + 300 + PADDING)
+    symbiosisTitleLabel = Label(symbiosisF, text = "Symbiosis", font = ("Terminal", 10), bg = "white")
+    symbiosisTitleLabel.place(relx = 0.5, y = 10, anchor="center")
 
 def buy_43_DT():
     game.buy_upgrade(u43_DT)
+    global u43_DT_Button
+    u43_DT.active = 2
+    root.after(100)
+    destroyUpgradeButton(u43_DT_Button, u43_DT)
+    global u44_AB_Button
+    u44_AB_Button = createUpgradeButton(u44_AB_Button, u44_AB, buy_44_AB)
 
 def buy_44_AB():
     game.buy_upgrade(u44_AB)
+    global u44_AB_Button
+    u44_AB.active = 2
+    root.after(100)
+    destroyUpgradeButton(u44_AB_Button, u44_AB)
+    global u45_MT_Button
+    u45_MT_Button = createUpgradeButton(u45_MT_Button, u45_MT, buy_45_MT)
 
 def buy_45_MT():
     game.buy_upgrade(u45_MT)
+    global u45_MT_Button
+    u45_MT.active = 2
+    root.after(100)
+    destroyUpgradeButton(u45_MT_Button, u45_MT)
 
 def buy_46_OL():
     game.buy_upgrade(u46_OL)
+    global u46_OL_Button
+    u46_OL.active = 2
+    root.after(100)
+    destroyUpgradeButton(u46_OL_Button, u46_OL)
+    global u47_ES_Button
+    u47_ES_Button = createUpgradeButton(u47_ES_Button, u47_ES, buy_47_ES)
 
 def buy_47_ES():
     game.buy_upgrade(u47_ES)
+    global u47_ES_Button
+    u47_ES.active = 2
+    root.after(100)
+    destroyUpgradeButton(u47_ES_Button, u47_ES)
+    ecosystemF = Frame(mainframe, relief = RAISED, bd = 5, bg = "white", height = 100, width = LEFT_COLUMN_WIDTH)
+    ecosystemF.place(x = LEFT_COLUMN_X, y = TOP_Y + RESOURCE_FRAME_HEIGHT + PRODUCTION_FRAME_HEIGHT + 2 * PADDING)
+    ecosystemTitleLabel = Label(ecosystemF, text = "Environment and Diversity", font = ("Terminal", 10), bg = "white")
+    ecosystemTitleLabel.place(relx = 0.5, y = 10, anchor="center")
 
 def buy_48_NS():
     game.buy_upgrade(u48_NS)
+    global u48_NS_Button
+    u48_NS.active = 2
+    root.after(100)
+    destroyUpgradeButton(u48_NS_Button, u48_NS)
+    global u49_ES_Button
+    u49_ES_Button = createUpgradeButton(u49_ES_Button, u49_ES, buy_49_ES)
 
 def buy_49_ES():
     game.buy_upgrade(u49_ES)
+    global u49_ES_Button
+    u49_ES.active = 2
+    root.after(100)
+    destroyUpgradeButton(u49_ES_Button, u49_ES)
+    global u50_SB_Button
+    u50_SB_Button = createUpgradeButton(u50_SB_Button, u50_SB, buy_50_SB)
 
 def buy_50_SB():
     game.buy_upgrade(u50_SB)
+    global u50_SB_Button
+    u50_SB.active = 2
+    root.after(100)
+    destroyUpgradeButton(u50_SB_Button, u50_SB)
 
 def buy_51_EX():
     game.buy_upgrade(u51_EX)
+    global u51_EX_Button
+    u51_EX.active = 2
+    root.after(100)
+    destroyUpgradeButton(u51_EX_Button, u51_EX)
+    global u52_MM_Button
+    u52_MM_Button = createUpgradeButton(u52_MM_Button, u52_MM, buy_52_MM)
 
 def buy_52_MM():
     game.buy_upgrade(u52_MM)
+    global u52_MM_Button
+    u52_MM.active = 2
+    root.after(100)
+    destroyUpgradeButton(u52_MM_Button, u52_MM)
+    global u53_IW_Button
+    u53_IW_Button = createUpgradeButton(u53_IW_Button, u53_IW, buy_53_IW)
 
 def buy_53_IW():
     game.buy_upgrade(u53_IW)
+    global u53_IW_Button
+    u53_IW.active = 2
+    root.after(100)
+    destroyUpgradeButton(u53_IW_Button, u53_IW)
 
 def buy_54_OP():
     game.buy_upgrade(u54_OP)
+    global u54_OP_Button
+    u54_OP.active = 2
+    root.after(100)
+    destroyUpgradeButton(u54_OP_Button, u54_OP)
+    global u55_LL_Button
+    u55_LL_Button = createUpgradeButton(u55_LL_Button, u55_LL, buy_55_LL)
 
 def buy_55_LL():
     game.buy_upgrade(u55_LL)
+    global u55_LL_Button
+    u55_LL.active = 2
+    root.after(100)
+    destroyUpgradeButton(u55_LL_Button, u55_LL)
+    global u56_IF_Button
+    u56_IF_Button = createUpgradeButton(u56_IF_Button, u56_IF, buy_56_IF)
 
 def buy_56_IF():
     game.buy_upgrade(u56_IF)
+    global u56_IF_Button
+    u56_IF.active = 2
+    root.after(100)
+    destroyUpgradeButton(u56_IF_Button, u56_IF)
 
 def buy_57_TP():
     game.buy_upgrade(u57_TP)
+    global u57_TP_Button
+    u57_TP.active = 2
+    root.after(100)
+    destroyUpgradeButton(u57_TP_Button, u57_TP)
+    global u58_ET_Button
+    global u62_MG_Button
+    global u65_FF_Button
+    global u68_AD_Button
+    u58_ET_Button = createUpgradeButton(u58_ET_Button, u58_ET, buy_58_ET)
+    u62_MG_Button = createUpgradeButton(u62_MG_Button, u62_MG, buy_62_MG)
+    u65_FF_Button = createUpgradeButton(u65_FF_Button, u65_FF, buy_65_FF)
+    u68_AD_Button = createUpgradeButton(u68_AD_Button, u68_AD, buy_68_AD)
 
 def buy_58_ET():
     game.buy_upgrade(u58_ET)
+    global u58_ET_Button
+    u58_ET.active = 2
+    root.after(100)
+    destroyUpgradeButton(u58_ET_Button, u58_ET)
+    global u59_RS_Button
+    u59_RS_Button = createUpgradeButton(u59_RS_Button, u59_RS, buy_59_RS)
 
 def buy_59_RS():
     game.buy_upgrade(u59_RS)
+    global u59_RS_Button
+    u59_RS.active = 2
+    root.after(100)
+    destroyUpgradeButton(u59_RS_Button, u59_RS)
+    global u60_EC_Button
+    u60_EC_Button = createUpgradeButton(u60_EC_Button, u60_EC, buy_60_EC)
 
 def buy_60_EC():
     game.buy_upgrade(u60_EC)
+    global u60_EC_Button
+    u60_EC.active = 2
+    root.after(100)
+    destroyUpgradeButton(u60_EC_Button, u60_EC)
 
 def buy_61_DH():
-    game.buy_upgrade(u61_DH)
+    global a10_DNA
+    a10_DNA = game.buy_autoupgrade(u61_DH, a10_DNA)
+    global u61_DH_Button
+    u61_DH.active = 2
+    root.after(100)
+    printMessage("u61_DH")
+    destroyUpgradeButton(u61_DH_Button, u61_DH)
+    global a10_DNA_Desc
+    a10_DNA_Desc.config(a10_DNA_Desc, text = a10_DNA.desc())
 
 def buy_62_MG():
     game.buy_upgrade(u62_MG)
+    global u62_MG_Button
+    u62_MG.active = 2
+    root.after(100)
+    destroyUpgradeButton(u62_MG_Button, u62_MG)
+    global u63_FUR_Button
+    u63_FUR_Button = createUpgradeButton(u63_FUR_Button, u63_FUR, buy_63_FUR)
 
 def buy_63_FUR():
     game.buy_upgrade(u63_FUR)
+    global u63_FUR_Button
+    u63_FUR.active = 2
+    root.after(100)
+    destroyUpgradeButton(u63_FUR_Button, u63_FUR)
+    global u64_NC_Button
+    u64_NC_Button = createUpgradeButton(u64_NC_Button, u64_NC, buy_64_NC)
 
 def buy_64_NC():
     game.buy_upgrade(u64_NC)
+    global u64_NC_Button
+    u64_NC.active = 2
+    root.after(100)
+    destroyUpgradeButton(u64_NC_Button, u64_NC)
 
 def buy_65_FF():
     game.buy_upgrade(u65_FF)
+    global u65_FF_Button
+    u65_FF.active = 2
+    root.after(100)
+    destroyUpgradeButton(u65_FF_Button, u65_FF)
+    global u66_BT_Button
+    u66_BT_Button = createUpgradeButton(u66_BT_Button, u66_BT, buy_66_BT)
 
 def buy_66_BT():
     game.buy_upgrade(u66_BT)
+    global u66_BT_Button
+    u66_BT.active = 2
+    root.after(100)
+    destroyUpgradeButton(u66_BT_Button, u66_BT)
+    global u67_VC_Button
+    u67_VC_Button = createUpgradeButton(u67_VC_Button, u67_VC, buy_67_VC)
 
 def buy_67_VC():
     game.buy_upgrade(u67_VC)
+    global u67_VC_Button
+    u67_VC.active = 2
+    root.after(100)
+    destroyUpgradeButton(u67_VC_Button, u67_VC)
 
 def buy_68_AD():
     game.buy_upgrade(u68_AD)
+    global u68_AD_Button
+    u68_AD.active = 2
+    root.after(100)
+    destroyUpgradeButton(u68_AD_Button, u68_AD)
+    global u72_CD_Button
+    global u73_CS_Button
+    u72_CD_Button = createUpgradeButton(u72_CD_Button, u72_CD, buy_72_CD)
+    u73_CS_Button = createUpgradeButton(u73_CS_Button, u73_CS, buy_73_CS)
 
 def buy_69_DI():
     game.buy_upgrade(u69_DI)
+    global u69_DI_Button
+    u69_DI.active = 2
+    root.after(100)
+    destroyUpgradeButton(u69_DI_Button, u69_DI)
+    global u70_IMM_Button
+    u70_IMM_Button = createUpgradeButton(u70_IMM_Button, u70_IMM, buy_70_IMM)
 
 def buy_70_IMM():
     game.buy_upgrade(u70_IMM)
+    global u70_IMM_Button
+    u70_IMM.active = 2
+    root.after(100)
+    destroyUpgradeButton(u70_IMM_Button, u70_IMM)
+    global u71_CD_Button
+    u71_CD_Button = createUpgradeButton(u71_CD_Button, u71_CD, buy_71_CD)
 
 def buy_71_CD():
     game.buy_upgrade(u71_CD)
+    global u71_CD_Button
+    u71_CD.active = 2
+    root.after(100)
+    destroyUpgradeButton(u71_CD_Button, u71_CD)
+    global u74_SD_Button
+    u74_SD_Button = createUpgradeButton(u74_SD_Button, u74_SD, buy_74_SD)
 
 def buy_72_CD():
     game.buy_upgrade(u72_CD)
+    global u72_CD_Button
+    u72_CD.active = 2
+    root.after(100)
+    destroyUpgradeButton(u72_CD_Button, u72_CD)
 
 def buy_73_CS():
     game.buy_upgrade(u73_CS)
+    global u73_CS_Button
+    u73_CS.active = 2
+    root.after(100)
+    destroyUpgradeButton(u73_CS_Button, u73_CS)
 
 def buy_74_SD():
     game.buy_upgrade(u74_SD)
+    global u74_SD_Button
+    u74_SD.active = 2
+    root.after(100)
+    destroyUpgradeButton(u74_SD_Button, u74_SD)
+    global u75_ER_Button
+    global u76_OT_Button
+    u75_ER_Button = createUpgradeButton(u75_ER_Button, u75_ER, buy_75_ER)
+    u76_OT_Button = createUpgradeButton(u76_OT_Button, u76_OT, buy_76_OT)
 
 def buy_75_ER():
-    game.buy_upgrade(u75_ER)
+    global a10_DNA
+    a10_DNA = game.buy_autoupgrade(u75_ER, a10_DNA)
+    global u75_ER_Button
+    u75_ER.active = 2
+    root.after(100)
+    printMessage("u61_DH")
+    destroyUpgradeButton(u75_ER_Button, u75_ER)
+    global a10_DNA_Desc
+    a10_DNA_Desc.config(a10_DNA_Desc, text = a10_DNA.desc())
 
 def buy_76_OT():
     game.buy_upgrade(u76_OT)
+    global u76_OT_Button
+    u76_OT.active = 2
+    root.after(100)
+    destroyUpgradeButton(u76_OT_Button, u76_OT)
+    global u77_IBS_Button
+    u77_IBS_Button = createUpgradeButton(u77_IBS_Button, u77_IBS, buy_77_IBS)
 
 def buy_77_IBS():
     game.buy_upgrade(u77_IBS)
+    global u77_IBS_Button
+    u77_IBS.active = 2
+    root.after(100)
+    destroyUpgradeButton(u77_IBS_Button, u77_IBS)
+    global u78_SC_Button
+    u78_SC_Button = createUpgradeButton(u78_SC_Button, u78_SC, buy_78_SC)
 
 def buy_78_SC():
     game.buy_upgrade(u78_SC)
+    global u78_SC_Button
+    u78_SC.active = 2
+    root.after(100)
+    destroyUpgradeButton(u78_SC_Button, u78_SC)
+    global u79_TU_Button
+    u79_TU_Button = createUpgradeButton(u79_TU_Button, u79_TU, buy_79_TU)
 
 def buy_79_TU():
     game.buy_upgrade(u79_TU)
+    global u79_TU_Button
+    u79_TU.active = 2
+    root.after(100)
+    destroyUpgradeButton(u79_TU_Button, u79_TU)
+    global u80_HS_Button
+    u80_HS_Button = createUpgradeButton(u80_HS_Button, u80_HS, buy_80_HS)
 
 def buy_80_HS():
     game.buy_upgrade(u80_HS)
+    global u80_HS_Button
+    u80_HS.active = 2
+    root.after(100)
+    destroyUpgradeButton(u80_HS_Button, u80_HS)
 
 
 
@@ -1887,6 +2164,42 @@ def check_milestones():
     global microbeLab
     if (game.microbes > 0 and u26_DNA.active == 2 and microbeLab == None): 
         microbeLab = createSpeciesLabel(microbeLab, game.microbes, "Microbes")
+
+    global plantLab
+    if (game.plants > 0 and u43_DT.active == 2 and plantLab == None): 
+        plantLab = createSpeciesLabel(plantLab, game.plants, "Plants")
+
+    global fishLab
+    if (game.fish > 0 and u48_NS.active == 2 and fishLab == None): 
+        fishLab = createSpeciesLabel(fishLab, game.fish, "Fish")
+
+    global insectLab
+    if (game.insects > 0 and u51_EX.active == 2 and insectLab == None): 
+        insectLab = createSpeciesLabel(insectLab, game.insects, "Insects")
+
+    global amphibianLab
+    if (game.amphibians > 0 and u54_OP.active == 2 and amphibianLab == None): 
+        amphibianLab = createSpeciesLabel(amphibianLab, game.amphibians, "Amphibians")
+
+    global reptileLab
+    if (game.reptiles > 0 and u58_ET.active == 2 and reptileLab == None): 
+        reptileLab = createSpeciesLabel(reptileLab, game.reptiles, "Reptiles")
+
+    global birdLab
+    if (game.birds > 0 and u65_FF.active == 2 and birdLab == None): 
+        birdLab = createSpeciesLabel(birdLab, game.birds, "Birds")
+
+    global mammalLab
+    if (game.mammals > 0 and u62_MG.active == 2 and mammalLab == None): 
+        mammalLab = createSpeciesLabel(mammalLab, game.mammals, "Mammals")
+
+    global dinosaurLab
+    if (game.dinosaurs > 0 and u69_DI.active == 2 and dinosaurLab == None): 
+        dinosaurLab = createSpeciesLabel(dinosaurLab, game.dinosaurs, "Dinosaurs")
+
+    global primateLab
+    if (game.primates > 0 and u76_OT.active == 2 and primateLab == None): 
+        primateLab = createSpeciesLabel(primateLab, game.primates, "Primates")
     
     # Potential upgrade from milestones
     if (game.lifeforms >= game.potential_lifeforms_req):
@@ -1897,8 +2210,7 @@ def check_milestones():
         expansionBut.config(expansionBut, state = ACTIVE)
     
     # Unlocking upgrades after getting mcirobes
-    if (game.microbes >= 10 and u41_DF.active == 0):
-        global u41_DF_Button
+    if (game.microbes >= 10 and u27_GM.active == 0):
         global u27_GM_Button
         global u28_MA_Button
         global u29_AR_Button
@@ -1909,7 +2221,18 @@ def check_milestones():
         u30_MC_Button = createUpgradeButton(u30_MC_Button, u30_MC, buy_30_MC)
         u28_MA_Button = createUpgradeButton(u28_MA_Button, u28_MA, buy_28_MA)
         u31_MP_Button = createUpgradeButton(u31_MP_Button, u31_MP, buy_31_MP)
+
+    if (u40_OX.active == 2 and u39_CS.active == 2 and u38_BP.active == 2 and u41_DF.active == 0):
+        global u41_DF_Button
         u41_DF_Button = createUpgradeButton(u41_DF_Button, u41_DF, buy_41_DF)
+
+    if (u56_IF.active == 2 and u53_IW.active == 2 and u50_SB.active == 2 and u43_DT.active == 2 and u57_TP.active == 0):
+        global u57_TP_Button
+        u57_TP_Button = createUpgradeButton(u57_TP_Button, u57_TP, buy_57_TP)
+
+    if (u67_VC.active == 2 and u64_NC.active == 2 and u60_EC.active == 2 and u69_DI.active == 0):
+        global u69_DI_Button
+        u69_DI_Button = createUpgradeButton(u69_DI_Button, u69_DI, buy_69_DI)
 
     root.after(100, check_milestones)
 
@@ -2172,7 +2495,7 @@ def destroyProducer(namelabel, costlabel, desclabel, button, togglebutton, autom
 def createSpeciesLabel(label, lifeform, name):
     global SPECIES_FRAME_HEIGHT
     global SPECIES_LABEL_NEXTY
-    label = Label(speciesF, text = name + ": " + format_number(lifeform, 0) + "\n + " + format_number(lifeform, 2), font = ('Terminal', 10), bg = "white")
+    label = Label(speciesF, text = name + ": " + format_number(lifeform, 0) + "\n + " + format_number(lifeform, 2), font = ('Terminal', 10), bg = "white", anchor='w')
     label.place(x = PADDING, y = SPECIES_LABEL_NEXTY, anchor=('nw'))
     # label.place_configure(anchor='n')
     speciesF.update_idletasks()
@@ -2728,9 +3051,19 @@ def update_labels():
         global heliumLab
         global dnaLab
         global waterLab
-        global nutrientsLab
+        global nutrientLab
         global microbeLab
+        global plantLab
+        global fishLab
+        global insectLab
+        global amphibianLab
+        global reptileLab
+        global birdLab
+        global mammalLab
+        global dinosaurLab
+        global primateLab
         global lifeL
+        
         try:
             if (energyLab):
                 energyLab.config(energyLab, text = "Energy: " + format_number(game.energy, 0))
@@ -2753,8 +3086,24 @@ def update_labels():
                 waterLab.config(waterLab, text = "Water: " + format_number(game.water, 0))
             if (microbeLab):
                 microbeLab.config(microbeLab, text = "Microbes: " + format_number(game.microbes, 0) + "\n+ " + format_number(game.microbes * game.repro_microbes, 2) + " per tick")
-            if (algaeLab):
-                algaeLab.config(algaeLab, text = "Algae: " + format_number(game.algae, 0) + "\n+ " + format_number(game.algae * game.repro_algae, 2) + " per tick")
+            if (plantLab):
+                plantLab.config(plantLab, text = "Plants: " + format_number(game.plants, 0) + "\n+ " + format_number(game.plants * game.repro_plants, 2) + " per tick")
+            if (fishLab):
+                fishLab.config(fishLab, text = "Fish: " + format_number(game.fish, 0) + "\n+ " + format_number(game.fish * game.repro_fish, 2) + " per tick")
+            if (insectLab):
+                insectLab.config(insectLab, text = "Insects: " + format_number(game.insects, 0) + "\n+ " + format_number(game.insects * game.repro_insects, 2) + " per tick")
+            if (amphibianLab):
+                amphibianLab.config(amphibianLab, text = "Amphibians: " + format_number(game.amphibians, 0) + "\n+ " + format_number(game.amphibians * game.repro_amphibians, 2) + " per tick")
+            if (reptileLab):
+                reptileLab.config(reptileLab, text = "Reptiles: " + format_number(game.reptiles, 0) + "\n+ " + format_number(game.reptiles * game.repro_reptiles, 2) + " per tick")
+            if (birdLab):
+                birdLab.config(birdLab, text = "Birds: " + format_number(game.birds, 0) + "\n+ " + format_number(game.birds * game.repro_birds, 2) + " per tick")
+            if (mammalLab):
+                mammalLab.config(mammalLab, text = "Mammals: " + format_number(game.mammals, 0) + "\n+ " + format_number(game.mammals * game.repro_mammals, 2) + " per tick")
+            if (dinosaurLab):
+                dinosaurLab.config(dinosaurLab, text = "Dinosaurs: " + format_number(game.dinosaurs, 0) + "\n+ " + format_number(game.dinosaurs * game.repro_dinosaurs, 2) + " per tick")
+            if (primateLab):
+                primateLab.config(primateLab, text = "Primates: " + format_number(game.primates, 0) + "\n+ " + format_number(game.primates * game.repro_primates, 2) + " per tick")
             if (game.lifeforms > 0):
                 lifeL.config(lifeL, text = "Lifeforms: " + "{:,.0f}".format(game.lifeforms))
         except:

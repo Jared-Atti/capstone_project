@@ -37,25 +37,25 @@ class Game:
         
         # Precambrian
         self.microbes = 0
-        self.repro_microbes = 0
-        self.algae = 0
-        self.repro_algae = 0
+        self.repro_microbes = 0.001
+        self.plants = 0
+        self.repro_plants = 0.001
         self.fish = 0
-        self.repro_fish = 0
+        self.repro_fish = 0.001
         self.insects = 0
-        self.repro_insects = 0
+        self.repro_insects = 0.001
         self.amphibians = 0
-        self.repro_amphibians = 0
+        self.repro_amphibians = 0.001
         self.reptiles = 0
-        self.repro_reptiles = 0
+        self.repro_reptiles = 0.001
         self.birds = 0
-        self.repro_birds = 0
+        self.repro_birds = 0.001
         self.mammals = 0
-        self.repro_mammals = 0
+        self.repro_mammals = 0.001
         self.dinosaurs = 0
-        self.repro_dinosaurs = 0
+        self.repro_dinosaurs = 0.001
         self.primates = 0
-        self.repro_primates = 0
+        self.repro_primates = 0.001
         self.dna = 0
         self.nutrients = 0
         self.water = 0
@@ -84,7 +84,25 @@ class Game:
         self.helium += 100000000000
 
     def create_life(self):
-        self.microbes += 1
+        self.microbes += 1 + self.repro_microbes * 1000
+        if self.plants > 0:
+            self.plants += 1 + self.repro_plants * 1000
+        if self.fish > 0:
+            self.fish += 1 + self.repro_fish * 1000
+        if self.insects > 0:
+            self.insects += 1 + self.repro_insects * 1000
+        if self.amphibians > 0:
+            self.amphibians += 1 + self.repro_amphibians * 1000
+        if self.reptiles > 0:
+            self.reptiles += 1 + self.repro_reptiles * 1000
+        if self.birds > 0:
+            self.birds += 1 + self.repro_birds * 1000
+        if self.mammals > 0:
+            self.mammals += 1 + self.repro_mammals * 1000
+        if self.dinosaurs > 0:
+            self.dinosaurs += 1 + self.repro_dinosaurs * 1000
+        if self.primates > 0:
+            self.primates += 1 + self.repro_primates * 1000
         # Testing cheats
         self.microbes += 1000
         self.water += 1000
@@ -106,7 +124,6 @@ class Game:
     def calculate_revenue(self, autos):
         # Every era
         # Lifeforms
-        self.lifeforms = self.microbes
 
         # Time and innovation
         if (self.temporalFrame == True):
@@ -131,24 +148,37 @@ class Game:
         #Reproductions
         if (self.repro_microbes >= 0):
             self.microbes += self.microbes * self.repro_microbes
-        if (self.repro_algae >= 0):
-            self.algae += self.algae * self.repro_algae
+            self.lifeforms += self.microbes * self.repro_microbes
+        if (self.repro_plants >= 0):
+            self.plants += self.plants * self.repro_plants
+            self.lifeforms += self.plants * self.repro_plants
         if (self.repro_fish >= 0):
             self.fish += self.fish * self.repro_fish
+            self.lifeforms += self.fish * self.repro_fish
         if (self.repro_insects >= 0):
             self.insects += self.insects * self.repro_insects
+            self.lifeforms += self.insects * self.repro_insects
         if (self.repro_amphibians >= 0):
             self.amphibians += self.amphibians * self.repro_amphibians
+            self.lifeforms += self.amphibians * self.repro_amphibians
         if (self.repro_reptiles >= 0):
             self.reptiles += self.reptiles * self.repro_reptiles
+            self.lifeforms += self.reptiles * self.repro_reptiles
         if (self.repro_birds >= 0):
             self.birds += self.birds * self.repro_birds
+            self.lifeforms += self.birds * self.repro_birds
         if (self.repro_mammals >= 0):
             self.mammals += self.mammals * self.repro_mammals
+            self.lifeforms += self.mammals * self.repro_mammals
         if (self.repro_dinosaurs != 0):
             self.dinosaurs += self.dinosaurs * self.repro_dinosaurs
+            self.lifeforms += self.dinosaurs * self.repro_dinosaurs
+            if (self.dinosaurs < 1):
+                self.dinosaurs = 0
+                self.repro_dinosaurs = 0
         if (self.repro_primates >= 0):
             self.primates += self.primates * self.repro_primates
+            self.lifeforms += self.primates * self.repro_primates
 
         # Automators
         for a in autos:
