@@ -41,7 +41,7 @@ class Automator():
     
     def desc(self):
         if (self.tickcost):
-            text = "Each " + self.name + " produces " + format_number(self.revenue[1], 0) + " " + self.revenue[0] + " and costs "
+            text = "Each " + self.name + " produces " + format_number(self.revenue[1], 0) + " " + self.revenue[0] + " and costs ("
             for i in range(len(self.tickcost)):
                 text += format_number(self.tickcost[i][1], 0) + " " + self.tickcost[i][0] + ") "
 
@@ -157,7 +157,7 @@ class Nuclear_Fusion(Automator):
 
 class Nutrient_Synthesis(Automator):
     def __init__(self):
-        super().__init__("Nutrient Synthesis ", ("DNA", 10), ("Neutrient", 1), [("Water", 1)])
+        super().__init__("Nutrient Synthesis ", ("DNA", 10), ("Nutrients", 1), [("Water", 1)])
     
     def afford(self, game):
         if game.dna >= self.upcost[1]:

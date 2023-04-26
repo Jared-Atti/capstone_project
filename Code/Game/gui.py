@@ -715,7 +715,7 @@ def buy_SS():
     a2_QS_Cost = results[2]
     a2_QS_Desc = results[3]
     a2_QS_Toggle = results[4]
-    active_autos.append(a2_QS)
+    # active_autos.append(a2_QS)
     quarkLab = createResourceLabel(quarkLab, game.quarks, "Quarks")
     cosmic2 = ImageTk.PhotoImage(i2)
     VisualLab.config(image = cosmic2)
@@ -772,14 +772,14 @@ def buy_NS():
     a3_PS_Cost = results[2]
     a3_PS_Desc = results[3]
     a3_PS_Toggle = results[4]
-    active_autos.append(a3_PS)
+    # active_autos.append(a3_PS)
     results = createProducer(a4_NS_Name, "Neutron Synthesizers", a4_NS_Button, increase_a4_NS, a4_NS_Cost, a4_NS_Desc, True, a4_NS_Toggle, toggle_a4_NS, a4_NS)
     a4_NS_Name = results[0]
     a4_NS_Button = results[1]
     a4_NS_Cost = results[2]
     a4_NS_Desc = results[3]
     a4_NS_Toggle = results[4]
-    active_autos.append(a4_NS)
+    # active_autos.append(a4_NS)
     protonLab = createResourceLabel(protonLab, game.protons, "Protons")
     neutronLab = createResourceLabel(neutronLab, game.neutrons, "Neutron")
     cosmic4 = ImageTk.PhotoImage(i4)
@@ -846,7 +846,7 @@ def buy_AF():
     a5_HyF_Cost = results[2]
     a5_HyF_Desc = results[3]
     a5_HyF_Toggle = results[4]
-    active_autos.append(a5_HyF)
+    # active_autos.append(a5_HyF)
     global hydrogenLab
     hydrogenLab = createResourceLabel(hydrogenLab, game.hydrogen, "Hydrogen")
 
@@ -874,7 +874,7 @@ def buy_DH():
     a6_HeF_Cost = results[2]
     a6_HeF_Desc = results[3]
     a6_HeF_Toggle = results[4]
-    active_autos.append(a6_HeF)
+    # active_autos.append(a6_HeF)
     global heliumLab
     heliumLab = createResourceLabel(hydrogenLab, game.helium, "Helium")
     cosmic7 = ImageTk.PhotoImage(i7)
@@ -1061,7 +1061,7 @@ def buy_NF():
     a7_NF_Button = results[1]
     a7_NF_Cost = results[2]
     a7_NF_Desc = results[3]
-    active_autos.append(a7_NF)
+    # active_autos.append(a7_NF)
 
 def buy_CE():
     game.buy_upgrade(u23_CE)
@@ -1195,7 +1195,7 @@ def buy_30_MC():
     a10_DNA_Button = results[1]
     a10_DNA_Cost = results[2]
     a10_DNA_Desc = results[3]
-    active_autos.append(a10_DNA)
+    # active_autos.append(a10_DNA)
 
 
 def buy_31_MP():
@@ -1226,7 +1226,7 @@ def buy_32_PS():
     a8_NS_Cost = results[2]
     a8_NS_Desc = results[3]
     a8_NS_Toggle = results[4]
-    active_autos.append(a8_NS)
+    # active_autos.append(a8_NS)
 
 def buy_33_AM():
     game.buy_upgrade(u33_AM)
@@ -1245,19 +1245,54 @@ def buy_33_AM():
     a9_HS_Cost = results[2]
     a9_HS_Desc = results[3]
     a9_HS_Toggle = results[4]
-    active_autos.append(a9_HS)
+    # active_autos.append(a9_HS)
 
 def buy_34_DA():
-    game.buy_upgrade(u34_DA)
+    global a10_DNA
+    a10_DNA = game.buy_autoupgrade(u34_DA, a10_DNA)
+    global u34_DA_Button
+    u34_DA.active = 2
+    root.after(100)
+    printMessage("u34_DA")
+    destroyUpgradeButton(u34_DA_Button, u34_DA)
+    global a10_DNA_Desc
+    a10_DNA_Desc.config(a10_DNA_Desc, text = a10_DNA.desc())
 
 def buy_35_FL():
     game.buy_upgrade(u35_FL)
+    global u35_FL_Button
+    u35_FL.active = 2
+    root.after(100)
+    printMessage("u35_FL")
+    destroyUpgradeButton(u35_FL_Button, u35_FL)
+    global u38_BP_Button
+    u38_BP_Button = createUpgradeButton(u38_BP_Button, u38_BP, buy_38_BP)
 
 def buy_36_CP():
-    game.buy_upgrade(u36_CP)
+    global a8_NS
+    a8_NS = game.buy_autoupgrade(u36_CP, a8_NS)
+    global u36_CP_Button
+    u36_CP.active = 2
+    root.after(100)
+    printMessage("u36_CP")
+    destroyUpgradeButton(u36_CP_Button, u36_CP)
+    global a8_NS_Desc
+    a8_NS_Desc.config(a8_NS_Desc, text = a8_NS.desc())
+    global u39_CS_Button
+    u39_CS_Button = createUpgradeButton(u39_CS_Button, u39_CS, buy_39_CS)
 
 def buy_37_MC():
-    game.buy_upgrade(u37_MC)
+    global a9_HS
+    a9_HS = game.buy_autoupgrade(u37_MC, a9_HS)
+    global u37_MC_Button
+    u37_MC.active = 2
+    root.after(100)
+    printMessage("u37_MC")
+    destroyUpgradeButton(u37_MC_Button, u37_MC)
+    global a9_HS_Desc
+    a9_HS_Desc.config(a9_HS_Desc, text = a9_HS.desc())
+    global u40_OX_Button
+    u40_OX_Button = createUpgradeButton(u40_OX_Button, u40_OX, buy_40_OX)
 
 def buy_38_BP():
     game.buy_upgrade(u38_BP)
@@ -1273,7 +1308,7 @@ def buy_41_DF():
     global u41_DF_Button
     u41_DF.active = 2
     root.after(100)
-    destroyUpgradeButton(u41_DF)
+    destroyUpgradeButton(u41_DF_Button, u41_DF)
     u43_DT_Button = createUpgradeButton(u43_DT_Button, u43_DT, buy_43_DT)
 
 def buy_42_SY():
@@ -1761,7 +1796,7 @@ def check_milestones():
         a1_GC_Desc = results[3]
 
         # Adds compressors to the list of active autos
-        active_autos.append(a1_GC)
+        # active_autos.append(a1_GC)
 
     #Activate subatomic synthesis upgrade at 100 energy
     global u2_SS_Button
@@ -1869,12 +1904,12 @@ def check_milestones():
         global u29_AR_Button
         global u30_MC_Button
         global u31_MP_Button
-        u41_DF_Button = createUpgradeButton(u41_DF_Button, u41_DF, buy_41_DF)
         u27_GM_Button = createUpgradeButton(u27_GM_Button, u27_GM, buy_27_GM)
-        u28_MA_Button = createUpgradeButton(u27_GM_Button, u28_MA, buy_28_MA)
         u29_AR_Button = createUpgradeButton(u29_AR_Button, u29_AR, buy_29_AR)
         u30_MC_Button = createUpgradeButton(u30_MC_Button, u30_MC, buy_30_MC)
+        u28_MA_Button = createUpgradeButton(u28_MA_Button, u28_MA, buy_28_MA)
         u31_MP_Button = createUpgradeButton(u31_MP_Button, u31_MP, buy_31_MP)
+        u41_DF_Button = createUpgradeButton(u41_DF_Button, u41_DF, buy_41_DF)
 
     root.after(100, check_milestones)
 

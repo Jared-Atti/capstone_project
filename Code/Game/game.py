@@ -70,7 +70,7 @@ class Game:
 
     def create_energy(self):
         self.energy += 1
-        # Testing
+        # Testing cheats
         self.energy += 100000000000
         self.maxpotential += 100
         self.time += 100000000000
@@ -85,6 +85,11 @@ class Game:
 
     def create_life(self):
         self.microbes += 1
+        # Testing cheats
+        self.microbes += 1000
+        self.water += 1000
+        self.nutrients += 1000
+        self.dna += 1000
     
     def set_max_potential(self):
         self.maxpotential = self.potential + self.productivity + self.expansion
@@ -117,11 +122,11 @@ class Game:
 
         #DNA Mutation
         if (self.mutationflag):
-            self.dna += (self.microbes * 0.001)
+            self.dna += (self.microbes * 0.002)
         if (self.waterflag):
-            self.water += (self.microbes * 0.0001)
+            self.water += (self.microbes * 0.0005)
         if (self.nutrientsflag):
-            self.nutrients += (self.microbes * 0.0001)
+            self.nutrients += (self.microbes * 0.0005)
         
         #Reproductions
         if (self.repro_microbes >= 0):
