@@ -1155,6 +1155,7 @@ def buy_27_GM():
     destroyUpgradeButton(u27_GM_Button, u27_GM)
     global dnaLab
     dnaLab = createResourceLabel(dnaLab, game.dna, "DNA")
+    printMessage("Wow! Now you get DNA just for the amount of lifeforms you have! How cool!")
     global u34_DA_Button
     u34_DA_Button = createUpgradeButton(u34_DA_Button, u34_DA, buy_34_DA)
 
@@ -1168,6 +1169,7 @@ def buy_28_MA():
     global waterLab
     global u33_AM_Button
     waterLab = createResourceLabel(waterLab, game.water, "Water")
+    printMessage("Yay Water! Thank goodness, I was getting parched...")
     u33_AM_Button = createUpgradeButton(u33_AM_Button, u33_AM, buy_33_AM)
 
 def buy_29_AR():
@@ -1176,6 +1178,7 @@ def buy_29_AR():
     u29_AR.active = 2
     root.after(100)
     destroyUpgradeButton(u29_AR_Button, u29_AR)
+    printMessage("Microbes now know how to reproduce by themselves! We're not gonna get anymore descriptive than that...")
     global u35_FL_Button
     u35_FL_Button = createUpgradeButton(u35_FL_Button, u35_FL, buy_35_FL)
 
@@ -1186,6 +1189,7 @@ def buy_30_MC():
     u30_MC.active = 2
     root.after(100)
     destroyUpgradeButton(u30_MC_Button, u30_MC)
+    printMessage("Oh look! A new Automator! I bet it works just like the old ones did.")
     global a10_DNA_Button
     global a10_DNA_Name
     global a10_DNA_Cost
@@ -1204,6 +1208,7 @@ def buy_31_MP():
     u31_MP.active = 2
     root.after(100)
     destroyUpgradeButton(u31_MP_Button, u31_MP)
+    printMessage("Another resource?!? Microbes also passively generate it!")
     global nutrientLab
     global u32_PS_Button
     nutrientLab = createResourceLabel(nutrientLab, game.nutrients, "Nutrients")
@@ -1215,6 +1220,7 @@ def buy_32_PS():
     u32_PS.active = 2
     root.after(100)
     destroyUpgradeButton(u32_PS_Button, u32_PS)
+    printMessage("A automator for Nutrients! Sweet! But wheres the Water automator?....")
     global a8_NS_Button
     global a8_NS_Name
     global a8_NS_Cost
@@ -1234,6 +1240,7 @@ def buy_33_AM():
     u33_AM.active = 2
     root.after(100)
     destroyUpgradeButton(u33_AM_Button, u33_AM)
+    printMessage("Oh! There it is! The Water Automator! Or what we like to call it, the Watermator!!!")
     global a9_HS_Button
     global a9_HS_Name
     global a9_HS_Cost
@@ -1249,24 +1256,31 @@ def buy_33_AM():
 
 def buy_34_DA():
     game.buy_upgrade(u34_DA)
+    printMessage("Your DNA Automator kicks into second gear and really amps up the production!")
 
 def buy_35_FL():
     game.buy_upgrade(u35_FL)
+    printMessage("Your microbes reproduction rate has increased with the evolution of flagella!")
 
 def buy_36_CP():
     game.buy_upgrade(u36_CP)
+    printMessage("Your lifeforms now have Chloroplasts! This improves their nutrients production!")
 
 def buy_37_MC():
     game.buy_upgrade(u37_MC)
+    printMessage("The Powerhouse of the Cell! Watermator ups its production!!")
 
 def buy_38_BP():
     game.buy_upgrade(u38_BP)
+    printMessage("Your microbes have devloped Biofilm! Their reproduction rate increased dramastically!")
 
 def buy_39_CS():
     game.buy_upgrade(u39_CS)
+    printMessage("Your microbes can now use chemical energy to make organic matter! This ups the rate of Nutrients!")
 
 def buy_40_OX():
     game.buy_upgrade(u40_OX)
+    printMessage("Woah where did all this Oxygen come from?!? I think its time for some more complex species....")
 
 def buy_41_DF():
     game.buy_upgrade(u41_DF)
@@ -1274,94 +1288,124 @@ def buy_41_DF():
     u41_DF.active = 2
     root.after(100)
     destroyUpgradeButton(u41_DF)
+    printMessage("You thought microbes were cool? Just wait...")
     u43_DT_Button = createUpgradeButton(u43_DT_Button, u43_DT, buy_43_DT)
 
 def buy_42_SY():
     game.buy_upgrade(u42_SY)
+    printMessage("You can now see how different species interact together! Go on, give it a try!")
 
 def buy_43_DT():
     game.buy_upgrade(u43_DT)
+    printMessage("Looky there! A new species has been discovered!")
 
 def buy_44_AB():
     game.buy_upgrade(u44_AB)
+    printMessage("Algae are starting to sprout everywhere! Keep it going!")
 
 def buy_45_MT():
     game.buy_upgrade(u45_MT)
+    printMessage("These Algae just won't stop reproducing! We arent upset about it though, keep it up!")
 
 def buy_46_OL():
     game.buy_upgrade(u46_OL)
+    printMessage("What's this new layer in the sky? I wonder if we can leave the water now?")
 
 def buy_47_ES():
     game.buy_upgrade(u47_ES)
+    printMessage("Your species are beginning to claim their own land and are creating ecosystems! How Cool!")
 
 def buy_48_NS():
     game.buy_upgrade(u48_NS)
+    printMessage("FISH ARE FRIENDS, NOT FOOD.")
 
 def buy_49_ES():
     game.buy_upgrade(u49_ES)
+    printMessage("Just keep swimming, just keep swimming...")
 
 def buy_50_SB():
     game.buy_upgrade(u50_SB)
+    printMessage("A swim bladder? Yeah sure sounds useful!")
 
 def buy_51_EX():
     game.buy_upgrade(u51_EX)
+    printMessage("Ew did we really need to add insects... alright fine.")
 
 def buy_52_MM():
     game.buy_upgrade(u52_MM)
+    printMessage("Meta What? They can Morph?!?")
 
 def buy_53_IW():
     game.buy_upgrade(u53_IW)
+    printMessage("You're gonna let them FLY??? oh we're doomed....")
 
 def buy_54_OP():
     game.buy_upgrade(u54_OP)
+    printMessage("Another Species, I wonder how many there are?")
 
 def buy_55_LL():
     game.buy_upgrade(u55_LL)
+    printMessage("Increased the movement and breathing of amphibians!")
 
 def buy_56_IF():
     game.buy_upgrade(u56_IF)
+    printMessage("Sounds kinda gross, but it's important!")
 
 def buy_57_TP():
     game.buy_upgrade(u57_TP)
+    printMessage("More species incoming!!!")
 
 def buy_58_ET():
     game.buy_upgrade(u58_ET)
+    printMessage("Reptiles are able to regulate body temperature by basking in the sun! Neat!")
 
 def buy_59_RS():
     game.buy_upgrade(u59_RS)
+    printMessage("They have armor now? That will protect them from predators!")
 
 def buy_60_EC():
     game.buy_upgrade(u60_EC)
+    printMessage("Did that reptile just shed off its skin? yes... yes it did.")
 
 def buy_61_DH():
     game.buy_upgrade(u61_DH)
+    printMessage("You are a Master of DNA! Watch that DNA number sky rocket!!!")
 
 def buy_62_MG():
     game.buy_upgrade(u62_MG)
+    printMessage("A new Species! and it can produce milk for offspring! Interesting...")
 
 def buy_63_FUR():
     game.buy_upgrade(u63_FUR)
+    printMessage("Mammals now produce fur to keep themselves warm during the winter!")
 
 def buy_64_NC():
     game.buy_upgrade(u64_NC)
+    printMessage("Mammals have improving cognitive functions and are beginning to be able to problem solve!")
 
 def buy_65_FF():
     game.buy_upgrade(u65_FF)
+    printMessage("More flying species?? Hopefully they'll contain those annoying insects.")
 
 def buy_66_BT():
     game.buy_upgrade(u66_BT)
+    printMessage("Birds gain unique beaks and talons allowing them to protect themselves and gather things more efficiently!")
 
 def buy_67_VC():
     game.buy_upgrade(u67_VC)
+    printMessage("Birds gain unique vocals and coloration to attract mates or warn others of predators! Way to look out for each other!")
 
 def buy_68_AD():
     game.buy_upgrade(u68_AD)
+    printMessage("Symbiosis is now more effective as species learn to live amongst each other!")
 
 def buy_69_DI():
     game.buy_upgrade(u69_DI)
+    printMessage("This is the 69th upgrade in the game! nice. oh... also... dinosaurs")
 
 def buy_70_IMM():
     game.buy_upgrade(u70_IMM)
+    printMessage("Those Dinosaurs are getting big! Look at those muscles!")
 
 def buy_71_CD():
     game.buy_upgrade(u71_CD)
