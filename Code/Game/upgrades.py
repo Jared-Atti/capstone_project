@@ -382,7 +382,7 @@ class Create_Sun(Upgrade):
 
 class Nuclear_Fusion(Upgrade):
     def __init__(self):
-        super().__init__("Nuclear Fusion ", [("Time", 3000), ("Innovation", 100), ("Hydrogen", 2000), ("Helium", 2000)], "TBD")
+        super().__init__("Nuclear Fusion ", [("Time", 3000), ("Innovation", 100), ("Hydrogen", 2000), ("Helium", 2000)], "Harness the powre of nuclear fusion across the universe. Every purchase will amplify the production of all other resources.")
 
     def afford(self, game):
         if game.time >= 3000 and game.innovation >= 100 and game.hydrogen >= 2000 and game.helium >= 2000:
@@ -485,6 +485,7 @@ class Metabolic_Adaptation(Upgrade):
             game.time -= 2000
             game.purchasedupgrades += self.name
             self.active = 2
+            game.waterflag = 1
 
 class Asexual_Reproduction(Upgrade):
     def __init__(self):
@@ -503,22 +504,22 @@ class Asexual_Reproduction(Upgrade):
 
 class Multicellularity(Upgrade):
     def __init__(self):
-        super().__init__("Multicellularity ", [("DNA", 100), ("Time", 1000)], "Your organisms will form multicellular structures, allowing for greater specialization and complexity. Unlocks an automator for generating DNA.")
+        super().__init__("Multicellularity ", [("DNA", 30), ("Time", 1000)], "Your organisms will form multicellular structures, allowing for greater specialization and complexity. Unlocks an automator for generating DNA.")
     
     def afford(self, game):
-        if game.dna >= 100 and game.time >= 1000:
+        if game.dna >= 30 and game.time >= 1000:
             return True
     
     def purchase(self, game):
         if self.afford(game):
-            game.dna -= 50
+            game.dna -= 20
             game.time -= 1000
             game.purchasedupgrades += self.name
             self.active = 2
 
 class Membrane_Proteins(Upgrade):
     def __init__(self):
-        super().__init__("Membrane Proteins ", [("DNA", 200), ("Time", 2000)], "Organisms begin using nutrients from the earth to grow and produce offspring more efficiently.")
+        super().__init__("Membrane Proteins ", [("DNA", 200), ("Time", 2000)], "Organisms begin using nutrients from the earth to grow and produce offspring more efficiently. Unlocks nutrients.")
     
     def afford(self, game):
         if game.dna >= 200 and game.time >= 2000:
@@ -530,6 +531,7 @@ class Membrane_Proteins(Upgrade):
             game.time -= 2000
             game.purchasedupgrades += self.name
             self.active = 2
+            game.nutrientsflag = 1
 
 class Photosynthesis(Upgrade):
     def __init__(self):

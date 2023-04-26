@@ -108,7 +108,7 @@ a4_NS = automators.Neutron_Synthesizer()
 a5_HyF = automators.Hydrogen_Fabricator()
 a6_HeF = automators.Helium_Fabricator()
 a7_NF = automators.Nuclear_Fusion()
-a8_PS = automators.Protein_Synthesis()
+a8_NS = automators.Nutrient_Synthesis()
 a9_HS = automators.Hydro_Synthesis()
 a10_DNA = automators.DNA_Manufacturer()
 
@@ -216,12 +216,14 @@ a6_HeF_Toggle = None
 a7_NF_Name = None
 a7_NF_Desc = None
 a7_NF_Cost = None
-a8_PS_Name = None
-a8_PS_Desc = None
-a8_PS_Cost = None
+a8_NS_Name = None
+a8_NS_Desc = None
+a8_NS_Cost = None
+a8_NS_Toggle = None
 a9_HS_Name = None
 a9_HS_Desc = None
 a9_HS_Cost = None
+a9_HS_Toggle = None
 a10_DNA_Name = None
 a10_DNA_Desc = None
 a10_DNA_Cost = None
@@ -339,7 +341,7 @@ a4_NS_Button = None # Neutron Synthesizer
 a5_HyF_Button = None # Hydrogen Fabricator
 a6_HeF_Button = None # Helium Fabricator
 a7_NF_Button = None # Nuclear Fusion
-a8_PS_Button = None
+a8_NS_Button = None
 a9_HS_Button = None
 a10_DNA_Button = None
 
@@ -1114,6 +1116,8 @@ def buy_DNA():
     destroyProducer(a5_HyF_Name, a5_HyF_Cost, a5_HyF_Desc, a5_HyF_Button, a5_HyF_Toggle, a5_HyF)
     destroyProducer(a6_HeF_Name, a6_HeF_Cost, a6_HeF_Desc, a6_HeF_Button, a6_HeF_Toggle, a6_HeF)
     destroyProducer(a7_NF_Name, a7_NF_Cost, a7_NF_Desc, a7_NF_Button, None, a7_NF)
+    global active_autos
+    active_autos = []
     printMessage("Welcome to the Pre-Cambrian Era!")
     printMessage("Don't freak out, you won't be needing any of that stuff anymore...")
     printMessage("Check out your new button! I wonder what it makes now?")
@@ -1141,12 +1145,7 @@ def buy_DNA():
 
         
 
-def buy_41_DF():
-    game.buy_upgrade(u41_DF)
-    global u41_DF_Button
-    u41_DF.active = 2
-    root.after(100)
-    destroyUpgradeButton(u41_DF)
+
 
 def buy_27_GM():
     game.buy_upgrade(u27_GM)
@@ -1156,6 +1155,9 @@ def buy_27_GM():
     destroyUpgradeButton(u27_GM_Button, u27_GM)
     global dnaLab
     dnaLab = createResourceLabel(dnaLab, game.dna, "DNA")
+    global u34_DA_Button
+    u34_DA_Button = createUpgradeButton(u34_DA_Button, u34_DA, buy_34_DA)
+
 
 def buy_28_MA():
     game.buy_upgrade(u28_MA)
@@ -1163,6 +1165,10 @@ def buy_28_MA():
     u28_MA.active = 2
     root.after(100)
     destroyUpgradeButton(u28_MA_Button, u28_MA)
+    global waterLab
+    global u33_AM_Button
+    waterLab = createResourceLabel(waterLab, game.water, "Water")
+    u33_AM_Button = createUpgradeButton(u33_AM_Button, u33_AM, buy_33_AM)
 
 def buy_29_AR():
     game.buy_upgrade(u29_AR)
@@ -1170,6 +1176,9 @@ def buy_29_AR():
     u29_AR.active = 2
     root.after(100)
     destroyUpgradeButton(u29_AR_Button, u29_AR)
+    global u35_FL_Button
+    u35_FL_Button = createUpgradeButton(u35_FL_Button, u35_FL, buy_35_FL)
+
 
 def buy_30_MC():
     game.buy_upgrade(u30_MC)
@@ -1177,6 +1186,17 @@ def buy_30_MC():
     u30_MC.active = 2
     root.after(100)
     destroyUpgradeButton(u30_MC_Button, u30_MC)
+    global a10_DNA_Button
+    global a10_DNA_Name
+    global a10_DNA_Cost
+    global a10_DNA_Desc
+    results = createProducer(a10_DNA_Name, "DNA Manufacturer", a10_DNA_Button, increase_a10_DNA, a10_DNA_Cost, a10_DNA_Desc, False, None, None, a10_DNA)
+    a10_DNA_Name = results[0]
+    a10_DNA_Button = results[1]
+    a10_DNA_Cost = results[2]
+    a10_DNA_Desc = results[3]
+    active_autos.append(a10_DNA)
+
 
 def buy_31_MP():
     game.buy_upgrade(u31_MP)
@@ -1184,6 +1204,195 @@ def buy_31_MP():
     u31_MP.active = 2
     root.after(100)
     destroyUpgradeButton(u31_MP_Button, u31_MP)
+    global nutrientLab
+    global u32_PS_Button
+    nutrientLab = createResourceLabel(nutrientLab, game.nutrients, "Nutrients")
+    u32_PS_Button = createUpgradeButton(u32_PS_Button, u32_PS, buy_32_PS)
+
+def buy_32_PS():
+    game.buy_upgrade(u32_PS)
+    global u32_PS_Button
+    u32_PS.active = 2
+    root.after(100)
+    destroyUpgradeButton(u32_PS_Button, u32_PS)
+    global a8_NS_Button
+    global a8_NS_Name
+    global a8_NS_Cost
+    global a8_NS_Desc
+    global a8_NS_Toggle
+    results = createProducer(a8_NS_Name, "Nutrient Synthesizer", a8_NS_Button, increase_a8_NS, a8_NS_Cost, a8_NS_Desc, True, a8_NS_Toggle, toggle_a8_NS, a8_NS)
+    a8_NS_Name = results[0]
+    a8_NS_Button = results[1]
+    a8_NS_Cost = results[2]
+    a8_NS_Desc = results[3]
+    a8_NS_Toggle = results[4]
+    active_autos.append(a8_NS)
+
+def buy_33_AM():
+    game.buy_upgrade(u33_AM)
+    global u33_AM_Button
+    u33_AM.active = 2
+    root.after(100)
+    destroyUpgradeButton(u33_AM_Button, u33_AM)
+    global a9_HS_Button
+    global a9_HS_Name
+    global a9_HS_Cost
+    global a9_HS_Desc
+    global a9_HS_Toggle
+    results = createProducer(a9_HS_Name, "Hydro Synthesizer", a9_HS_Button, increase_a9_HS, a9_HS_Cost, a9_HS_Desc, True, a9_HS_Toggle, toggle_a9_HS, a9_HS)
+    a9_HS_Name = results[0]
+    a9_HS_Button = results[1]
+    a9_HS_Cost = results[2]
+    a9_HS_Desc = results[3]
+    a9_HS_Toggle = results[4]
+    active_autos.append(a9_HS)
+
+def buy_34_DA():
+    game.buy_upgrade(u34_DA)
+
+def buy_35_FL():
+    game.buy_upgrade(u35_FL)
+
+def buy_36_CP():
+    game.buy_upgrade(u36_CP)
+
+def buy_37_MC():
+    game.buy_upgrade(u37_MC)
+
+def buy_38_BP():
+    game.buy_upgrade(u38_BP)
+
+def buy_39_CS():
+    game.buy_upgrade(u39_CS)
+
+def buy_40_OX():
+    game.buy_upgrade(u40_OX)
+
+def buy_41_DF():
+    game.buy_upgrade(u41_DF)
+    global u41_DF_Button
+    u41_DF.active = 2
+    root.after(100)
+    destroyUpgradeButton(u41_DF)
+    u43_DT_Button = createUpgradeButton(u43_DT_Button, u43_DT, buy_43_DT)
+
+def buy_42_SY():
+    game.buy_upgrade(u42_SY)
+
+def buy_43_DT():
+    game.buy_upgrade(u43_DT)
+
+def buy_44_AB():
+    game.buy_upgrade(u44_AB)
+
+def buy_45_MT():
+    game.buy_upgrade(u45_MT)
+
+def buy_46_OL():
+    game.buy_upgrade(u46_OL)
+
+def buy_47_ES():
+    game.buy_upgrade(u47_ES)
+
+def buy_48_NS():
+    game.buy_upgrade(u48_NS)
+
+def buy_49_ES():
+    game.buy_upgrade(u49_ES)
+
+def buy_50_SB():
+    game.buy_upgrade(u50_SB)
+
+def buy_51_EX():
+    game.buy_upgrade(u51_EX)
+
+def buy_52_MM():
+    game.buy_upgrade(u52_MM)
+
+def buy_53_IW():
+    game.buy_upgrade(u53_IW)
+
+def buy_54_OP():
+    game.buy_upgrade(u54_OP)
+
+def buy_55_LL():
+    game.buy_upgrade(u55_LL)
+
+def buy_56_IF():
+    game.buy_upgrade(u56_IF)
+
+def buy_57_TP():
+    game.buy_upgrade(u57_TP)
+
+def buy_58_ET():
+    game.buy_upgrade(u58_ET)
+
+def buy_59_RS():
+    game.buy_upgrade(u59_RS)
+
+def buy_60_EC():
+    game.buy_upgrade(u60_EC)
+
+def buy_61_DH():
+    game.buy_upgrade(u61_DH)
+
+def buy_62_MG():
+    game.buy_upgrade(u62_MG)
+
+def buy_63_FUR():
+    game.buy_upgrade(u63_FUR)
+
+def buy_64_NC():
+    game.buy_upgrade(u64_NC)
+
+def buy_65_FF():
+    game.buy_upgrade(u65_FF)
+
+def buy_66_BT():
+    game.buy_upgrade(u66_BT)
+
+def buy_67_VC():
+    game.buy_upgrade(u67_VC)
+
+def buy_68_AD():
+    game.buy_upgrade(u68_AD)
+
+def buy_69_DI():
+    game.buy_upgrade(u69_DI)
+
+def buy_70_IMM():
+    game.buy_upgrade(u70_IMM)
+
+def buy_71_CD():
+    game.buy_upgrade(u71_CD)
+
+def buy_72_CD():
+    game.buy_upgrade(u72_CD)
+
+def buy_73_CS():
+    game.buy_upgrade(u73_CS)
+
+def buy_74_SD():
+    game.buy_upgrade(u74_SD)
+
+def buy_75_ER():
+    game.buy_upgrade(u75_ER)
+
+def buy_76_OT():
+    game.buy_upgrade(u76_OT)
+
+def buy_77_IBS():
+    game.buy_upgrade(u77_IBS)
+
+def buy_78_SC():
+    game.buy_upgrade(u78_SC)
+
+def buy_79_TU():
+    game.buy_upgrade(u79_TU)
+
+def buy_80_HS():
+    game.buy_upgrade(u80_HS)
+
 
 
 
@@ -1334,7 +1543,47 @@ def increase_a7_NF():
         a6_HeF_Desc.config(a6_HeF_Desc, text = a6_HeF.desc())
         temp += 1
 
+def increase_a8_NS():
+    temp = 0
+    while a8_NS.afford(game) and temp < 5:
+        a8_NS.increase(game)
+        global a8_NS_Name
+        global a8_NS_Cost
+        global a8_NS_Button
+        global a8_NS_Toggle
+        a8_NS_Name.config(a8_NS_Name, text = "Nutrient Synthesis: " + format_number(a8_NS.count, 0))
+        a8_NS_Cost.config(a8_NS_Cost, text = a8_NS.showCost())
+        productionF.update_idletasks()
+        a8_NS_Button.place(x = (a8_NS_Name.winfo_width() + LPADDING))
+        a8_NS_Toggle.place(x = (a8_NS_Name.winfo_width() + a8_NS_Button.winfo_width() + LPADDING + SPADDING))
+        temp += 1
 
+def increase_a9_HS():
+    temp = 0
+    while a9_HS.afford(game) and temp < 5:
+        a9_HS.increase(game)
+        global a9_HS_Name
+        global a9_HS_Cost
+        global a9_HS_Button
+        global a9_HS_Toggle
+        a9_HS_Name.config(a9_HS_Name, text = "Hydro Synthesis: " + format_number(a9_HS.count, 0))
+        a9_HS_Cost.config(a9_HS_Cost, text = a9_HS.showCost())
+        productionF.update_idletasks()
+        a9_HS_Button.place(x = (a9_HS_Name.winfo_width() + LPADDING))
+        a9_HS_Toggle.place(x = (a9_HS_Name.winfo_width() + a9_HS_Button.winfo_width() + LPADDING + SPADDING))
+        temp += 1
+
+def increase_a10_DNA():
+    temp = 0
+    while a10_DNA.afford(game) and temp < 5:
+        a10_DNA.increase(game)
+        global a10_DNA_Name
+        global compressor_costs
+        a10_DNA_Name.config(a10_DNA_Name, text = "DNA Manufacturers: " + format_number(a10_DNA.count, 0))
+        a10_DNA_Cost.config(a10_DNA_Cost, text = a10_DNA.showCost())
+        productionF.update_idletasks()
+        a10_DNA_Button.place(x = (a10_DNA_Name.winfo_width() + LPADDING))
+        temp += 1
 
 
 
@@ -1393,8 +1642,23 @@ def toggle_a6_HeF():
         a6_HeF.toggle = 1
         a6_HeF_Toggle.config(a6_HeF_Toggle, text = "ON")
 
+def toggle_a8_NS():
+    global a8_NS_Toggle
+    if (a8_NS.toggle == 1):
+        a8_NS.toggle = 0
+        a8_NS_Toggle.config(a8_NS_Toggle, text = "OFF")
+    else:
+        a8_NS.toggle = 1
+        a8_NS_Toggle.config(a8_NS_Toggle, text = "ON")
 
-
+def toggle_a9_HS():
+    global a9_HS_Toggle
+    if (a9_HS.toggle == 1):
+        a9_HS.toggle = 0
+        a9_HS_Toggle.config(a9_HS_Toggle, text = "OFF")
+    else:
+        a9_HS.toggle = 1
+        a9_HS_Toggle.config(a9_HS_Toggle, text = "ON")
 
 
 
@@ -2427,6 +2691,9 @@ def update_labels():
         global neutronLab
         global hydrogenLab
         global heliumLab
+        global dnaLab
+        global waterLab
+        global nutrientsLab
         global microbeLab
         global lifeL
         try:
@@ -2445,10 +2712,14 @@ def update_labels():
                 heliumLab.config(heliumLab, text = "Helium: " + format_number(game.helium, 0))
             if (dnaLab):
                 dnaLab.config(dnaLab, text = "DNA: " + format_number(game.dna, 0))
+            if (nutrientLab):
+                nutrientLab.config(nutrientLab, text = "Nutrients: " + format_number(game.nutrients, 0))
+            if (waterLab):
+                waterLab.config(waterLab, text = "Water: " + format_number(game.water, 0))
             if (microbeLab):
                 microbeLab.config(microbeLab, text = "Microbes: " + format_number(game.microbes, 0) + "\n+ " + format_number(game.microbes * game.repro_microbes, 2) + " per tick")
             if (algaeLab):
-                algaeLab.config(algaeLab, text = "Algae: " + format_number(game.algae, 0) + " + " + format_number(game.algae * game.repro_algae, 2) + "/tick")
+                algaeLab.config(algaeLab, text = "Algae: " + format_number(game.algae, 0) + "\n+ " + format_number(game.algae * game.repro_algae, 2) + " per tick")
             if (game.lifeforms > 0):
                 lifeL.config(lifeL, text = "Lifeforms: " + "{:,.0f}".format(game.lifeforms))
         except:

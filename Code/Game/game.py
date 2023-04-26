@@ -60,6 +60,8 @@ class Game:
         self.nutrients = 0
         self.water = 0
         self.mutationflag = 0
+        self.waterflag = 0
+        self.nutrientsflag = 0
     
     def get(self):
         if self is None:
@@ -116,6 +118,10 @@ class Game:
         #DNA Mutation
         if (self.mutationflag):
             self.dna += (self.microbes * 0.001)
+        if (self.waterflag):
+            self.water += (self.microbes * 0.0001)
+        if (self.nutrientsflag):
+            self.nutrients += (self.microbes * 0.0001)
         
         #Reproductions
         if (self.repro_microbes >= 0):
@@ -164,6 +170,12 @@ class Game:
                         elif a.tickcost[i][0] == "Helium" and a.calc_cost(i) <= self.helium:
                             self.helium -= a.calc_cost(i)
                             afford = True
+                        elif a.tickcost[i][0] == "Water" and a.calc_cost(i) <= self.water:
+                            self.water -= a.calc_cost(i)
+                            afford = True
+                        elif a.tickcost[i][0] == "Nutrients" and a.calc_cost(i) <= self.nutrients:
+                            self.nutrients -= a.calc_cost(i)
+                            afford = True
                 else:
                     afford = True
                 
@@ -181,6 +193,12 @@ class Game:
                         self.hydrogen += a.calc_revenue()
                     elif a.revenue[0] == "Helium":
                         self.helium += a.calc_revenue()
+                    elif a.revenue[0] == "DNA":
+                        self.dna += a.calc_revenue()
+                    elif a.revenue[0] == "Nutrients":
+                        self.nutrients += a.calc_revenue()
+                    elif a.revenue[0] == "Water":
+                        self.water += a.calc_revenue()
 
             
 
