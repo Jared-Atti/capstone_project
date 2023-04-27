@@ -436,6 +436,40 @@ i58 = Image.open(backgrounds + "\\ectothermy.png")
 i58 = i58.resize((260, 260), Image.LANCZOS)
 i60 = Image.open(backgrounds + "\\ecdysis.png")
 i60 = i60.resize((260, 260), Image.LANCZOS)
+i61 = Image.open(backgrounds + "\\helix.png")
+i61 = i61.resize((260, 260), Image.LANCZOS)
+i62 = Image.open(backgrounds + "\\mammary.png")
+i62 = i62.resize((260, 260), Image.LANCZOS)
+i63 = Image.open(backgrounds + "\\fur.png")
+i63 = i63.resize((260, 260), Image.LANCZOS)
+i64 = Image.open(backgrounds + "\\neucortex.png")
+i64 = i64.resize((260, 260), Image.LANCZOS)
+i65 = Image.open(backgrounds + "\\feathers.png")
+i65 = i65.resize((260, 260), Image.LANCZOS)
+i67 = Image.open(backgrounds + "\\vocal.png")
+i67 = i67.resize((260, 260), Image.LANCZOS)
+i69 = Image.open(backgrounds + "\\dino.png")
+i69 = i69.resize((260, 260), Image.LANCZOS)
+i70 = Image.open(backgrounds + "\\musclemass.png")
+i70 = i69.resize((260, 260), Image.LANCZOS)
+i71 = Image.open(backgrounds + "\\competition.png")
+i71 = i71.resize((260, 260), Image.LANCZOS)
+i72 = Image.open(backgrounds + "\\drift.png")
+i72 = i72.resize((260, 260), Image.LANCZOS)
+i74 = Image.open(backgrounds + "\\sacrifice.png")
+i74 = i74.resize((260, 260), Image.LANCZOS)
+i75 = Image.open(backgrounds + "\\radiation.png")
+i75 = i75.resize((260, 260), Image.LANCZOS)
+i76 = Image.open(backgrounds + "\\thumbs.png")
+i76 = i76.resize((260, 260), Image.LANCZOS)
+i77 = Image.open(backgrounds + "\\brain.png")
+i77 = i77.resize((260, 260), Image.LANCZOS)
+i78 = Image.open(backgrounds + "\\social.png")
+i78 = i78.resize((260, 260), Image.LANCZOS)
+i79 = Image.open(backgrounds + "\\tool.png")
+i79 = i79.resize((260, 260), Image.LANCZOS)
+i80 = Image.open(backgrounds + "\\homo.png")
+i80 = i80.resize((260, 260), Image.LANCZOS)
 
 def format_number(number, decimal):
     if number < 1000000000:
@@ -1213,6 +1247,9 @@ def buy_27_GM():
     u27_GM.active = 2
     root.after(100)
     destroyUpgradeButton(u27_GM_Button, u27_GM)
+    ozone = ImageTk.PhotoImage(i14)
+    VisualLab.config(image = ozone)
+    VisualLab.image = ozone
     global dnaLab
     dnaLab = createResourceLabel(dnaLab, game.dna, "DNA")
     printMessage("Wow! Now you get DNA just for the amount of lifeforms you have! How cool!")
@@ -1227,6 +1264,9 @@ def buy_28_MA():
     root.after(100)
     destroyUpgradeButton(u28_MA_Button, u28_MA)
     printMessage("Yay Water! Thank goodness, I was getting parched...")
+    water1 = ImageTk.PhotoImage(i28)
+    VisualLab.config(image = water1)
+    VisualLab.image = water1
     global waterLab
     global u33_AM_Button
     waterLab = createResourceLabel(waterLab, game.water, "Water")
@@ -1238,6 +1278,9 @@ def buy_29_AR():
     u29_AR.active = 2
     root.after(100)
     destroyUpgradeButton(u29_AR_Button, u29_AR)
+    asex = ImageTk.PhotoImage(i29)
+    VisualLab.config(image = asex)
+    VisualLab.image = asex
     printMessage("Microbes now know how to reproduce by themselves! We're not gonna get anymore descriptive than that...")
     global u35_FL_Button
     u35_FL_Button = createUpgradeButton(u35_FL_Button, u35_FL, buy_35_FL)
@@ -1249,6 +1292,9 @@ def buy_30_MC():
     u30_MC.active = 2
     root.after(100)
     destroyUpgradeButton(u30_MC_Button, u30_MC)
+    multi = ImageTk.PhotoImage(i30)
+    VisualLab.config(image = multi)
+    VisualLab.image = multi
     printMessage("Oh look! A new Automator! I bet it works just like the old ones did.")
     global a10_DNA_Button
     global a10_DNA_Name
@@ -1268,6 +1314,9 @@ def buy_31_MP():
     u31_MP.active = 2
     root.after(100)
     destroyUpgradeButton(u31_MP_Button, u31_MP)
+    mp = ImageTk.PhotoImage(i31)
+    VisualLab.config(image = mp)
+    VisualLab.image = mp
     printMessage("Another resource?!? Microbes also passively generate it!")
     global nutrientLab
     global u32_PS_Button
@@ -1280,6 +1329,9 @@ def buy_32_PS():
     u32_PS.active = 2
     root.after(100)
     destroyUpgradeButton(u32_PS_Button, u32_PS)
+    photo = ImageTk.PhotoImage(i32)
+    VisualLab.config(image = photo)
+    VisualLab.image = photo
     printMessage("A automator for Nutrients! Sweet! But wheres the Water automator?....")
     global a8_NS_Button
     global a8_NS_Name
@@ -1302,6 +1354,9 @@ def buy_33_AM():
     u33_AM.active = 2
     root.after(100)
     destroyUpgradeButton(u33_AM_Button, u33_AM)
+    water2 = ImageTk.PhotoImage(i33)
+    VisualLab.config(image = water2)
+    VisualLab.image = water2
     printMessage("Oh! There it is! The Water Automator! Or what we like to call it, the Watermator!!!")
     global a9_HS_Button
     global a9_HS_Name
@@ -1324,6 +1379,9 @@ def buy_34_DA():
     global u34_DA_Button
     u34_DA.active = 2
     root.after(100)
+    dnaamp = ImageTk.PhotoImage(i34)
+    VisualLab.config(image = dnaamp)
+    VisualLab.image = dnaamp
     printMessage("Your DNA Automator kicks into second gear and really amps up the production!")
     destroyUpgradeButton(u34_DA_Button, u34_DA)
     global a10_DNA_Desc
@@ -1337,6 +1395,9 @@ def buy_35_FL():
     global u35_FL_Button
     u35_FL.active = 2
     root.after(100)
+    flagella = ImageTk.PhotoImage(i35)
+    VisualLab.config(image = flagella)
+    VisualLab.image = flagella
     printMessage("Your microbes reproduction rate has increased with the evolution of flagella!")
     destroyUpgradeButton(u35_FL_Button, u35_FL)
     global u38_BP_Button
@@ -1348,6 +1409,9 @@ def buy_36_CP():
     global u36_CP_Button
     u36_CP.active = 2
     root.after(100)
+    chlor = ImageTk.PhotoImage(i36)
+    VisualLab.config(image = chlor)
+    VisualLab.image = chlor
     printMessage("Your lifeforms now have Chloroplasts! This improves their nutrients production!")
     destroyUpgradeButton(u36_CP_Button, u36_CP)
     global a8_NS_Desc
@@ -1361,6 +1425,9 @@ def buy_37_MC():
     global u37_MC_Button
     u37_MC.active = 2
     root.after(100)
+    mito = ImageTk.PhotoImage(i37)
+    VisualLab.config(image = mito)
+    VisualLab.image = mito
     printMessage("The Powerhouse of the Cell! Watermator ups its production!!")
     destroyUpgradeButton(u37_MC_Button, u37_MC)
     global a9_HS_Desc
@@ -1373,6 +1440,9 @@ def buy_38_BP():
     global u38_BP_Button
     u38_BP.active = 2
     root.after(100)
+    biofilm = ImageTk.PhotoImage(i38)
+    VisualLab.config(image = biofilm)
+    VisualLab.image = biofilm
     printMessage("Your microbes have devloped Biofilm! Their reproduction rate increased dramastically!")
     destroyUpgradeButton(u38_BP_Button, u38_BP)
 
@@ -1393,6 +1463,9 @@ def buy_40_OX():
     global u40_OX_Button
     u40_OX.active = 2
     root.after(100)
+    water3 = ImageTk.PhotoImage(i40)
+    VisualLab.config(image = water3)
+    VisualLab.image = water3
     printMessage("Woah where did all this Oxygen come from?!? I think its time for some more complex species....")
     destroyUpgradeButton(u40_OX_Button, u40_OX)
     global a9_HS_Desc
@@ -1404,6 +1477,9 @@ def buy_41_DF():
     u41_DF.active = 2
     root.after(100)
     destroyUpgradeButton(u41_DF_Button, u41_DF)
+    diff = ImageTk.PhotoImage(i41)
+    VisualLab.config(image = diff)
+    VisualLab.image = diff
     printMessage("You thought microbes were cool? Just wait...")
     global u42_SY_Button
     global u43_DT_Button
@@ -1425,6 +1501,9 @@ def buy_42_SY():
     u42_SY.active = 2
     root.after(100)
     destroyUpgradeButton(u42_SY_Button, u42_SY)
+    sym = ImageTk.PhotoImage(i42)
+    VisualLab.config(image = sym)
+    VisualLab.image = sym
     printMessage("You can now see how different species interact together! Go on, give it a try!")
     symbiosisF = Frame(mainframe, relief = RAISED, bd = 5, bg = "white", height = 30, width = 300)
     symbiosisF.place(x = VISUAL_COLUMN_X, y = TOP_Y + 300 + PADDING)
@@ -1436,6 +1515,9 @@ def buy_43_DT():
     global u43_DT_Button
     u43_DT.active = 2
     root.after(100)
+    diatoms = ImageTk.PhotoImage(i43)
+    VisualLab.config(image = diatoms)
+    VisualLab.image = diatoms
     destroyUpgradeButton(u43_DT_Button, u43_DT)
     printMessage("Looky there! A new species has been discovered!")
     global u44_AB_Button
@@ -1446,6 +1528,9 @@ def buy_44_AB():
     global u44_AB_Button
     u44_AB.active = 2
     root.after(100)
+    blooms = ImageTk.PhotoImage(i44)
+    VisualLab.config(image = blooms)
+    VisualLab.image = blooms
     destroyUpgradeButton(u44_AB_Button, u44_AB)
     printMessage("Plants are starting to sprout everywhere! Keep it going!")
     global u45_MT_Button
@@ -1455,7 +1540,6 @@ def buy_45_MT():
     game.buy_upgrade(u45_MT)
     global u45_MT_Button
     u45_MT.active = 2
-    root.after(100)
     destroyUpgradeButton(u45_MT_Button, u45_MT)
     printMessage("These Plants just won't stop reproducing! We arent upset about it though, keep it up!")
 
@@ -1464,6 +1548,10 @@ def buy_46_OL():
     global u46_OL_Button
     u46_OL.active = 2
     root.after(100)
+    root.after(100)
+    ozone = ImageTk.PhotoImage(i46)
+    VisualLab.config(image = ozone)
+    VisualLab.image = ozone
     destroyUpgradeButton(u46_OL_Button, u46_OL)
     printMessage("What's this new layer in the sky? I wonder if we can leave the water now?")
     global u47_ES_Button
@@ -1474,6 +1562,9 @@ def buy_47_ES():
     global u47_ES_Button
     u47_ES.active = 2
     root.after(100)
+    eco = ImageTk.PhotoImage(i47)
+    VisualLab.config(image = eco)
+    VisualLab.image = eco
     destroyUpgradeButton(u47_ES_Button, u47_ES)
     printMessage("Your species are beginning to claim their own land and are creating ecosystems! How Cool!")
     ecosystemF = Frame(mainframe, relief = RAISED, bd = 5, bg = "white", height = 100, width = LEFT_COLUMN_WIDTH)
@@ -1486,6 +1577,9 @@ def buy_48_NS():
     global u48_NS_Button
     u48_NS.active = 2
     root.after(100)
+    nervous = ImageTk.PhotoImage(i48)
+    VisualLab.config(image = nervous)
+    VisualLab.image = nervous
     destroyUpgradeButton(u48_NS_Button, u48_NS)
     printMessage("FISH ARE FRIENDS, NOT FOOD.")
     global u49_ES_Button
@@ -1506,6 +1600,9 @@ def buy_50_SB():
     global u50_SB_Button
     u50_SB.active = 2
     root.after(100)
+    swim = ImageTk.PhotoImage(i50)
+    VisualLab.config(image = swim)
+    VisualLab.image = swim
     destroyUpgradeButton(u50_SB_Button, u50_SB)
     printMessage("A swim bladder? Yeah sure sounds useful!")
 
@@ -1514,6 +1611,9 @@ def buy_51_EX():
     global u51_EX_Button
     u51_EX.active = 2
     root.after(100)
+    exo = ImageTk.PhotoImage(i51)
+    VisualLab.config(image = exo)
+    VisualLab.image = exo
     destroyUpgradeButton(u51_EX_Button, u51_EX)
     printMessage("Ew did we really need to add insects... alright fine.")
     global u52_MM_Button
@@ -1524,6 +1624,9 @@ def buy_52_MM():
     global u52_MM_Button
     u52_MM.active = 2
     root.after(100)
+    meta = ImageTk.PhotoImage(i52)
+    VisualLab.config(image = meta)
+    VisualLab.image = meta
     destroyUpgradeButton(u52_MM_Button, u52_MM)
     printMessage("Meta What? They can Morph?!?")
     global u53_IW_Button
@@ -1534,6 +1637,9 @@ def buy_53_IW():
     global u53_IW_Button
     u53_IW.active = 2
     root.after(100)
+    wings = ImageTk.PhotoImage(i53)
+    VisualLab.config(image = wings)
+    VisualLab.image = wings
     destroyUpgradeButton(u53_IW_Button, u53_IW)
     printMessage("You're gonna let them FLY??? oh we're doomed....")
 
@@ -1542,6 +1648,9 @@ def buy_54_OP():
     global u54_OP_Button
     u54_OP.active = 2
     root.after(100)
+    ovi = ImageTk.PhotoImage(i54)
+    VisualLab.config(image = ovi)
+    VisualLab.image = ovi
     destroyUpgradeButton(u54_OP_Button, u54_OP)
     printMessage("Another Species, I wonder how many there are?")
     global u55_LL_Button
@@ -1552,6 +1661,9 @@ def buy_55_LL():
     global u55_LL_Button
     u55_LL.active = 2
     root.after(100)
+    lungs = ImageTk.PhotoImage(i55)
+    VisualLab.config(image = lungs)
+    VisualLab.image = lungs
     destroyUpgradeButton(u55_LL_Button, u55_LL)
     printMessage("Increased the movement and breathing of amphibians!")
     global u56_IF_Button
@@ -1586,6 +1698,9 @@ def buy_58_ET():
     global u58_ET_Button
     u58_ET.active = 2
     root.after(100)
+    ecto = ImageTk.PhotoImage(i58)
+    VisualLab.config(image = ecto)
+    VisualLab.image = ecto
     destroyUpgradeButton(u58_ET_Button, u58_ET)
     printMessage("Reptiles are able to regulate body temperature by basking in the sun! Neat!")
     global u59_RS_Button
@@ -1606,6 +1721,9 @@ def buy_60_EC():
     global u60_EC_Button
     u60_EC.active = 2
     root.after(100)
+    ecdy = ImageTk.PhotoImage(i60)
+    VisualLab.config(image = ecdy)
+    VisualLab.image = ecdy
     destroyUpgradeButton(u60_EC_Button, u60_EC)
     printMessage("Did that reptile just shed off its skin? yes... yes it did.")
 
@@ -1615,6 +1733,9 @@ def buy_61_DH():
     global u61_DH_Button
     u61_DH.active = 2
     root.after(100)
+    helix = ImageTk.PhotoImage(i61)
+    VisualLab.config(image = helix)
+    VisualLab.image = helix
     printMessage("You are a Master of DNA! Watch that DNA number sky rocket!!!")
     destroyUpgradeButton(u61_DH_Button, u61_DH)
     global a10_DNA_Desc
@@ -1625,6 +1746,9 @@ def buy_62_MG():
     global u62_MG_Button
     u62_MG.active = 2
     root.after(100)
+    mam = ImageTk.PhotoImage(i62)
+    VisualLab.config(image = mam)
+    VisualLab.image = mam
     destroyUpgradeButton(u62_MG_Button, u62_MG)
     printMessage("A new Species! and it can produce milk for offspring! Interesting...")
     global u63_FUR_Button
@@ -1635,6 +1759,9 @@ def buy_63_FUR():
     global u63_FUR_Button
     u63_FUR.active = 2
     root.after(100)
+    fur = ImageTk.PhotoImage(i63)
+    VisualLab.config(image = fur)
+    VisualLab.image = fur
     destroyUpgradeButton(u63_FUR_Button, u63_FUR)
     printMessage("Mammals now produce fur to keep themselves warm during the winter!")
     global u64_NC_Button
@@ -1645,6 +1772,9 @@ def buy_64_NC():
     global u64_NC_Button
     u64_NC.active = 2
     root.after(100)
+    neu = ImageTk.PhotoImage(i64)
+    VisualLab.config(image = neu)
+    VisualLab.image = neu
     destroyUpgradeButton(u64_NC_Button, u64_NC)
     printMessage("Mammals have improving cognitive functions and are beginning to be able to problem solve!")
 
@@ -1653,6 +1783,9 @@ def buy_65_FF():
     global u65_FF_Button
     u65_FF.active = 2
     root.after(100)
+    feathers = ImageTk.PhotoImage(i65)
+    VisualLab.config(image = feathers)
+    VisualLab.image = feathers
     destroyUpgradeButton(u65_FF_Button, u65_FF)
     printMessage("More flying species?? Hopefully they'll contain those annoying insects.")
     global u66_BT_Button
@@ -1673,6 +1806,9 @@ def buy_67_VC():
     global u67_VC_Button
     u67_VC.active = 2
     root.after(100)
+    vocal = ImageTk.PhotoImage(i67)
+    VisualLab.config(image = vocal)
+    VisualLab.image = vocal
     destroyUpgradeButton(u67_VC_Button, u67_VC)
     printMessage("Birds gain unique vocals and coloration to attract mates or warn others of predators! Way to look out for each other!")
 
@@ -1693,6 +1829,9 @@ def buy_69_DI():
     global u69_DI_Button
     u69_DI.active = 2
     root.after(100)
+    dino = ImageTk.PhotoImage(i69)
+    VisualLab.config(image = dino)
+    VisualLab.image = dino
     destroyUpgradeButton(u69_DI_Button, u69_DI)
     printMessage("This is the 69th upgrade in the game! nice. oh... also... dinosaurs")
     global u70_IMM_Button
@@ -1703,6 +1842,9 @@ def buy_70_IMM():
     global u70_IMM_Button
     u70_IMM.active = 2
     root.after(100)
+    mass = ImageTk.PhotoImage(i70)
+    VisualLab.config(image = mass)
+    VisualLab.image = mass
     destroyUpgradeButton(u70_IMM_Button, u70_IMM)
     printMessage("Those Dinosaurs are getting big! Look at those muscles!")
     global u71_CD_Button
@@ -1713,6 +1855,9 @@ def buy_71_CD():
     global u71_CD_Button
     u71_CD.active = 2
     root.after(100)
+    comp = ImageTk.PhotoImage(i71)
+    VisualLab.config(image = comp)
+    VisualLab.image = comp
     destroyUpgradeButton(u71_CD_Button, u71_CD)
     printMessage("Dinosaurs form groups consisting of carnivores and herbivores to increase their survival chances!")
     global u74_SD_Button
@@ -1723,6 +1868,9 @@ def buy_72_CD():
     global u72_CD_Button
     u72_CD.active = 2
     root.after(100)
+    drift = ImageTk.PhotoImage(i72)
+    VisualLab.config(image = drift)
+    VisualLab.image = drift
     destroyUpgradeButton(u72_CD_Button, u72_CD)
     printMessage("The Earths land is beginning to move and form seperate land masses.")
 
@@ -1739,6 +1887,9 @@ def buy_74_SD():
     global u74_SD_Button
     u74_SD.active = 2
     root.after(100)
+    bye = ImageTk.PhotoImage(i74)
+    VisualLab.config(image = bye)
+    VisualLab.image = bye
     destroyUpgradeButton(u74_SD_Button, u74_SD)
     printMessage("Asteriod INCOMING!!!")
     global u75_ER_Button
@@ -1752,6 +1903,9 @@ def buy_75_ER():
     global u75_ER_Button
     u75_ER.active = 2
     root.after(100)
+    rad = ImageTk.PhotoImage(i75)
+    VisualLab.config(image = rad)
+    VisualLab.image = rad
     printMessage("The Dinosaurs have sadly met their end, but not without food reason...")
     destroyUpgradeButton(u75_ER_Button, u75_ER)
     global a10_DNA_Desc
@@ -1762,6 +1916,9 @@ def buy_76_OT():
     global u76_OT_Button
     u76_OT.active = 2
     root.after(100)
+    thumb = ImageTk.PhotoImage(i76)
+    VisualLab.config(image = thumb)
+    VisualLab.image = thumb
     destroyUpgradeButton(u76_OT_Button, u76_OT)
     printMessage("A new species has been discovered! This one can stand on two legs and has hands that can grab.")
     global u77_IBS_Button
@@ -1772,6 +1929,9 @@ def buy_77_IBS():
     global u77_IBS_Button
     u77_IBS.active = 2
     root.after(100)
+    brain = ImageTk.PhotoImage(i77)
+    VisualLab.config(image = brain)
+    VisualLab.image = brain
     destroyUpgradeButton(u77_IBS_Button, u77_IBS)
     printMessage("Primates are beginning to experience complex brain development, I wonder how far they will go?")
     global u78_SC_Button
@@ -1782,6 +1942,9 @@ def buy_78_SC():
     global u78_SC_Button
     u78_SC.active = 2
     root.after(100)
+    social = ImageTk.PhotoImage(i78)
+    VisualLab.config(image = social)
+    VisualLab.image = social
     destroyUpgradeButton(u78_SC_Button, u78_SC)
     printMessage("Primates evolve even more and begin working together to solve survival problems.")
     global u79_TU_Button
@@ -1792,6 +1955,9 @@ def buy_79_TU():
     global u79_TU_Button
     u79_TU.active = 2
     root.after(100)
+    tool = ImageTk.PhotoImage(i79)
+    VisualLab.config(image = tool)
+    VisualLab.image = tool
     destroyUpgradeButton(u79_TU_Button, u79_TU)
     printMessage("Primates have evolved and gained the knowledge of creating different kinds of tools.")
     global u80_HS_Button
@@ -1802,6 +1968,9 @@ def buy_80_HS():
     global u80_HS_Button
     u80_HS.active = 2
     root.after(100)
+    homo = ImageTk.PhotoImage(i80)
+    VisualLab.config(image = homo)
+    VisualLab.image = homo
     destroyUpgradeButton(u80_HS_Button, u80_HS)
     printMessage("You won the Game! You created the first Human!")
 
