@@ -157,42 +157,42 @@ class Nuclear_Fusion(Automator):
 
 class Nutrient_Synthesis(Automator):
     def __init__(self):
-        super().__init__("Nutrient Synthesis ", ("DNA", 10), ("Nutrients", 1), [("Water", 1)])
+        super().__init__("Nutrient Synthesis ", ("Innovation", 100), ("Nutrients", 1), [("Water", 1)])
     
     def afford(self, game):
-        if game.dna >= self.upcost[1]:
+        if game.innovation >= self.upcost[1]:
             return True
     
     def increase(self, game):
         if self.afford(game):
-            game.dna -= self.upcost[1]
+            game.innovation -= self.upcost[1]
             self.upcost = (self.upcost[0], round(self.upcost[1] * 1.25))
             self.count += 1
     
 class Hydro_Synthesis(Automator):
     def __init__(self):
-        super().__init__("Hydro Synthesis ", ("DNA", 10), ("Water", 1), [("Nutrients", 1)])
+        super().__init__("Hydro Synthesis ", ("Innovation", 100), ("Water", 1), [("Nutrients", 1)])
     
     def afford(self, game):
-        if game.dna >= self.upcost[1]:
+        if game.innovation >= self.upcost[1]:
             return True
     
     def increase(self, game):
         if self.afford(game):
-            game.dna -= self.upcost[1]
+            game.innovation -= self.upcost[1]
             self.upcost = (self.upcost[0], round(self.upcost[1] * 1.25))
             self.count += 1
     
 class DNA_Manufacturer(Automator):
     def __init__(self):
-        super().__init__("DNA Manufacturers ",  ("DNA", 10), ("DNA", 1), None)
+        super().__init__("DNA Manufacturers ",  ("Innovation", 100), ("DNA", 1), None)
     
     def afford(self, game):
-        if game.dna >= self.upcost[1]:
+        if game.innovation >= self.upcost[1]:
             return True
     
     def increase(self, game):
         if self.afford(game):
-            game.dna -= self.upcost[1]
+            game.innovation -= self.upcost[1]
             self.upcost = (self.upcost[0], round(self.upcost[1] * 1.25))
             self.count += 1

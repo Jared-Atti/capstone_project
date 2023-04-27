@@ -1019,17 +1019,25 @@ class Tetrapods(Upgrade):
             game.amphibians -= 5000
             game.purchasedupgrades += self.name
             self.active = 2
+            game.repro_fish *= 1.1
+            game.repro_plants *= 1.1
+            game.repro_insects *= 1.1
+            game.repro_amphibians *= 1.1
 
 class Ectothermy(Upgrade):
     def __init__(self):
-        super().__init__("Ectothermy ", [("", 0)], "Some animals evolve to have the ability to regulate body temperature through basking in the sun and other external heat sources. Unlocks reptiles.")
+        super().__init__("Ectothermy ", [("Amphibians", 10000), ("Fish", 10000), ("DNA", 150000), ("Time", 5000)], "Some animals evolve to have the ability to regulate body temperature through basking in the sun and other external heat sources. Unlocks reptiles.")
     
     def afford(self, game):
-        if game.dna >= 50:
+        if game.dna >= 150000 and game.amphibians >= 10000 and game.fish >= 10000 and game.time >= 5000:
             return True
     
     def purchase(self, game):
         if self.afford(game):
+            game.dna -= 150000
+            game.amphibians -= 10000
+            game.fish -= 10000
+            game.time -= 5000
             game.purchasedupgrades += self.name
             self.active = 2
             game.reptiles = 1
@@ -1043,14 +1051,17 @@ class Ectothermy(Upgrade):
 
 class Reptilian_Scales(Upgrade):
     def __init__(self):
-        super().__init__("Reptilian Scales ", [("", 0)], "Reptiles gain the ability to grow scales, providing protection against predators and harsh environments.")
+        super().__init__("Reptilian Scales ", [("Reptiles", 50), ("DNA", 200000), ("Nutrients", 200000)], "Reptiles gain the ability to grow scales, providing protection against predators and harsh environments.")
     
     def afford(self, game):
-        if game.dna >= 50:
+        if game.reptiles >= 50 and game.dna >= 200000 and game.nutrients >= 200000:
             return True
     
     def purchase(self, game):
         if self.afford(game):
+            game.reptiles -= 50
+            game.dna -= 200000
+            game.nutrients -= 200000
             game.purchasedupgrades += self.name
             self.active = 2
             game.repro_reptiles *= 2
@@ -1063,14 +1074,17 @@ class Reptilian_Scales(Upgrade):
 
 class Ecdysis(Upgrade):
     def __init__(self):
-        super().__init__("Ecdysis ", [("", 0)], "Reptiles gain the ability to shed their skin to facilitate growth and remove parasites, improving health and survival rates.")
+        super().__init__("Ecdysis ", [("Reptiles", 500), ("DNA", 300000), ("Nutrients", 300000)], "Reptiles gain the ability to shed their skin to facilitate growth and remove parasites, improving health and survival rates.")
     
     def afford(self, game):
-        if game.dna >= 50:
+         if game.reptiles >= 500 and game.dna >= 300000 and game.nutrients >= 300000:
             return True
     
     def purchase(self, game):
         if self.afford(game):
+            game.reptiles -= 50
+            game.dna -= 200000
+            game.nutrients -= 200000
             game.purchasedupgrades += self.name
             self.active = 2
             game.repro_reptiles *= 3
@@ -1083,30 +1097,37 @@ class Ecdysis(Upgrade):
 
 class Double_Helix_Master(Upgrade):
     def __init__(self):
-        super().__init__("Double Helix Master ", [("", 0)], "DNA automators kick into a higher gear and begin processing faster and more efficiently.")
+        super().__init__("Double Helix Master ", [("DNA", 2000000), ("Nutrients", 1000000), ("Water", 1000000)], "DNA automators kick into a higher gear and begin processing faster and more efficiently.")
     
     def afford(self, game):
-        if game.dna >= 50:
+        if game.dna >= 2000000 and game.nutrients >= 1000000 and game.water >= 1000000:
             return True
     
     def purchase(self, game, autos):
         if self.afford(game):
+            game.dna -= 2000000
+            game.nutrients -= 1000000
+            game.water -= 1000000
             game.purchasedupgrades += self.name
             self.active = 2
-            autos[0].revenue = (autos[0].revenue[0], autos[0].revenue[1] * 5000)
+            autos[0].revenue = (autos[0].revenue[0], autos[0].revenue[1] * 500)
             return autos[0]
 
 
 class Mammary_Glands(Upgrade):
     def __init__(self):
-        super().__init__("Mammary Glands ", [("", 0)], "Some animals develop the ability to produce milk to feed offspring. Unlocks mammals.")
+        super().__init__("Mammary Glands ", [("Plants", 10000), ("Amphibians", 10000), ("DNA", 150000), ("Time", 5000)], "Some animals develop the ability to produce milk to feed offspring. Unlocks mammals.")
     
     def afford(self, game):
-        if game.dna >= 50:
+        if game.dna >= 150000 and game.plants >= 10000 and game.amphibians >= 10000 and game.time >= 5000:
             return True
     
     def purchase(self, game):
         if self.afford(game):
+            game.dna -= 150000
+            game.plants -= 10000
+            game.amphibians -= 10000
+            game.time -= 5000
             game.purchasedupgrades += self.name
             self.active = 2
             game.mammals = 1
@@ -1120,14 +1141,18 @@ class Mammary_Glands(Upgrade):
 
 class Fur(Upgrade):
     def __init__(self):
-        super().__init__("Fur ", [("", 0)], "Mammals start growing fur, providing insulation and protection from the environemnt, improving their survival rates.")
+        super().__init__("Fur ", [("Mammals", 50), ("DNA", 200000), ("Nutrients", 100000), ("Water", 100000)], "Mammals start growing fur, providing insulation and protection from the environemnt, improving their survival rates.")
     
     def afford(self, game):
-        if game.dna >= 50:
+        if game.mammals >= 50 and game.dna >= 200000 and game.nutrients >= 100000 and game.water >= 100000:
             return True
     
     def purchase(self, game):
         if self.afford(game):
+            game.mammals -= 50
+            game.dna -= 200000
+            game.nutrients -= 100000
+            game.water -= 100000
             game.purchasedupgrades += self.name
             self.active = 2
             game.repro_mammals *= 2
@@ -1140,14 +1165,18 @@ class Fur(Upgrade):
 
 class Neucortex(Upgrade):
     def __init__(self):
-        super().__init__("Neucortex ", [("", 0)], "Mammals begin showing early signs of unlocking higher cognitive functions, such as problem-solving, decision-making, and social interaction.")
+        super().__init__("Neucortex ", [("Mammals", 500), ("DNA", 300000), ("Nutrients", 100000), ("Water", 200000)], "Mammals begin showing early signs of unlocking higher cognitive functions, such as problem-solving, decision-making, and social interaction.")
     
     def afford(self, game):
-        if game.dna >= 50:
+         if game.mammals >= 500 and game.dna >= 300000 and game.nutrients >= 100000 and game.water >= 200000:
             return True
     
     def purchase(self, game):
         if self.afford(game):
+            game.mammals -= 500
+            game.dna -= 300000
+            game.nutrients -= 100000
+            game.water -= 200000
             game.purchasedupgrades += self.name
             self.active = 2
             game.repro_mammals *= 3
@@ -1160,14 +1189,18 @@ class Neucortex(Upgrade):
 
 class Flight_Feathers(Upgrade):
     def __init__(self):
-        super().__init__("Flight Feathers ", [("", 0)], "Some animals evolve to grow feathered wings permitting them to fly. Unlocks birds.")
+        super().__init__("Flight Feathers ", [("Fish", 10000), ("Insects", 10000), ("DNA", 150000), ("Time", 5000)], "Some animals evolve to grow feathered wings permitting them to fly. Unlocks birds.")
     
     def afford(self, game):
-        if game.dna >= 50:
+        if game.dna >= 150000 and game.fish >= 10000 and game.insects >= 10000 and game.time >= 5000:
             return True
     
     def purchase(self, game):
         if self.afford(game):
+            game.dna -= 150000
+            game.fish -= 10000
+            game.insects -= 10000
+            game.time -= 5000
             game.purchasedupgrades += self.name
             self.active = 2
             game.birds = 1
@@ -1181,14 +1214,17 @@ class Flight_Feathers(Upgrade):
 
 class Beaks_and_Talons(Upgrade):
     def __init__(self):
-        super().__init__("Beaks and Talons ", [("", 0)], "Birds evolve to have varying shaped beaks and talons, allowing for easier collection of food and self-defense.")
+        super().__init__("Beaks and Talons ", [("Birds", 50), ("DNA", 200000), ("Water", 200000)], "Birds evolve to have varying shaped beaks and talons, allowing for easier collection of food and self-defense.")
     
     def afford(self, game):
-        if game.dna >= 50:
+        if game.birds >= 50 and game.dna >= 200000 and game.water >= 200000:
             return True
     
     def purchase(self, game):
         if self.afford(game):
+            game.birds -= 50
+            game.dna -= 200000
+            game.water -= 200000
             game.purchasedupgrades += self.name
             self.active = 2
             game.repro_birds *= 2
@@ -1201,14 +1237,17 @@ class Beaks_and_Talons(Upgrade):
 
 class Vocalization_and_Coloration(Upgrade):
     def __init__(self):
-        super().__init__("Vocalization and Coloration ", [("", 0)], "Birds develop unique colorations and adopt vocal communication to attract mates and warn of danger.")
+        super().__init__("Vocalization and Coloration ", [("Birds", 500), ("DNA", 300000), ("Water", 300000)], "Birds develop unique colorations and adopt vocal communication to attract mates and warn of danger.")
     
     def afford(self, game):
-        if game.dna >= 50:
+        if game.birds >= 500 and game.dna >= 300000 and game.water >= 300000:
             return True
     
     def purchase(self, game):
         if self.afford(game):
+            game.birds -= 500
+            game.dna -= 300000
+            game.water -= 300000
             game.purchasedupgrades += self.name
             self.active = 2
             game.repro_birds *= 3
@@ -1221,7 +1260,7 @@ class Vocalization_and_Coloration(Upgrade):
 
 class Adaptability(Upgrade):
     def __init__(self):
-        super().__init__("Adaptability ", [("", 0)], "Increases in adaptability of all species allows animals to thrive in different environments and social dynamics. Effects of symbiosis is amplified as a result.")
+        super().__init__("Adaptability ", [("DNA", 100000000), ("Time", 10000)], "Increases in adaptability of all species allows animals to thrive in different environments and social dynamics. Effects of symbiosis is amplified as a result.")
     
     def afford(self, game):
         if game.dna >= 50:
@@ -1229,19 +1268,26 @@ class Adaptability(Upgrade):
     
     def purchase(self, game):
         if self.afford(game):
+            game.repro_mammals *= 1.1
+            game.repro_reptiles *= 1.1
+            game.repro_birds *= 1.1
             game.purchasedupgrades += self.name
             self.active = 2
 
 class Dinosaurs(Upgrade):
     def __init__(self):
-        super().__init__("Dinosaurs ", [("", 0)], "Early signs of the dinosaurs begin to arise as animals develop bipedalism and exhibit rapid muscle growth, becoming immense in size in a short period of time.")
+        super().__init__("Dinosaurs ", [("Reptiles", 5000), ("Birds", 5000), ("Mammals", 5000), ("DNA", 50000000)], "Early signs of the dinosaurs begin to arise as animals develop bipedalism and exhibit rapid muscle growth, becoming immense in size in a short period of time.")
     
     def afford(self, game):
-        if game.dna >= 50:
+        if game.dna >= 50000000 and game.reptiles >= 5000 and game.birds >= 5000 and game.mammals >= 5000:
             return True
     
     def purchase(self, game):
         if self.afford(game):
+            game.dna -= 50000000
+            game.reptiles -= 5000
+            game.birds -= 5000
+            game.mammals -= 5000
             game.purchasedupgrades += self.name
             self.active = 2
             game.dinosaurs = 1
@@ -1252,70 +1298,86 @@ class Dinosaurs(Upgrade):
 
 class Increased_Muscle_Mass(Upgrade):
     def __init__(self):
-        super().__init__("Increased Muscle Mass ", [("", 0)], "Dinosaurs further build more muscle mass. Massive lifeforms begin roaming the Earth.")
+        super().__init__("Increased Muscle Mass ", [("Dinosaurs", 10000), ("Nutrients", 10000000), ("DNA", 75000000)], "Dinosaurs further build more muscle mass. Massive lifeforms begin roaming the Earth.")
     
     def afford(self, game):
-        if game.dna >= 50:
+        if game.dinosaurs >= 10000 and game.nutrients >= 10000000 and game.dna >= 75000000:
             return True
     
     def purchase(self, game):
         if self.afford(game):
             game.purchasedupgrades += self.name
             self.active = 2
-            game.repro_dinosaurs *= 2
+            game.dinosaurs -= 10000
+            game.nutrients -= 10000000
+            game.dna -= 75000000
+            game.repro_dinosaurs *= 3
             game.repro_mammals *= 1.2
             game.repro_reptiles *= 1.2
             game.repro_birds *= 1.2
 
 class Competition_and_Cooperation(Upgrade):
     def __init__(self):
-        super().__init__("Competition and Cooperation ", [("", 0)], "Herbivores and carnivore dinosaurs form social dynamics to improve their chances of survival.")
+        super().__init__("Competition and Cooperation ", [("Dinosaurs", 50000), ("Water", 10000000), ("DNA", 100000000)], "Herbivores and carnivore dinosaurs form social dynamics to improve their chances of survival.")
     
     def afford(self, game):
-        if game.dna >= 50:
+        if game.dinosaurs >= 50000 and game.water >= 10000000 and game.dna >= 100000000:
             return True
     
     def purchase(self, game):
         if self.afford(game):
+            game.dinosaurs -= 50000
+            game.water -= 10000000
+            game.dna -= 100000000
             game.purchasedupgrades += self.name
             self.active = 2
-            game.repro_dinosaurs *= 3
+            game.repro_dinosaurs *= 4
             game.repro_mammals *= 1.2
             game.repro_reptiles *= 1.2
             game.repro_birds *= 1.2
 
 class Continental_Drift(Upgrade):
     def __init__(self):
-        super().__init__("Continental Drift ", [("", 0)], "Over time, continents drift more closer and farther apart, landmasses are seperated and new environments are created. Animal diversity is boosted.")
+        super().__init__("Continental Drift ", [("Time", 20000)], "Over time, continents drift more closer and farther apart, landmasses are seperated and new environments are created. Animal diversity is boosted.")
     
     def afford(self, game):
-        if game.dna >= 50:
+        if game.time >= 20000:
             return True
     
     def purchase(self, game):
         if self.afford(game):
+            game.time -= 20000
+            game.repro_dinosaurs *= 1.2
+            game.repro_mammals *= 1.2
+            game.repro_reptiles *= 1.2
+            game.repro_birds *= 1.2
             game.purchasedupgrades += self.name
             self.active = 2
 
 class Climate_Stabilization(Upgrade):
     def __init__(self):
-        super().__init__("Climate Stabilization ", [("", 0)], "Climate change on Earth begin to stabilize over several million years of drastic cycles in preperation for a new form of life to come.")
+        super().__init__("Climate Stabilization ", [("Time", 20000)], "Climate change on Earth begin to stabilize over several million years of drastic cycles in preperation for a new form of life to come.")
     
     def afford(self, game):
-        if game.dna >= 50:
+        if game.time >= 20000:
             return True
     
     def purchase(self, game):
         if self.afford(game):
+            game.time -= 20000
+            game.repro_dinosaurs *= 1.2
+            game.repro_mammals *= 1.2
+            game.repro_reptiles *= 1.2
+            game.repro_birds *= 1.2
             game.purchasedupgrades += self.name
             self.active = 2
 
 class Sacrifice_The_Dinosaurs(Upgrade):
     def __init__(self):
-        super().__init__("Sacrifice the Dinosaurs. ", [("", 0)], "A large asteroid is soon to collide with the Earth, causing massive devastation and leading to the extinction of the dinosaurs. This tragedy is unnavoidable, and may just be the necessary to achieving a higher intelligence.")
+        super().__init__("Sacrifice the Dinosaurs. ", [("Dinosaurs", 1000000000)], "A large asteroid is soon to collide with the Earth, causing massive devastation and leading to the extinction of the dinosaurs. This tragedy is unnavoidable, and may just be the necessary to achieving a higher intelligence.")
     
     def afford(self, game):
-        if game.dna >= 50:
+        if game.dinosaurs >= 1000000000:
             return True
     
     def purchase(self, game):
@@ -1327,86 +1389,98 @@ class Sacrifice_The_Dinosaurs(Upgrade):
 
 class Evolutionary_Radiation(Upgrade):
     def __init__(self):
-        super().__init__("Evolutionary Radiation ", [("", 0)], "The asteroid has struck the Earth. What remains of the dinosaurs has been burried deep in the ground. But this sudden disappearance of dominant competitors will lead to rapid diversification of new species. A new era of possibility will soon follow.")
+        super().__init__("Evolutionary Radiation ", [("DNA", 5000000000), ("Nutrients", 100000000), ("Water", 100000000)], "The asteroid has struck the Earth. What remains of the dinosaurs has been burried deep in the ground. But this sudden disappearance of dominant competitors will lead to rapid diversification of new species. A new era of possibility will soon follow.")
     
     def afford(self, game):
-        if game.dna >= 50:
+        if game.dna >= 5000000000 and game.nutrients >= 100000000 and game.water >= 100000000:
             return True
     
     def purchase(self, game, autos):
         if self.afford(game):
+            game.dna -= 5000000000
+            game.nutrients -= 100000000
+            game.water -= 100000000
             game.purchasedupgrades += self.name
             self.active = 2
-            autos[0].revenue = (autos[0].revenue[0], autos[0].revenue[1] * 50000)
+            autos[0].revenue = (autos[0].revenue[0], autos[0].revenue[1] * 5000)
             return autos[0]
 
 class Opposable_Thumbs(Upgrade):
     def __init__(self):
-        super().__init__("Opposable Thumbs ", [("", 0)], "Species of animals are develop thumbs, allowing for grasping onto branches and manipulating objects. Primates are born.")
+        super().__init__("Opposable Thumbs ", [("DNA", 1000000000000)], "Species of animals are develop thumbs, allowing for grasping onto branches and manipulating objects. Primates are born.")
     
     def afford(self, game):
-        if game.dna >= 50:
+        if game.dna >= 1000000000000:
             return True
     
     def purchase(self, game):
         if self.afford(game):
+            game.dna -= 1000000000000
             game.purchasedupgrades += self.name
             self.active = 2
             game.primates = 1
-            game.repro_primates = 0.001
+            game.repro_primates = 0.01
 
 class Increased_Brain_Size(Upgrade):
     def __init__(self):
-        super().__init__("Increased Brain Size ", [("", 0)], "Primates experience brain development and are able to learn and adapt to new environments. This is important for primates that need to navigate complex arboreal environments and communicate with other members of their social group.")
+        super().__init__("Increased Brain Size ", [("DNA", 10000000000000), ("Primates", 50)], "Primates experience brain development and are able to learn and adapt to new environments. This is important for primates that need to navigate complex arboreal environments and communicate with other members of their social group.")
     
     def afford(self, game):
-        if game.dna >= 50:
+        if game.dna >= 10000000000000 and game.primates >= 50:
             return True
     
     def purchase(self, game):
         if self.afford(game):
+            game.dna -= 10000000000000
+            game.primates -= 50
             game.purchasedupgrades += self.name
             self.active = 2
             game.repro_primates *= 2
 
 class Social_Complexity(Upgrade):
     def __init__(self):
-        super().__init__("Social Complexity ", [("", 0)], "Primates begin introducing more complex social structures. Primates that are able to coordinate their actions and work together to achieve common goals.")
+        super().__init__("Social Complexity ", [("DNA", 100000000000000), ("Primates", 500)], "Primates begin introducing more complex social structures. Primates that are able to coordinate their actions and work together to achieve common goals.")
     
     def afford(self, game):
-        if game.dna >= 50:
+        if game.dna >= 100000000000000 and game.primates >= 500:
             return True
     
     def purchase(self, game):
         if self.afford(game):
+            game.dna -= 100000000000000
+            game.primates -= 500
             game.purchasedupgrades += self.name
             self.active = 2
             game.repro_primates *= 2
 
 class Tool_Use(Upgrade):
     def __init__(self):
-        super().__init__("Tool Use ", [("", 0)], "Primates begin to manipulate their environment, using sticks, stones, or other objects to access food, build shelter, or defend against predators.")
+        super().__init__("Tool Use ",  [("DNA", 1000000000000000), ("Primates", 5000)], "Primates begin to manipulate their environment, using sticks, stones, or other objects to access food, build shelter, or defend against predators.")
     
     def afford(self, game):
-        if game.dna >= 50:
+        if game.dna >= 1000000000000000 and game.primates >= 5000:
             return True
     
     def purchase(self, game):
         if self.afford(game):
+            game.dna -= 1000000000000000
+            game.primates -= 5000
             game.purchasedupgrades += self.name
             self.active = 2
             game.repro_primates *= 3
 
 class Homo_Sapiens(Upgrade):
     def __init__(self):
-        super().__init__("Homo Sapiens ", [("", 0)], "Congratulations! This is as far as the game has been implemented so far!")
+        super().__init__("Homo Sapiens ", [("DNA", 10000000000000000), ("Primates", 50000)], "Congratulations! This is as far as the game has been implemented so far!")
     
     def afford(self, game):
-        if game.dna >= 50:
+        if game.dna >= 10000000000000000 and game.primates >= 50000:
             return True
     
     def purchase(self, game):
         if self.afford(game):
+            game.dna -= 10000000000000000
+            game.primates -= 50000
             game.purchasedupgrades += self.name
             self.active = 2
             game.repro_primates *= 4
