@@ -662,8 +662,8 @@ class Chemosynthesis(Upgrade):
     def purchase(self, game, autos):
         if self.afford(game):
             game.dna -= 700
-            game.dna -= 300
-            game.dna -= 150
+            game.nutrients-= 300
+            game.water -= 150
             game.purchasedupgrades += self.name
             self.active = 2
             autos[0].revenue = (autos[0].revenue[0], autos[0].revenue[1] * 25)
@@ -706,235 +706,317 @@ class Differentiation(Upgrade):
 
 class Symbiosis(Upgrade):
     def __init__(self):
-        super().__init__("Symbiosis ", [("", 0)], "Unlocks the ability for different organisms to form mutually beneficial relationships.")
+        super().__init__("Symbiosis ", [("Microbes", 10000), ("Time", 5000)], "Unlocks the ability for different organisms to form mutually beneficial relationships.")
     
     def afford(self, game):
-        if game.dna >= 50:
+        if game.microbes >= 10000:
             return True
     
     def purchase(self, game):
         if self.afford(game):
+            game.microbes -= 10000
             game.purchasedupgrades += self.name
             self.active = 2
 
 class Diatoms(Upgrade):
     def __init__(self):
-        super().__init__("Diatoms ", [("", 0)], "Unlocks the ability to produce silica shells, allowing for the creation of diatoms, a type of algae that are key primary producers in aquatic environments. Unlocks plants.")
+        super().__init__("Diatoms ", [("Microbes", 2000), ("Nutrients", 5000)], "Unlocks the ability to produce silica shells, allowing for the creation of diatoms, a type of algae that are key primary producers in aquatic environments. Unlocks plants.")
     
     def afford(self, game):
-        if game.dna >= 50:
+        if game.microbes >= 2000 and game.nutrients >= 5000:
             return True
     
     def purchase(self, game):
         if self.afford(game):
+            game.nutrients -= 5000
+            game.microbes -= 2000
             game.purchasedupgrades += self.name
             self.active = 2
             game.plants = 1
             # game.repro_plants = 0.001
             game.repro_microbes *= 1.1
+            game.repro_fish *= 1.1
+            game.repro_insects *= 1.1
+            game.repro_amphibians *= 1.1
 
 class Algal_Blooms(Upgrade):
     def __init__(self):
-        super().__init__("Algal Blooms ", [("", 0)], "Algae create massive populations of algae, known as algal blooms, which can provide food for higher trophic levels and help to sequester carbon dioxide from the atmosphere. Plant growth rate increases.")
+        super().__init__("Algal Blooms ", [("Plants", 50), ("DNA", 10000)], "Algae create massive populations of algae, known as algal blooms, which can provide food for higher trophic levels and help to sequester carbon dioxide from the atmosphere. Plant growth rate increases.")
     
     def afford(self, game):
-        if game.dna >= 50:
+        if game.plants >= 50 and game.dna >= 10000:
             return True
     
     def purchase(self, game):
         if self.afford(game):
+            game.plants -= 50
+            game.dna -= 10000
             game.purchasedupgrades += self.name
             self.active = 2
             game.repro_plants *= 2
             game.repro_microbes *= 1.1
+            game.repro_fish *= 1.1
+            game.repro_insects *= 1.1
+            game.repro_amphibians *= 1.1
 
 class Mixotrophy(Upgrade):
     def __init__(self):
-        super().__init__("Mixotrophy ", [("", 0)], "Unlocks the ability to combine photosynthesis with phagocytosis, allowing some plants to take in organic matter as a supplementary energy source when light levels are low. Plant growth rate increases.")
+        super().__init__("Mixotrophy ", [("Plants", 500), ("DNA", 20000)], "Unlocks the ability to combine photosynthesis with phagocytosis, allowing some plants to take in organic matter as a supplementary energy source when light levels are low. Plant growth rate increases.")
     
     def afford(self, game):
-        if game.dna >= 50:
+        if game.plants >= 500 and game.dna >= 20000:
             return True
     
     def purchase(self, game):
         if self.afford(game):
+            game.plants -= 500
+            game.dna -= 20000
             game.purchasedupgrades += self.name
             self.active = 2
             game.repro_plants *= 3
             game.repro_microbes *= 1.1
+            game.repro_fish *= 1.1
+            game.repro_insects *= 1.1
+            game.repro_amphibians *= 1.1
 
 
 class Ozone_Layer(Upgrade):
     def __init__(self):
-        super().__init__("Ozone Layer ", [("", 0)], "Unlocks the ability to live outside of water once evolved enough")
+        super().__init__("Ozone Layer ", [("Time", 10000)], "Unlocks the ability to live outside of water once evolved enough")
     
     def afford(self, game):
-        if game.dna >= 50:
+        if game.time >= 10000:
             return True
     
     def purchase(self, game):
         if self.afford(game):
+            game.time -= 10000
             game.purchasedupgrades += self.name
             self.active = 2
+            game.repro_microbes *= 1.1
+            game.repro_plants *= 1.1
+            game.repro_fish *= 1.1
+            game.repro_insects *= 1.1
+            game.repro_amphibians *= 1.1
 
 class Ecosystems(Upgrade):
     def __init__(self):
-        super().__init__("Ecosystems ", [("", 0)], "Ecosystems begin forming across the Earth, manage environmental quality and species diversity for improvements to growth rates and DNA generation.")
+        super().__init__("Ecosystems ", [("Time", 12000)], "Ecosystems begin forming across the Earth, manage environmental quality and species diversity for improvements to growth rates and DNA generation.")
     
     def afford(self, game):
-        if game.dna >= 50:
+        if game.time >= 12000:
             return True
     
     def purchase(self, game):
         if self.afford(game):
             game.purchasedupgrades += self.name
             self.active = 2
+            game.repro_microbes *= 1.1
+            game.repro_plants *= 1.1
+            game.repro_fish *= 1.1
+            game.repro_insects *= 1.1
+            game.repro_amphibians *= 1.1
 
 class Nervous_System(Upgrade):
     def __init__(self):
-        super().__init__("Nervous System ", [("", 0)], "Unlocks the ability to develop a nervous system, allowing for more complex behaviors and movement, allowing for the evolution of simple invertebrates such as fish.")
+        super().__init__("Nervous System ", [("Microbes", 2000), ("Water", 5000)], "Unlocks the ability to develop a nervous system, allowing for more complex behaviors and movement, allowing for the evolution of simple invertebrates such as fish.")
     
     def afford(self, game):
-        if game.dna >= 50:
+        if game.microbes >= 2000 and game.water >= 5000:
             return True
     
     def purchase(self, game):
         if self.afford(game):
+            game.microbes -= 2000
+            game.water -= 5000
             game.purchasedupgrades += self.name
             self.active = 2
             game.fish = 1
             # game.repro_fish = 0.001
             game.repro_microbes *= 1.1
             game.repro_plants *= 1.1
+            game.repro_insects *= 1.1
+            game.repro_amphibians *= 1.1
 
 class Endoskeleton(Upgrade):
     def __init__(self):
-        super().__init__("Endoskeleton ", [("", 0)], "Unlocks the ability to develop an internal skeleton, providing even greater protection and support to fish.")
+        super().__init__("Endoskeleton ", [("Fish", 50), ("DNA", 10000)], "Unlocks the ability to develop an internal skeleton, providing even greater protection and support to fish.")
     
     def afford(self, game):
-        if game.dna >= 50:
+        if game.fish >= 50 and game.dna >= 10000:
             return True
     
     def purchase(self, game):
         if self.afford(game):
+            game.fish -= 50
+            game.dna -= 10000
             game.purchasedupgrades += self.name
             self.active = 2
             game.repro_fish *= 2
             game.repro_microbes *= 1.1
             game.repro_plants *= 1.1
+            game.repro_insects *= 1.1
+            game.repro_amphibians *= 1.1
 
 class Swim_Bladder(Upgrade):
     def __init__(self):
-        super().__init__("Swim Bladder ", [("", 0)], "Unlocks the ability for fish to control their buoyancy in the water column, conserving energy and allowing for more efficient movement and hunting.")
+        super().__init__("Swim Bladder ", [("Fish", 500), ("DNA", 20000)], "Unlocks the ability for fish to control their buoyancy in the water column, conserving energy and allowing for more efficient movement and hunting.")
     
     def afford(self, game):
-        if game.dna >= 50:
+        if game.fish >= 500 and game.dna >= 20000:
             return True
     
     def purchase(self, game):
         if self.afford(game):
+            game.fish -= 500
+            game.dna -= 20000
             game.purchasedupgrades += self.name
             self.active = 2
             game.repro_fish *= 3
             game.repro_microbes *= 1.1
             game.repro_plants *= 1.1
+            game.repro_insects *= 1.1
+            game.repro_amphibians *= 1.1
 
 class Exoskeleton(Upgrade):
     def __init__(self):
-        super().__init__("Exoskeleton ", [("", 0)], "Unlocks the ability to develop an external skeleton, providing protection and support, leading to the evolution of arthropods such as insects.")
+        super().__init__("Exoskeleton ", [("Microbes", 2000), ("Water", 2000), ("Nutrients", 3000)], "Unlocks the ability to develop an external skeleton, providing protection and support, leading to the evolution of arthropods such as insects.")
     
     def afford(self, game):
-        if game.dna >= 50:
+        if game.microbes >= 2000 and game.water >= 2000 and game.nutrients >= 3000:
             return True
     
     def purchase(self, game):
         if self.afford(game):
+            game.microbes -= 2000
+            game.water -= 2000
+            game.nutrients -= 3000
             game.purchasedupgrades += self.name
             self.active = 2
             game.insects = 1
-            game.repro_insects = 0.001
+            # game.repro_insects = 0.001
+            game.repro_microbes *= 1.1
+            game.repro_fish *= 1.1
+            game.repro_plants *= 1.1
+            game.repro_amphibians *= 1.1
 
 class Metamorphosis(Upgrade):
     def __init__(self):
-        super().__init__("Metamorphosis ", [("", 0)], "Unlocks the ability to undergo metamorphosis, which allows insects to transition from a larval form to an adult form.")
+        super().__init__("Metamorphosis ", [("Insects", 50), ("DNA", 10000)], "Unlocks the ability to undergo metamorphosis, which allows insects to transition from a larval form to an adult form.")
     
     def afford(self, game):
-        if game.dna >= 50:
+        if game.dna >= 10000 and game.insects >= 50:
             return True
     
     def purchase(self, game):
         if self.afford(game):
+            game.insects -= 50
+            game.dna -= 10000
             game.purchasedupgrades += self.name
             self.active = 2
             game.repro_insects *= 2
+            game.repro_microbes *= 1.1
+            game.repro_fish *= 1.1
+            game.repro_plants *= 1.1
+            game.repro_amphibians *= 1.1
 
 class Insectoid_Wings(Upgrade):
     def __init__(self):
-        super().__init__("Insectoid Wings ", [("", 0)], "Unlocks the insect's ability to develop wings, which allows insects to fly and access new habitats and resources.")
+        super().__init__("Insectoid Wings ", [("Insects", 500), ("DNA", 20000)], "Unlocks the insect's ability to develop wings, which allows insects to fly and access new habitats and resources.")
     
     def afford(self, game):
-        if game.dna >= 50:
+        if game.dna >= 20000 and game.insects >= 500:
             return True
     
     def purchase(self, game):
         if self.afford(game):
+            game.insects -= 500
+            game.dna -= 20000
             game.purchasedupgrades += self.name
             self.active = 2
             game.repro_insects *= 3
+            game.repro_microbes *= 1.1
+            game.repro_fish *= 1.1
+            game.repro_plants *= 1.1
+            game.repro_amphibians *= 1.1
 
 class Oviparity(Upgrade):
     def __init__(self):
-        super().__init__("Oviparity ", [("", 0)], "Unlocks the ability for organisms to lay eggs, allowing for the evolution of amphibians who start their life in water but eventually live on land.")
+        super().__init__("Oviparity ", [("Microbes", 2000), ("Water", 3000), ("Nutrients", 2000)], "Unlocks the ability for organisms to lay eggs, allowing for the evolution of amphibians who start their life in water but eventually live on land.")
     
     def afford(self, game):
-        if game.dna >= 50:
+        if game.microbes >= 2000 and game.water >= 3000 and game.nutrients >= 2000:
             return True
     
     def purchase(self, game):
         if self.afford(game):
+            game.microbes -= 2000
+            game.water -= 3000
+            game.nutrients -= 2000
             game.purchasedupgrades += self.name
             self.active = 2
             game.amphibians = 1
-            game.repro_amphibians = 0.001
+            # game.repro_amphibians = 0.001
+            game.repro_microbes *= 1.1
+            game.repro_fish *= 1.1
+            game.repro_plants *= 1.1
+            game.repro_insects *= 1.1
 
 class Lungs_and_Limbs(Upgrade):
     def __init__(self):
-        super().__init__("Lungs and Limbs ", [("", 0)], "Unlocks the ability for amphibians to breathe air and to crawl and climb on land.")
+        super().__init__("Lungs and Limbs ", [("Amphibians", 50), ("DNA", 10000)], "Unlocks the ability for amphibians to breathe air and to crawl and climb on land.")
     
     def afford(self, game):
-        if game.dna >= 50:
+        if game.amphibians >= 50 and game.dna >= 10000:
             return True
     
     def purchase(self, game):
         if self.afford(game):
+            game.amphibians -= 50
+            game.dna -= 10000
             game.purchasedupgrades += self.name
             self.active = 2
             game.repro_amphibians *= 2
+            game.repro_microbes *= 1.1
+            game.repro_fish *= 1.1
+            game.repro_plants *= 1.1
+            game.repro_insects *= 1.1
 
 class Internal_Fertilization(Upgrade):
     def __init__(self):
-        super().__init__("Internal Fertilization ", [("", 0)], "Unlocks the ability for amphibians to reproduce on land and increase their reproductive success.")
+        super().__init__("Internal Fertilization ", [("Amphibians", 500), ("DNA", 20000)], "Unlocks the ability for amphibians to reproduce on land and increase their reproductive success.")
     
     def afford(self, game):
-        if game.dna >= 50:
+        if game.dna >= 20000 and game.amphibians >= 500:
             return True
     
     def purchase(self, game):
         if self.afford(game):
+            game.amphibians -= 500
+            game.dna -= 20000
             game.purchasedupgrades += self.name
             self.active = 2
             game.repro_amphibians *= 3
+            game.repro_microbes *= 1.1
+            game.repro_fish *= 1.1
+            game.repro_plants *= 1.1
+            game.repro_insects *= 1.1
 
 class Tetrapods(Upgrade):
     def __init__(self):
-        super().__init__("Tetrapods ", [("", 0)], "Evolve from amphibians tor other classes of tetrapods, such as reptiles, birds, and mammals.")
+        super().__init__("Tetrapods ", [("DNA", 100000), ("Plants", 5000), ("Fish", 5000), ("Insects", 5000), ("Amphibians", 5000)], "Evolve from amphibians tor other classes of tetrapods, such as reptiles, birds, and mammals.")
     
     def afford(self, game):
-        if game.dna >= 50:
+        if game.dna >= 100000 and game.plants >= 5000 and game.fish >= 5000 and game.insects >= 5000 and game.amphibians >= 5000:
             return True
     
     def purchase(self, game):
         if self.afford(game):
+            game.dna -= 100000
+            game.plants -= 5000
+            game.fish -= 5000
+            game.insects -= 5000
+            game.amphibians -= 5000
             game.purchasedupgrades += self.name
             self.active = 2
 
@@ -951,7 +1033,13 @@ class Ectothermy(Upgrade):
             game.purchasedupgrades += self.name
             self.active = 2
             game.reptiles = 1
-            game.repro_reptiles = 0.001
+            # game.repro_reptiles = 0.001
+            game.repro_microbes *= 1.1
+            game.repro_fish *= 1.1
+            game.repro_plants *= 1.1
+            game.repro_insects *= 1.1
+            game.repro_birds *= 1.1
+            game.repro_mammals *= 1.1
 
 class Reptilian_Scales(Upgrade):
     def __init__(self):
@@ -966,6 +1054,12 @@ class Reptilian_Scales(Upgrade):
             game.purchasedupgrades += self.name
             self.active = 2
             game.repro_reptiles *= 2
+            game.repro_microbes *= 1.1
+            game.repro_fish *= 1.1
+            game.repro_plants *= 1.1
+            game.repro_insects *= 1.1
+            game.repro_birds *= 1.1
+            game.repro_mammals *= 1.1
 
 class Ecdysis(Upgrade):
     def __init__(self):
@@ -980,6 +1074,12 @@ class Ecdysis(Upgrade):
             game.purchasedupgrades += self.name
             self.active = 2
             game.repro_reptiles *= 3
+            game.repro_microbes *= 1.1
+            game.repro_fish *= 1.1
+            game.repro_plants *= 1.1
+            game.repro_insects *= 1.1
+            game.repro_birds *= 1.1
+            game.repro_mammals *= 1.1
 
 class Double_Helix_Master(Upgrade):
     def __init__(self):
@@ -1010,7 +1110,13 @@ class Mammary_Glands(Upgrade):
             game.purchasedupgrades += self.name
             self.active = 2
             game.mammals = 1
-            game.repro_mammals = 0.001
+            # game.repro_mammals = 0.001
+            game.repro_microbes *= 1.1
+            game.repro_fish *= 1.1
+            game.repro_plants *= 1.1
+            game.repro_insects *= 1.1
+            game.repro_birds *= 1.1
+            game.repro_reptiles *= 1.1
 
 class Fur(Upgrade):
     def __init__(self):
@@ -1025,6 +1131,12 @@ class Fur(Upgrade):
             game.purchasedupgrades += self.name
             self.active = 2
             game.repro_mammals *= 2
+            game.repro_microbes *= 1.1
+            game.repro_fish *= 1.1
+            game.repro_plants *= 1.1
+            game.repro_insects *= 1.1
+            game.repro_birds *= 1.1
+            game.repro_reptiles *= 1.1
 
 class Neucortex(Upgrade):
     def __init__(self):
@@ -1039,6 +1151,12 @@ class Neucortex(Upgrade):
             game.purchasedupgrades += self.name
             self.active = 2
             game.repro_mammals *= 3
+            game.repro_microbes *= 1.1
+            game.repro_fish *= 1.1
+            game.repro_plants *= 1.1
+            game.repro_insects *= 1.1
+            game.repro_birds *= 1.1
+            game.repro_reptiles *= 1.1
 
 class Flight_Feathers(Upgrade):
     def __init__(self):
@@ -1053,7 +1171,13 @@ class Flight_Feathers(Upgrade):
             game.purchasedupgrades += self.name
             self.active = 2
             game.birds = 1
-            game.repro_birds = 0.001
+            # game.repro_birds = 0.001
+            game.repro_microbes *= 1.1
+            game.repro_fish *= 1.1
+            game.repro_plants *= 1.1
+            game.repro_insects *= 1.1
+            game.repro_mammals *= 1.1
+            game.repro_reptiles *= 1.1
 
 class Beaks_and_Talons(Upgrade):
     def __init__(self):
@@ -1068,6 +1192,12 @@ class Beaks_and_Talons(Upgrade):
             game.purchasedupgrades += self.name
             self.active = 2
             game.repro_birds *= 2
+            game.repro_microbes *= 1.1
+            game.repro_fish *= 1.1
+            game.repro_plants *= 1.1
+            game.repro_insects *= 1.1
+            game.repro_mammals *= 1.1
+            game.repro_reptiles *= 1.1
 
 class Vocalization_and_Coloration(Upgrade):
     def __init__(self):
@@ -1082,6 +1212,12 @@ class Vocalization_and_Coloration(Upgrade):
             game.purchasedupgrades += self.name
             self.active = 2
             game.repro_birds *= 3
+            game.repro_microbes *= 1.1
+            game.repro_fish *= 1.1
+            game.repro_plants *= 1.1
+            game.repro_insects *= 1.1
+            game.repro_mammals *= 1.1
+            game.repro_reptiles *= 1.1
 
 class Adaptability(Upgrade):
     def __init__(self):
@@ -1110,6 +1246,9 @@ class Dinosaurs(Upgrade):
             self.active = 2
             game.dinosaurs = 1
             game.repro_dinosaurs = 0.01
+            game.repro_mammals *= 1.2
+            game.repro_reptiles *= 1.2
+            game.repro_birds *= 1.2
 
 class Increased_Muscle_Mass(Upgrade):
     def __init__(self):
@@ -1124,6 +1263,9 @@ class Increased_Muscle_Mass(Upgrade):
             game.purchasedupgrades += self.name
             self.active = 2
             game.repro_dinosaurs *= 2
+            game.repro_mammals *= 1.2
+            game.repro_reptiles *= 1.2
+            game.repro_birds *= 1.2
 
 class Competition_and_Cooperation(Upgrade):
     def __init__(self):
@@ -1138,6 +1280,9 @@ class Competition_and_Cooperation(Upgrade):
             game.purchasedupgrades += self.name
             self.active = 2
             game.repro_dinosaurs *= 3
+            game.repro_mammals *= 1.2
+            game.repro_reptiles *= 1.2
+            game.repro_birds *= 1.2
 
 class Continental_Drift(Upgrade):
     def __init__(self):
@@ -1222,7 +1367,7 @@ class Increased_Brain_Size(Upgrade):
         if self.afford(game):
             game.purchasedupgrades += self.name
             self.active = 2
-            game.repro_primates *= 1.5
+            game.repro_primates *= 2
 
 class Social_Complexity(Upgrade):
     def __init__(self):
