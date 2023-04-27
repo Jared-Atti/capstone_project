@@ -378,7 +378,7 @@ i12 = Image.open(backgrounds + "\\cosmic12.png")
 i12 = i12.resize((260, 260), Image.LANCZOS)
 i13 = Image.open(backgrounds + "\\cosmic13.png")
 i13 = i13.resize((260, 260), Image.LANCZOS)
-i14 = Image.open(backgrounds + "\\ozone.png")
+i14 = Image.open(backgrounds + "\\microbe3.png")
 i14 = i14.resize((260, 260), Image.LANCZOS)
 i15 = Image.open(backgrounds + "\\microbe1.png")
 i15 = i15.resize((260, 260), Image.LANCZOS)
@@ -451,7 +451,7 @@ i67 = i67.resize((260, 260), Image.LANCZOS)
 i69 = Image.open(backgrounds + "\\dino.png")
 i69 = i69.resize((260, 260), Image.LANCZOS)
 i70 = Image.open(backgrounds + "\\musclemass.png")
-i70 = i69.resize((260, 260), Image.LANCZOS)
+i70 = i70.resize((260, 260), Image.LANCZOS)
 i71 = Image.open(backgrounds + "\\competition.png")
 i71 = i71.resize((260, 260), Image.LANCZOS)
 i72 = Image.open(backgrounds + "\\drift.png")
@@ -1212,6 +1212,7 @@ def buy_DNA():
     destroyProducer(a7_NF_Name, a7_NF_Cost, a7_NF_Desc, a7_NF_Button, None, a7_NF)
     global active_autos
     active_autos = []
+    eraL.configure(text = "Era: Pre-Cambrian")
     printMessage("Welcome to the Pre-Cambrian Era!")
     printMessage("Don't freak out, you won't be needing any of that stuff anymore...")
     printMessage("Check out your new button! I wonder what it makes now?")
@@ -1477,6 +1478,7 @@ def buy_41_DF():
     u41_DF.active = 2
     root.after(100)
     destroyUpgradeButton(u41_DF_Button, u41_DF)
+    eraL.configure(text = "Era: Paleozoic")
     diff = ImageTk.PhotoImage(i41)
     VisualLab.config(image = diff)
     VisualLab.image = diff
@@ -1683,6 +1685,7 @@ def buy_57_TP():
     u57_TP.active = 2
     root.after(100)
     destroyUpgradeButton(u57_TP_Button, u57_TP)
+    eraL.configure(text = "Era: Mesozoic")
     printMessage("More species incoming!!!")
     global u58_ET_Button
     global u62_MG_Button
@@ -1833,6 +1836,7 @@ def buy_69_DI():
     VisualLab.config(image = dino)
     VisualLab.image = dino
     destroyUpgradeButton(u69_DI_Button, u69_DI)
+    eraL.configure(text = "Era: Jurrasic")
     printMessage("This is the 69th upgrade in the game! nice. oh... also... dinosaurs")
     global u70_IMM_Button
     u70_IMM_Button = createUpgradeButton(u70_IMM_Button, u70_IMM, buy_70_IMM)
@@ -1906,7 +1910,7 @@ def buy_75_ER():
     rad = ImageTk.PhotoImage(i75)
     VisualLab.config(image = rad)
     VisualLab.image = rad
-    printMessage("The Dinosaurs have sadly met their end, but not without food reason...")
+    printMessage("The Dinosaurs have sadly met their end, but not without good reason...")
     destroyUpgradeButton(u75_ER_Button, u75_ER)
     global a10_DNA_Desc
     a10_DNA_Desc.config(a10_DNA_Desc, text = a10_DNA.desc())
@@ -1916,6 +1920,7 @@ def buy_76_OT():
     global u76_OT_Button
     u76_OT.active = 2
     root.after(100)
+    eraL.configure(text = "Era: Cenozoic")
     thumb = ImageTk.PhotoImage(i76)
     VisualLab.config(image = thumb)
     VisualLab.image = thumb
@@ -1968,6 +1973,7 @@ def buy_80_HS():
     global u80_HS_Button
     u80_HS.active = 2
     root.after(100)
+    eraL.configure(text = "Era: Modern")
     homo = ImageTk.PhotoImage(i80)
     VisualLab.config(image = homo)
     VisualLab.image = homo
